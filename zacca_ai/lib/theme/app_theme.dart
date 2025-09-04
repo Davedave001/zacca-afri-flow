@@ -127,7 +127,7 @@ class AppTheme {
         size: 24,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardLight,
       elevation: 1.0, // Subtle elevation for mobile interfaces
       shadowColor: shadowLight,
@@ -294,7 +294,7 @@ class AppTheme {
       inactiveTrackColor: primaryLight.withValues(alpha: 0.3),
       trackHeight: 4.0,
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryLight,
       unselectedLabelColor: textSecondaryLight,
       indicatorColor: primaryLight,
@@ -343,7 +343,7 @@ class AppTheme {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: dialogLight,
       elevation: 3.0,
       shape: RoundedRectangleBorder(
@@ -416,7 +416,7 @@ class AppTheme {
         size: 24,
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: cardDark,
       elevation: 1.0,
       shadowColor: shadowDark,
@@ -583,7 +583,7 @@ class AppTheme {
       inactiveTrackColor: primaryDark.withValues(alpha: 0.3),
       trackHeight: 4.0,
     ),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelColor: primaryDark,
       unselectedLabelColor: textSecondaryDark,
       indicatorColor: primaryDark,
@@ -632,7 +632,7 @@ class AppTheme {
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.0)),
       ),
     ),
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       backgroundColor: dialogDark,
       elevation: 3.0,
       shape: RoundedRectangleBorder(
