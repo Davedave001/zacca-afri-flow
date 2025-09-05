@@ -7,7 +7,6 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import './widgets/business_health_score_widget.dart';
 import './widgets/metric_card_widget.dart';
-import './widgets/quick_action_widget.dart';
 import './widgets/recent_activity_widget.dart';
 import './widgets/sync_status_widget.dart';
 

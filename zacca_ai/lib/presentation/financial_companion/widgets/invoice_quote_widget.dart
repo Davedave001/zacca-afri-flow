@@ -419,7 +419,8 @@ class _InvoiceQuoteWidgetState extends State<InvoiceQuoteWidget> {
                     '${invoice['items'].length} items',
                     style: TextStyle(
                       color: Colors.grey[600],
-                    fontSize: 12,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
               ],
