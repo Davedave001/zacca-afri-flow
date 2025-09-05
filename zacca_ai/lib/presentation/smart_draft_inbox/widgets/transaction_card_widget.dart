@@ -251,6 +251,7 @@ class TransactionCardWidget extends StatelessWidget {
 
   Widget _buildStatusChip(BuildContext context, String status) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
 
     Color chipColor;
     String label;

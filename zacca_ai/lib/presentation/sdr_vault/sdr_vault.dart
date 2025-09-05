@@ -24,7 +24,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   bool _isMultiSelectMode = false;
   String _searchQuery = '';
   final Set<int> _selectedTransactions = {};
-  Map<String, dynamic>? _contextMenuTransaction;
   OverlayEntry? _contextMenuOverlay;
 
   // Mock transaction data
@@ -331,8 +330,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
 
   void _showContextMenu(Map<String, dynamic> transaction) {
     _removeContextMenu();
-
-    _contextMenuTransaction = transaction;
     _contextMenuOverlay = OverlayEntry(
       builder: (context) => GestureDetector(
         onTap: _removeContextMenu,
@@ -361,7 +358,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   void _removeContextMenu() {
     _contextMenuOverlay?.remove();
     _contextMenuOverlay = null;
-    _contextMenuTransaction = null;
   }
 
   void _showExportOptions() {
