@@ -7,7 +7,6 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../widgets/promotional_slideshow_widget.dart';
 import '../../widgets/integrated_wallet_health_widget.dart';
-import './widgets/business_health_score_widget.dart';
 import './widgets/metric_card_widget.dart';
 import './widgets/recent_activity_widget.dart';
 import './widgets/sync_status_widget.dart';
@@ -118,7 +117,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         },
         {
           "name": "Workflow",
-          "icon": Icons.workflow,
+          "icon": Icons.work,
           "color": Colors.orange,
           "route": "/financial-companion",
         },

@@ -22,10 +22,6 @@ class SmartDraftInbox extends StatefulWidget {
 class _SmartDraftInboxState extends State<SmartDraftInbox>
     with TickerProviderStateMixin {
   final ScrollController _scrollController = ScrollController();
-  final RefreshIndicator _refreshIndicatorKey = RefreshIndicator(
-    onRefresh: () async {},
-    child: Container(),
-  );
 
   // State variables
   String _selectedFilter = 'All';

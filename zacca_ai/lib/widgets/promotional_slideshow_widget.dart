@@ -54,20 +54,6 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
     }
   }
 
-  void _previousSlide() {
-    if (_currentIndex > 0) {
-      _pageController.previousPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    } else {
-      _pageController.animateToPage(
-        widget.slides.length - 1,
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
-  }
 
   @override
   void dispose() {

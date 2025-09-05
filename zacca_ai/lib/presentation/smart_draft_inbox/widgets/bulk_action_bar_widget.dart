@@ -22,7 +22,6 @@ class BulkActionBarWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return AnimatedContainer(
       duration: Duration(milliseconds: 300),
@@ -107,7 +106,6 @@ class BulkActionBarWidget extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return GestureDetector(
       onTap: onTap,

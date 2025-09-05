@@ -24,7 +24,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   bool _isMultiSelectMode = false;
   String _searchQuery = '';
   final Set<int> _selectedTransactions = {};
-  Map<String, dynamic>? _contextMenuTransaction;
   OverlayEntry? _contextMenuOverlay;
 
   // Mock transaction data
@@ -566,12 +565,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     );
   }
 
-  void _enterMultiSelectMode(int transactionId) {
-    setState(() {
-      _isMultiSelectMode = true;
-      _selectedTransactions.add(transactionId);
-    });
-  }
 
   void _exitMultiSelectMode() {
     setState(() {

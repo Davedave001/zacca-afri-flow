@@ -203,9 +203,7 @@ class ApplicationTrackingSection extends StatelessWidget {
     return Row(
       children: steps.asMap().entries.map((entry) {
         final index = entry.key;
-        final step = entry.value;
         final isCompleted = index <= currentStepIndex;
-        final isActive = index == currentStepIndex;
 
         return Expanded(
           child: Row(
