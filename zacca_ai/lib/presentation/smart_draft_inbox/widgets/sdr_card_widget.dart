@@ -244,20 +244,25 @@ class SDRCardWidget extends StatelessWidget {
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
               icon,
               color: color,
-              size: 4.w,
+              size: 3.5.w,
             ),
-            SizedBox(width: 1.w),
-            Text(
-              label,
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 10.sp,
-                  ),
+            SizedBox(width: 0.5.w),
+            Flexible(
+              child: Text(
+                label,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: color,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 9.sp,
+                    ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
             ),
           ],
         ),
