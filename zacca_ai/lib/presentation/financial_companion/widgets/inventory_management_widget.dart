@@ -630,13 +630,13 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCategory,
+                      initialValue: _selectedCategory,
                       decoration: const InputDecoration(
                         labelText: 'Category',
                         border: OutlineInputBorder(),
                       ),
                       items: ['Electronics', 'Furniture', 'Lighting', 'Office Supplies', 'Software', 'Hardware', 'Other']
-                          .map<String, DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
+                          .map<DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
                                 value: category,
                                 child: Text(category),
                               ))
@@ -823,13 +823,13 @@ class _StockAdjustmentDialogState extends State<StockAdjustmentDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             DropdownButtonFormField<String>(
-              value: _selectedItem.isEmpty ? null : _selectedItem,
+              initialValue: _selectedItem.isEmpty ? null : _selectedItem,
               decoration: const InputDecoration(
                 labelText: 'Select Item',
                 border: OutlineInputBorder(),
               ),
               items: ['Laptop Dell XPS 13', 'Office Chair Ergonomic', 'Wireless Mouse Logitech', 'Desk Lamp LED']
-                  .map<String, DropdownMenuItem<String>>((item) => DropdownMenuItem<String>(
+                  .map<DropdownMenuItem<String>>((item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(item),
                       ))
@@ -857,7 +857,7 @@ class _StockAdjustmentDialogState extends State<StockAdjustmentDialog> {
                       border: OutlineInputBorder(),
                     ),
                     items: ['Add', 'Remove']
-                        .map<String, DropdownMenuItem<String>>((type) => DropdownMenuItem<String>(
+                        .map<DropdownMenuItem<String>>((type) => DropdownMenuItem<String>(
                               value: type,
                               child: Text(type),
                             ))

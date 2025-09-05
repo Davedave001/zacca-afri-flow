@@ -597,13 +597,13 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedCategory,
+                    initialValue: _selectedCategory,
                     decoration: const InputDecoration(
                       labelText: 'Category',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Operating', 'Marketing', 'Technology', 'Sales', 'Other']
-                        .map<String, DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
+                        .map<DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
                               value: category,
                               child: Text(category),
                             ))
@@ -618,13 +618,13 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedPeriod,
+                    initialValue: _selectedPeriod,
                     decoration: const InputDecoration(
                       labelText: 'Period',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', '2024 Annual']
-                        .map<String, DropdownMenuItem<String>>((period) => DropdownMenuItem<String>(
+                        .map<DropdownMenuItem<String>>((period) => DropdownMenuItem<String>(
                               value: period,
                               child: Text(period),
                             ))

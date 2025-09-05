@@ -585,13 +585,13 @@ class _CreateInvoiceDialogState extends State<CreateInvoiceDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCurrency,
+                      initialValue: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                          .map<DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
                                 value: currency,
                                 child: Text(currency),
                               ))
@@ -712,13 +712,13 @@ class _CreateQuoteDialogState extends State<CreateQuoteDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCurrency,
+                      initialValue: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                          .map<DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
                                 value: currency,
                                 child: Text(currency),
                               ))

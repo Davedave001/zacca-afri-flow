@@ -532,13 +532,13 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCategory,
+                      initialValue: _selectedCategory,
                       decoration: const InputDecoration(
                         labelText: 'Category',
                         border: OutlineInputBorder(),
                       ),
                       items: ['Office', 'Technology', 'Meals', 'Travel', 'Marketing', 'Utilities', 'Insurance', 'Other']
-                          .map<String, DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
+                          .map<DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
                                 value: category,
                                 child: Text(category),
                               ))
@@ -553,13 +553,13 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCurrency,
+                      initialValue: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                          .map<DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
                                 value: currency,
                                 child: Text(currency),
                               ))
