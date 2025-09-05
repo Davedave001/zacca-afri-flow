@@ -557,7 +557,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Color(0xFF3D1FE8), // Matching card color
+                          color: Color(0xFF4A2BC7), // Lighter version of #3117ce
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
                             color: Color(0xFF08F5F8).withValues(alpha: 0.3),
@@ -724,7 +724,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
       decoration: BoxDecoration(
-        color: Color(0xFF3D1FE8), // Slightly lighter purple for cards
+        color: Color(0xFF4A2BC7), // Lighter version of #3117ce for service cards
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: Color(0xFF08F5F8).withValues(alpha: 0.3), // Cyan border for energy
@@ -951,6 +951,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       bottomNavigationBar: CustomBottomBar(
         currentIndex: 0,
         variant: CustomBottomBarVariant.standard,
+        selectedItemColor: Colors.white, // White home icon
         onTap: (index) {
           HapticFeedback.selectionClick();
         },

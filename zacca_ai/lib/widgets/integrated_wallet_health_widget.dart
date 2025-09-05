@@ -100,8 +100,8 @@ class _IntegratedWalletHealthWidgetState extends State<IntegratedWalletHealthWid
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.orange.shade600,
-                  Colors.red.shade600,
+                  Color(0xFF08F5F8), // Your cyan
+                  Color(0xFF3117CE), // Your purple
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -109,7 +109,7 @@ class _IntegratedWalletHealthWidgetState extends State<IntegratedWalletHealthWid
               borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.orange.withValues(alpha: 0.3),
+                  color: Color(0xFF08F5F8).withValues(alpha: 0.3),
                   blurRadius: 15,
                   offset: Offset(0, 8),
                 ),
@@ -388,7 +388,7 @@ class _IntegratedWalletHealthWidgetState extends State<IntegratedWalletHealthWid
               ),
               child: Icon(
                 icon,
-                color: Colors.orange.shade600,
+                color: Color(0xFF08F5F8), // Your cyan
                 size: 6.w,
               ),
             ),
@@ -396,7 +396,7 @@ class _IntegratedWalletHealthWidgetState extends State<IntegratedWalletHealthWid
             Text(
               label,
               style: TextStyle(
-                color: Colors.grey.shade700,
+                color: Colors.white,
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w500,
               ),

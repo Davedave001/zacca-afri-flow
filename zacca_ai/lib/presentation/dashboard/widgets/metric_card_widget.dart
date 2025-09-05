@@ -62,13 +62,13 @@ class MetricCardWidget extends StatelessWidget {
                   ),
                   child: CustomIconWidget(
                     iconName: iconName,
-                    color: iconColor ?? AppTheme.lightTheme.primaryColor,
+                    color: Color(0xFF08F5F8), // Your cyan for Key Metrics icons
                     size: 20,
                   ),
                 ),
                 CustomIconWidget(
                   iconName: 'more_vert',
-                  color: colorScheme.onSurfaceVariant,
+                  color: Color(0xFF08F5F8), // Your cyan for Key Metrics icons
                   size: 16,
                 ),
               ],
@@ -78,7 +78,7 @@ class MetricCardWidget extends StatelessWidget {
               child: Text(
                 title,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: AppTheme.lightTheme.primaryColor,
+                  color: Colors.white, // White text for Key Metrics
                   fontWeight: FontWeight.w600,
                   letterSpacing: 0.5,
                 ),
@@ -91,7 +91,7 @@ class MetricCardWidget extends StatelessWidget {
               child: Text(
                 value,
                 style: theme.textTheme.titleLarge?.copyWith(
-                  color: colorScheme.onSurface,
+                  color: Colors.white, // White text for Key Metrics
                   fontWeight: FontWeight.w700,
                 ),
                 overflow: TextOverflow.ellipsis,
@@ -103,7 +103,7 @@ class MetricCardWidget extends StatelessWidget {
               child: Text(
                 subtitle,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+                  color: Colors.white, // White text for Key Metrics
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
