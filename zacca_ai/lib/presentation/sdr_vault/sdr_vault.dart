@@ -27,101 +27,11 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   bool _isMultiSelectMode = false;
   String _searchQuery = '';
   final Set<int> _selectedTransactions = {};
-  OverlayEntry? _contextMenuOverlay;
   
   // Verified VBRs data
   List<VBRModel> _verifiedVBRs = SampleData.verifiedVBRs;
 
   // Mock transaction data removed - using VBRs instead
-    {
-      "id": 1,
-      "description": "M-Pesa payment from John Mwangi",
-      "amount": 15000,
-      "type": "income",
-      "date": "03 Sep 2025",
-      "monthKey": "2025-09",
-      "contact": "John Mwangi",
-      "isVerified": true,
-      "blockchainHash": "0x1a2b3c4d5e6f",
-    },
-    {
-      "id": 2,
-      "description": "Office supplies purchase",
-      "amount": 3500,
-      "type": "expense",
-      "date": "02 Sep 2025",
-      "monthKey": "2025-09",
-      "contact": "Nakumatt Supermarket",
-      "isVerified": true,
-      "blockchainHash": "0x2b3c4d5e6f7g",
-    },
-    {
-      "id": 3,
-      "description": "Client payment - Website development",
-      "amount": 45000,
-      "type": "income",
-      "date": "01 Sep 2025",
-      "monthKey": "2025-09",
-      "contact": "Sarah Wanjiku",
-      "isVerified": true,
-      "blockchainHash": "0x3c4d5e6f7g8h",
-    },
-    {
-      "id": 4,
-      "description": "Fuel expenses",
-      "amount": 2800,
-      "type": "expense",
-      "date": "30 Aug 2025",
-      "monthKey": "2025-08",
-      "contact": "Shell Petrol Station",
-      "isVerified": false,
-      "blockchainHash": null,
-    },
-    {
-      "id": 5,
-      "description": "Consulting fee from Peter Kamau",
-      "amount": 25000,
-      "type": "income",
-      "date": "28 Aug 2025",
-      "monthKey": "2025-08",
-      "contact": "Peter Kamau",
-      "isVerified": true,
-      "blockchainHash": "0x4d5e6f7g8h9i",
-    },
-    {
-      "id": 6,
-      "description": "Internet bill payment",
-      "amount": 4500,
-      "type": "expense",
-      "date": "25 Aug 2025",
-      "monthKey": "2025-08",
-      "contact": "Safaricom",
-      "isVerified": true,
-      "blockchainHash": "0x5e6f7g8h9i0j",
-    },
-    {
-      "id": 7,
-      "description": "Product sales - Grace Akinyi",
-      "amount": 8500,
-      "type": "income",
-      "date": "22 Aug 2025",
-      "monthKey": "2025-08",
-      "contact": "Grace Akinyi",
-      "isVerified": true,
-      "blockchainHash": "0x6f7g8h9i0j1k",
-    },
-    {
-      "id": 8,
-      "description": "Marketing expenses",
-      "amount": 12000,
-      "type": "expense",
-      "date": "20 Aug 2025",
-      "monthKey": "2025-08",
-      "contact": "Facebook Ads",
-      "isVerified": false,
-      "blockchainHash": null,
-    },
-  ];
 
 
   @override
@@ -334,37 +244,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   }
 
 
-  void _showContextMenu(Map<String, dynamic> transaction) {
-    _removeContextMenu();
-    _contextMenuOverlay = OverlayEntry(
-      builder: (context) => GestureDetector(
-        onTap: _removeContextMenu,
-        child: Container(
-          color: Colors.black.withValues(alpha: 0.3),
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(8.w),
-              child: ContextMenuWidget(
-                transaction: transaction,
-                onViewDetails: () => _showTransactionDetails(transaction),
-                onExportPdf: () => _exportTransactionPdf(transaction),
-                onShare: () => _shareTransaction(transaction),
-                onArchive: () => _archiveTransaction(transaction),
-                onClose: _removeContextMenu,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
-
-    Overlay.of(context).insert(_contextMenuOverlay!);
-  }
-
-  void _removeContextMenu() {
-    _contextMenuOverlay?.remove();
-    _contextMenuOverlay = null;
-  }
 
   void _showExportOptions() {
     showModalBottomSheet(

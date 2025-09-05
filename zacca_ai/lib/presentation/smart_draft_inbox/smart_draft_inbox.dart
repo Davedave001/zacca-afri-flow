@@ -622,10 +622,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     );
   }
 
-  Widget _buildTransactionDetailsSheet(
-    Map<String, dynamic> transaction,
-    ScrollController scrollController,
-  ) {
+  // Removed unused method _buildTransactionDetailsSheet
     final theme = Theme.of(context);
     final colorScheme = theme.colorScheme;
     final extractedEntities =
