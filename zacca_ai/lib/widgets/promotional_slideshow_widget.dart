@@ -146,6 +146,54 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
     }
   }
 
+  Widget _buildSlideContent(Map<String, dynamic> slide) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Flexible(
+          child: Text(
+            slide['title'] ?? 'TITLE',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w700,
+              letterSpacing: 0.5,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+        SizedBox(height: 0.5.h),
+        Flexible(
+          child: Text(
+            slide['message'] ?? 'Message content',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.9),
+              fontSize: 10.sp,
+              fontWeight: FontWeight.w500,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+        ),
+        SizedBox(height: 0.3.h),
+        Flexible(
+          child: Text(
+            slide['subtitle'] ?? 'Subtitle content',
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.8),
+              fontSize: 9.sp,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 1,
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget _buildLoanOfferCard(Map<String, dynamic> slide) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 1.w),
@@ -172,38 +220,7 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
         child: Row(
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    slide['title'] ?? 'LOAN OFFER',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    slide['message'] ?? 'Get up to KES 500,000 instantly',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 0.5.h),
-                  Text(
-                    slide['subtitle'] ?? 'Apply now with 0% interest for 30 days',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 10.sp,
-                    ),
-                  ),
-                ],
-              ),
+              child: _buildSlideContent(slide),
             ),
             Container(
               padding: EdgeInsets.all(3.w),
@@ -249,38 +266,7 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
         child: Row(
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    slide['title'] ?? 'STOCK ALERT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    slide['message'] ?? 'Safaricom shares up 5.2% today',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 0.5.h),
-                  Text(
-                    slide['subtitle'] ?? 'Track your portfolio performance',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 10.sp,
-                    ),
-                  ),
-                ],
-              ),
+              child: _buildSlideContent(slide),
             ),
             Container(
               padding: EdgeInsets.all(3.w),
@@ -329,31 +315,44 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    slide['title'] ?? 'PAYMENT ALERT',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    slide['message'] ?? 'Invoice #INV-001 payment received',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
+                  Flexible(
+                    child: Text(
+                      slide['title'] ?? 'PAYMENT ALERT',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.5,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                   SizedBox(height: 0.5.h),
-                  Text(
-                    slide['subtitle'] ?? 'KES 15,000 from John Kamau',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 10.sp,
+                  Flexible(
+                    child: Text(
+                      slide['message'] ?? 'Invoice #INV-001 payment received',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
+                    ),
+                  ),
+                  SizedBox(height: 0.3.h),
+                  Flexible(
+                    child: Text(
+                      slide['subtitle'] ?? 'KES 15,000 from John Kamau',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.8),
+                        fontSize: 9.sp,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
                 ],
@@ -403,38 +402,7 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
         child: Row(
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    slide['title'] ?? 'SPECIAL OFFER',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    slide['message'] ?? 'Get 20% off on all business tools',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  SizedBox(height: 0.5.h),
-                  Text(
-                    slide['subtitle'] ?? 'Limited time offer - Act now!',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.8),
-                      fontSize: 10.sp,
-                    ),
-                  ),
-                ],
-              ),
+              child: _buildSlideContent(slide),
             ),
             Container(
               padding: EdgeInsets.all(3.w),
@@ -483,23 +451,32 @@ class _PromotionalSlideshowWidgetState extends State<PromotionalSlideshowWidget>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    slide['title'] ?? 'NOTIFICATION',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 0.5,
+                  Flexible(
+                    child: Text(
+                      slide['title'] ?? 'NOTIFICATION',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 0.5,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
                     ),
                   ),
-                  SizedBox(height: 1.h),
-                  Text(
-                    slide['message'] ?? 'Stay updated with your business',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.9),
-                      fontSize: 12.sp,
-                      fontWeight: FontWeight.w500,
+                  SizedBox(height: 0.5.h),
+                  Flexible(
+                    child: Text(
+                      slide['message'] ?? 'Stay updated with your business',
+                      style: TextStyle(
+                        color: Colors.white.withValues(alpha: 0.9),
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                     ),
                   ),
                 ],
