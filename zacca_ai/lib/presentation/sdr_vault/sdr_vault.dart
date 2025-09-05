@@ -29,8 +29,8 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   final Set<int> _selectedTransactions = {};
   OverlayEntry? _contextMenuOverlay;
   
-  // Confirmed SDRs data
-  List<SDRModel> _confirmedSDRs = SampleData.confirmedSDRs;
+  // Verified VBRs data
+  List<VBRModel> _verifiedVBRs = SampleData.verifiedVBRs;
 
   // Mock transaction data
   final List<Map<String, dynamic>> _allTransactions = [
@@ -197,28 +197,39 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
               // Multi-select toolbar
               if (_isMultiSelectMode)
                 _buildMultiSelectToolbar(theme, colorScheme),
-              // Sales Chart
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: SalesChartWidget(confirmedSDRs: _confirmedSDRs),
-              ),
+                          // Sales Chart
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: SalesChartWidget(confirmedSDRs: _verifiedVBRs.map((vbr) => SDRModel(
+                id: vbr.id,
+                buyer: vbr.buyer,
+                seller: vbr.seller,
+                product: vbr.product,
+                quantity: 1,
+                amount: vbr.amount,
+                status: vbr.status,
+                date: vbr.verifiedAt,
+                chatRef: vbr.chatRef,
+                maskedPhone: vbr.maskedPhone,
+              )).toList()),
+            ),
               SizedBox(height: 2.h),
               
-              // Confirmed SDRs List Header
+              // Verified VBRs List Header
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 4.w),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Verified SDR Records',
+                      'Verified Business Records',
                       style: theme.textTheme.titleLarge?.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     Text(
-                      '${_confirmedSDRs.length} records',
+                      '${_verifiedVBRs.length} records',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: Colors.white.withValues(alpha: 0.8),
                       ),
@@ -228,8 +239,8 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
               ),
               SizedBox(height: 2.h),
               
-              // Confirmed SDRs List
-              _buildConfirmedSDRsList(),
+              // Verified VBRs List
+              _buildVerifiedVBRsList(),
               
               // Bottom spacing for navigation
               SizedBox(height: 10.h),
@@ -652,10 +663,10 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     );
   }
 
-  Widget _buildConfirmedSDRsList() {
-    final filteredSDRs = _getFilteredConfirmedSDRs();
+  Widget _buildVerifiedVBRsList() {
+    final filteredVBRs = _getFilteredVerifiedVBRs();
 
-    if (filteredSDRs.isEmpty) {
+    if (filteredVBRs.isEmpty) {
       return Container(
         height: 30.h,
         child: Center(
@@ -663,13 +674,13 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.inbox,
+                Icons.verified,
                 size: 20.w,
                 color: Colors.grey[400],
               ),
               SizedBox(height: 2.h),
               Text(
-                'No confirmed SDRs found',
+                'No verified records found',
                 style: TextStyle(
                   fontSize: 16.sp,
                   color: Colors.grey[600],
@@ -678,7 +689,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
               ),
               SizedBox(height: 1.h),
               Text(
-                'Import WhatsApp chats to create SDRs',
+                'Verify SDRs in the Draft page to see them here',
                 style: TextStyle(
                   fontSize: 14.sp,
                   color: Colors.grey[500],
@@ -691,21 +702,34 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     }
 
     return Column(
-      children: filteredSDRs.map((sdr) {
-        final isSelected = _selectedTransactions.contains(int.parse(sdr.id));
+      children: filteredVBRs.map((vbr) {
+        final isSelected = _selectedTransactions.contains(int.parse(vbr.id));
 
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 4.w),
           child: ConfirmedSDRCard(
-            sdr: sdr,
+            sdr: SDRModel(
+              id: vbr.id,
+              buyer: vbr.buyer,
+              seller: vbr.seller,
+              product: vbr.product,
+              quantity: 1,
+              amount: vbr.amount,
+              status: vbr.status,
+              date: vbr.verifiedAt,
+              chatRef: vbr.chatRef,
+              maskedPhone: vbr.maskedPhone,
+              verified: true,
+              blockchainHash: vbr.hash,
+            ),
             isSelected: _isMultiSelectMode && isSelected,
-            onDownloadPDF: () => _downloadPDF(sdr),
-            onShare: () => _shareSDR(sdr),
+            onDownloadPDF: () => _downloadPDF(vbr),
+            onShare: () => _shareVBR(vbr),
             onLongPress: _isMultiSelectMode
                 ? null
                 : () {
                     _toggleMultiSelectMode();
-                    _toggleTransactionSelection(int.parse(sdr.id));
+                    _toggleTransactionSelection(int.parse(vbr.id));
                   },
           ),
         );
@@ -713,33 +737,32 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     );
   }
 
-  List<SDRModel> _getFilteredConfirmedSDRs() {
-    List<SDRModel> filtered = _confirmedSDRs;
+  List<VBRModel> _getFilteredVerifiedVBRs() {
+    List<VBRModel> filtered = _verifiedVBRs;
 
     // Apply search filter
     if (_searchQuery.isNotEmpty) {
-      filtered = filtered.where((sdr) {
-        return sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.items.any((item) => 
-                   item.product.toLowerCase().contains(_searchQuery.toLowerCase()));
+      filtered = filtered.where((vbr) {
+        return vbr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               vbr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               vbr.product.toLowerCase().contains(_searchQuery.toLowerCase());
       }).toList();
     }
 
     return filtered;
   }
 
-  void _downloadPDF(SDRModel sdr) {
+  void _downloadPDF(VBRModel vbr) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Downloading PDF for SDR #${sdr.id}...'),
+        content: Text('Downloading PDF for VBR #${vbr.id}...'),
         backgroundColor: Colors.green,
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
-  void _shareSDR(SDRModel sdr) {
+  void _shareVBR(VBRModel vbr) {
     showModalBottomSheet(
       context: context,
       shape: RoundedRectangleBorder(
@@ -751,7 +774,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Share SDR #${sdr.id}',
+              'Share VBR #${vbr.id}',
               style: Theme.of(context).textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
@@ -765,21 +788,21 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
                   'WhatsApp',
                   Icons.chat,
                   Color(0xFF25D366),
-                  () => _shareToWhatsApp(sdr),
+                  () => _shareToWhatsApp(vbr),
                 ),
                 _buildShareOption(
                   context,
                   'Email',
                   Icons.email,
                   Color(0xFFEA4335),
-                  () => _shareToEmail(sdr),
+                  () => _shareToEmail(vbr),
                 ),
                 _buildShareOption(
                   context,
                   'Copy Link',
                   Icons.link,
                   Color(0xFF08F5F8),
-                  () => _copyLink(sdr),
+                  () => _copyLink(vbr),
                 ),
               ],
             ),
@@ -824,33 +847,33 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     );
   }
 
-  void _shareToWhatsApp(SDRModel sdr) {
+  void _shareToWhatsApp(VBRModel vbr) {
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Sharing SDR #${sdr.id} to WhatsApp...'),
+        content: Text('Sharing VBR #${vbr.id} to WhatsApp...'),
         backgroundColor: Color(0xFF25D366),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
-  void _shareToEmail(SDRModel sdr) {
+  void _shareToEmail(VBRModel vbr) {
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Sharing SDR #${sdr.id} via Email...'),
+        content: Text('Sharing VBR #${vbr.id} via Email...'),
         backgroundColor: Color(0xFFEA4335),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
-  void _copyLink(SDRModel sdr) {
+  void _copyLink(VBRModel vbr) {
     Navigator.of(context).pop();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Link for SDR #${sdr.id} copied to clipboard'),
+        content: Text('Link for VBR #${vbr.id} copied to clipboard'),
         backgroundColor: Color(0xFF08F5F8),
         behavior: SnackBarBehavior.floating,
       ),

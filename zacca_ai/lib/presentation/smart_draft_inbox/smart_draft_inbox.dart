@@ -8,12 +8,15 @@ import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../models/sdr_model.dart';
 import '../../data/sample_data.dart';
+import '../../services/verification_service.dart';
 import './widgets/bulk_action_bar_widget.dart';
 import './widgets/empty_state_widget.dart';
 import './widgets/filter_chips_widget.dart';
 import './widgets/search_bar_widget.dart';
 import './widgets/sdr_card_widget.dart';
 import './widgets/verification_dialog.dart';
+import './widgets/upload_screenshot_modal.dart';
+import './widgets/sms_selection_modal.dart';
 
 class SmartDraftInbox extends StatefulWidget {
   const SmartDraftInbox({super.key});
@@ -603,10 +606,9 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
           return SDRCardWidget(
             sdr: sdr,
             isSelected: _isBulkSelectionMode && isSelected,
-            onViewPDF: () => _viewPDF(sdr),
-            onEdit: () => _editSDR(sdr),
-            onVerify: () => _verifySDR(sdr),
-            onUploadToLedger: () => _uploadToLedger(sdr),
+            onUploadScreenshot: () => _uploadScreenshot(sdr),
+            onPasteCode: () => _pasteCode(sdr),
+            onSelectSMS: () => _selectSMS(sdr),
             onDelete: () => _deleteSDR(sdr),
             onLongPress: _isBulkSelectionMode
                 ? null
@@ -946,73 +948,160 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     }
   }
 
-  void _viewPDF(SDRModel sdr) {
+  void _uploadScreenshot(SDRModel sdr) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('PDF Preview'),
-        content: Text('PDF for SDR #${sdr.id} would open here'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Close'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _editSDR(SDRModel sdr) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Edit SDR #${sdr.id}'),
-        content: Text('Edit form for SDR would appear here'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              _showSuccessSnackBar('SDR updated successfully!');
-            },
-            child: Text('Save'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _verifySDR(SDRModel sdr) {
-    showDialog(
-      context: context,
-      builder: (context) => VerificationDialog(
+      builder: (context) => UploadScreenshotModal(
         sdr: sdr,
-        onVerify: (mpesaCode, bankCode) {
-          setState(() {
-            final index = _draftSDRs.indexWhere((item) => item.id == sdr.id);
-            if (index != -1) {
-              _draftSDRs[index] = sdr.copyWith(
-                mpesaCode: mpesaCode,
-                bankCode: bankCode,
-                status: 'Paid',
-                paid: sdr.total,
-              );
-            }
-          });
-          _showSuccessSnackBar('Payment verified successfully!');
+        onUpload: (filePath) {
+          _processVerification(sdr, 'Screenshot', filePath);
         },
       ),
     );
   }
 
-  void _uploadToLedger(SDRModel sdr) {
+  void _pasteCode(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => VerificationDialog(
+        sdr: sdr,
+        onVerify: (mpesaCode, bankCode) {
+          final code = mpesaCode.isNotEmpty ? mpesaCode : bankCode!;
+          final source = mpesaCode.isNotEmpty ? 'M-Pesa' : 'Bank';
+          _processVerification(sdr, source, code);
+        },
+      ),
+    );
+  }
+
+  void _selectSMS(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => SMSSelectionModal(
+        sdr: sdr,
+        onSelect: (proof) {
+          _verifyWithProof(sdr, proof);
+        },
+      ),
+    );
+  }
+
+  void _processVerification(SDRModel sdr, String source, String proof) {
+    // Simulate verification process
     setState(() {
-      _draftSDRs.removeWhere((item) => item.id == sdr.id);
+      _isLoading = true;
     });
-    _showSuccessSnackBar('SDR uploaded to ledger successfully!');
+
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+
+      // For demo purposes, always verify successfully
+      _verifyWithProof(sdr, ProofModel(
+        code: proof,
+        source: source,
+        amount: sdr.amount,
+        date: sdr.date.add(Duration(minutes: 2)),
+        sender: sdr.maskedPhone ?? 'Unknown',
+        receiver: 'SME-001',
+      ));
+    });
+  }
+
+  void _verifyWithProof(SDRModel sdr, ProofModel proof) {
+    final result = VerificationService.verifySDR(sdr, proof);
+    
+    if (result.isVerified) {
+      // Convert to VBR
+      final vbr = VerificationService.convertToVBR(sdr, proof);
+      
+      // Remove from draft SDRs
+      setState(() {
+        _draftSDRs.removeWhere((item) => item.id == sdr.id);
+      });
+      
+      _showSuccessSnackBar('Transaction verified and logged to Vault!');
+      
+      // Show success animation
+      _showVerificationSuccess(sdr, vbr);
+    } else {
+      _showErrorSnackBar(result.statusMessage);
+    }
+  }
+
+  void _showVerificationSuccess(SDRModel sdr, VBRModel vbr) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 20.w,
+              height: 20.w,
+              decoration: BoxDecoration(
+                color: Color(0xFF4ADE80).withValues(alpha: 0.2),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.verified,
+                color: Color(0xFF4ADE80),
+                size: 10.w,
+              ),
+            ),
+            SizedBox(height: 3.h),
+            Text(
+              'Transaction Verified!',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF4ADE80),
+              ),
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              'SDR #${sdr.id} has been converted to VBR and moved to the Vault.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            SizedBox(height: 2.h),
+            Container(
+              padding: EdgeInsets.all(3.w),
+              decoration: BoxDecoration(
+                color: Colors.grey.shade100,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Blockchain Hash:',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    vbr.hash,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontFamily: 'monospace',
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('View in Vault'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _deleteSDR(SDRModel sdr) {

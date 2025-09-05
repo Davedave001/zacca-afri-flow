@@ -4,10 +4,9 @@ import '../../../models/sdr_model.dart';
 
 class SDRCardWidget extends StatelessWidget {
   final SDRModel sdr;
-  final VoidCallback? onViewPDF;
-  final VoidCallback? onEdit;
-  final VoidCallback? onVerify;
-  final VoidCallback? onUploadToLedger;
+  final VoidCallback? onUploadScreenshot;
+  final VoidCallback? onPasteCode;
+  final VoidCallback? onSelectSMS;
   final VoidCallback? onDelete;
   final bool isSelected;
   final VoidCallback? onLongPress;
@@ -15,10 +14,9 @@ class SDRCardWidget extends StatelessWidget {
   const SDRCardWidget({
     super.key,
     required this.sdr,
-    this.onViewPDF,
-    this.onEdit,
-    this.onVerify,
-    this.onUploadToLedger,
+    this.onUploadScreenshot,
+    this.onPasteCode,
+    this.onSelectSMS,
     this.onDelete,
     this.isSelected = false,
     this.onLongPress,
@@ -37,13 +35,13 @@ class SDRCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected 
-                ? Color(0xFF08F5F8) 
-                : Color(0xFF08F5F8).withValues(alpha: 0.3),
+                ? Color(0xFFFFD93D) // Yellow border for pending verification
+                : Color(0xFFFFD93D).withValues(alpha: 0.5),
             width: isSelected ? 2 : 1,
           ),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFF08F5F8).withValues(alpha: 0.15),
+              color: Color(0xFFFFD93D).withValues(alpha: 0.15),
               blurRadius: 12,
               offset: Offset(0, 4),
             ),
@@ -68,17 +66,17 @@ class SDRCardWidget extends StatelessWidget {
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 0.5.h),
                     decoration: BoxDecoration(
-                      color: _getStatusColor(sdr.status).withValues(alpha: 0.2),
+                      color: Color(0xFFFFD93D).withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
-                        color: _getStatusColor(sdr.status),
+                        color: Color(0xFFFFD93D),
                         width: 1,
                       ),
                     ),
                     child: Text(
                       sdr.status,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: _getStatusColor(sdr.status),
+                        color: Color(0xFFFFD93D),
                         fontWeight: FontWeight.w500,
                         fontSize: 10.sp,
                       ),
@@ -88,7 +86,7 @@ class SDRCardWidget extends StatelessWidget {
               ),
               SizedBox(height: 2.h),
               
-              // Buyer/Seller info
+              // Buyer info
               Row(
                 children: [
                   Icon(
@@ -98,19 +96,31 @@ class SDRCardWidget extends StatelessWidget {
                   ),
                   SizedBox(width: 2.w),
                   Expanded(
-                    child: Text(
-                      sdr.buyer,
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          sdr.buyer,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        if (sdr.maskedPhone != null)
+                          Text(
+                            sdr.maskedPhone!,
+                            style: theme.textTheme.bodySmall?.copyWith(
+                              color: Colors.white.withValues(alpha: 0.7),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ],
               ),
               SizedBox(height: 1.h),
               
-              // Items summary
+              // Product info
               Row(
                 children: [
                   Icon(
@@ -121,7 +131,7 @@ class SDRCardWidget extends StatelessWidget {
                   SizedBox(width: 2.w),
                   Expanded(
                     child: Text(
-                      _getItemsSummary(),
+                      '${sdr.quantity}x ${sdr.product}',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: Colors.white.withValues(alpha: 0.9),
                       ),
@@ -131,7 +141,7 @@ class SDRCardWidget extends StatelessWidget {
               ),
               SizedBox(height: 1.h),
               
-              // Amount info
+              // Amount and time info
               Row(
                 children: [
                   Icon(
@@ -141,21 +151,19 @@ class SDRCardWidget extends StatelessWidget {
                   ),
                   SizedBox(width: 2.w),
                   Text(
-                    'KES ${sdr.total.toStringAsFixed(0)}',
+                    'KES ${sdr.amount.toStringAsFixed(0)}',
                     style: theme.textTheme.titleLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,
                     ),
                   ),
-                  if (sdr.paid > 0) ...[
-                    SizedBox(width: 2.w),
-                    Text(
-                      '(Paid: KES ${sdr.paid.toStringAsFixed(0)})',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withValues(alpha: 0.8),
-                      ),
+                  Spacer(),
+                  Text(
+                    _formatTime(sdr.date),
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: Colors.white.withValues(alpha: 0.7),
                     ),
-                  ],
+                  ),
                 ],
               ),
               SizedBox(height: 2.h),
@@ -166,44 +174,20 @@ class SDRCardWidget extends StatelessWidget {
                   Expanded(
                     child: _buildActionButton(
                       context,
-                      'View PDF',
-                      Icons.picture_as_pdf,
-                      Color(0xFFFF6B6B),
-                      onViewPDF,
-                    ),
-                  ),
-                  SizedBox(width: 2.w),
-                  Expanded(
-                    child: _buildActionButton(
-                      context,
-                      'Edit',
-                      Icons.edit,
-                      Color(0xFF4ADE80),
-                      onEdit,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 1.h),
-              Row(
-                children: [
-                  Expanded(
-                    child: _buildActionButton(
-                      context,
-                      'Verify',
-                      Icons.verified,
-                      Color(0xFF08F5F8),
-                      onVerify,
-                    ),
-                  ),
-                  SizedBox(width: 2.w),
-                  Expanded(
-                    child: _buildActionButton(
-                      context,
-                      'Upload',
-                      Icons.cloud_upload,
+                      'Upload Screenshot',
+                      Icons.camera_alt,
                       Color(0xFFFFD93D),
-                      onUploadToLedger,
+                      onUploadScreenshot,
+                    ),
+                  ),
+                  SizedBox(width: 2.w),
+                  Expanded(
+                    child: _buildActionButton(
+                      context,
+                      'Paste Code',
+                      Icons.content_paste,
+                      Color(0xFF08F5F8),
+                      onPasteCode,
                     ),
                   ),
                 ],
@@ -211,6 +195,16 @@ class SDRCardWidget extends StatelessWidget {
               SizedBox(height: 1.h),
               Row(
                 children: [
+                  Expanded(
+                    child: _buildActionButton(
+                      context,
+                      'Select SMS',
+                      Icons.sms,
+                      Color(0xFF4ADE80),
+                      onSelectSMS,
+                    ),
+                  ),
+                  SizedBox(width: 2.w),
                   Expanded(
                     child: _buildActionButton(
                       context,
@@ -271,25 +265,7 @@ class SDRCardWidget extends StatelessWidget {
     );
   }
 
-  String _getItemsSummary() {
-    if (sdr.items.isEmpty) return 'No items';
-    
-    final totalItems = sdr.items.fold<int>(0, (sum, item) => sum + item.quantity);
-    final itemNames = sdr.items.map((item) => item.product).join(', ');
-    
-    return '$totalItems items: $itemNames';
-  }
-
-  Color _getStatusColor(String status) {
-    switch (status.toLowerCase()) {
-      case 'paid':
-        return Color(0xFF4ADE80); // Green
-      case 'partial payment':
-        return Color(0xFFFFD93D); // Yellow
-      case 'pending':
-        return Color(0xFFFF6B6B); // Red
-      default:
-        return Color(0xFF08F5F8); // Cyan
-    }
+  String _formatTime(DateTime dateTime) {
+    return '${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}';
   }
 }

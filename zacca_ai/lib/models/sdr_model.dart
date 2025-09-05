@@ -2,11 +2,13 @@ class SDRModel {
   final String id;
   final String buyer;
   final String seller;
-  final List<SDRItem> items;
-  final double total;
-  final double paid;
+  final String product;
+  final int quantity;
+  final double amount;
   final String status;
   final DateTime date;
+  final String chatRef;
+  final String? maskedPhone;
   final bool verified;
   final String? pdfUrl;
   final String? blockchainHash;
@@ -18,11 +20,13 @@ class SDRModel {
     required this.id,
     required this.buyer,
     required this.seller,
-    required this.items,
-    required this.total,
-    required this.paid,
+    required this.product,
+    required this.quantity,
+    required this.amount,
     required this.status,
     required this.date,
+    required this.chatRef,
+    this.maskedPhone,
     this.verified = false,
     this.pdfUrl,
     this.blockchainHash,
@@ -36,13 +40,13 @@ class SDRModel {
       id: json['id'] ?? '',
       buyer: json['buyer'] ?? '',
       seller: json['seller'] ?? '',
-      items: (json['items'] as List<dynamic>?)
-          ?.map((item) => SDRItem.fromJson(item))
-          .toList() ?? [],
-      total: (json['total'] ?? 0).toDouble(),
-      paid: (json['paid'] ?? 0).toDouble(),
-      status: json['status'] ?? 'Pending',
+      product: json['product'] ?? '',
+      quantity: json['quantity'] ?? 0,
+      amount: (json['amount'] ?? 0).toDouble(),
+      status: json['status'] ?? 'Pending Verification',
       date: DateTime.tryParse(json['date'] ?? '') ?? DateTime.now(),
+      chatRef: json['chatRef'] ?? '',
+      maskedPhone: json['maskedPhone'],
       verified: json['verified'] ?? false,
       pdfUrl: json['pdfUrl'],
       blockchainHash: json['blockchainHash'],
@@ -57,11 +61,13 @@ class SDRModel {
       'id': id,
       'buyer': buyer,
       'seller': seller,
-      'items': items.map((item) => item.toJson()).toList(),
-      'total': total,
-      'paid': paid,
+      'product': product,
+      'quantity': quantity,
+      'amount': amount,
       'status': status,
       'date': date.toIso8601String(),
+      'chatRef': chatRef,
+      'maskedPhone': maskedPhone,
       'verified': verified,
       'pdfUrl': pdfUrl,
       'blockchainHash': blockchainHash,
@@ -75,11 +81,13 @@ class SDRModel {
     String? id,
     String? buyer,
     String? seller,
-    List<SDRItem>? items,
-    double? total,
-    double? paid,
+    String? product,
+    int? quantity,
+    double? amount,
     String? status,
     DateTime? date,
+    String? chatRef,
+    String? maskedPhone,
     bool? verified,
     String? pdfUrl,
     String? blockchainHash,
@@ -91,11 +99,13 @@ class SDRModel {
       id: id ?? this.id,
       buyer: buyer ?? this.buyer,
       seller: seller ?? this.seller,
-      items: items ?? this.items,
-      total: total ?? this.total,
-      paid: paid ?? this.paid,
+      product: product ?? this.product,
+      quantity: quantity ?? this.quantity,
+      amount: amount ?? this.amount,
       status: status ?? this.status,
       date: date ?? this.date,
+      chatRef: chatRef ?? this.chatRef,
+      maskedPhone: maskedPhone ?? this.maskedPhone,
       verified: verified ?? this.verified,
       pdfUrl: pdfUrl ?? this.pdfUrl,
       blockchainHash: blockchainHash ?? this.blockchainHash,
@@ -138,6 +148,106 @@ class SDRItem {
   }
 
   double get subtotal => quantity * price;
+}
+
+class ProofModel {
+  final String code;
+  final String source;
+  final double amount;
+  final DateTime date;
+  final String sender;
+  final String receiver;
+
+  ProofModel({
+    required this.code,
+    required this.source,
+    required this.amount,
+    required this.date,
+    required this.sender,
+    required this.receiver,
+  });
+
+  factory ProofModel.fromJson(Map<String, dynamic> json) {
+    return ProofModel(
+      code: json['code'] ?? '',
+      source: json['source'] ?? '',
+      amount: (json['amount'] ?? 0).toDouble(),
+      date: DateTime.tryParse(json['date'] ?? '') ?? DateTime.now(),
+      sender: json['sender'] ?? '',
+      receiver: json['receiver'] ?? '',
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'code': code,
+      'source': source,
+      'amount': amount,
+      'date': date.toIso8601String(),
+      'sender': sender,
+      'receiver': receiver,
+    };
+  }
+}
+
+class VBRModel {
+  final String id;
+  final String buyer;
+  final String seller;
+  final String product;
+  final double amount;
+  final String status;
+  final DateTime verifiedAt;
+  final String hash;
+  final String source;
+  final String chatRef;
+  final String? maskedPhone;
+
+  VBRModel({
+    required this.id,
+    required this.buyer,
+    required this.seller,
+    required this.product,
+    required this.amount,
+    required this.status,
+    required this.verifiedAt,
+    required this.hash,
+    required this.source,
+    required this.chatRef,
+    this.maskedPhone,
+  });
+
+  factory VBRModel.fromJson(Map<String, dynamic> json) {
+    return VBRModel(
+      id: json['id'] ?? '',
+      buyer: json['buyer'] ?? '',
+      seller: json['seller'] ?? '',
+      product: json['product'] ?? '',
+      amount: (json['amount'] ?? 0).toDouble(),
+      status: json['status'] ?? 'Verified',
+      verifiedAt: DateTime.tryParse(json['verifiedAt'] ?? '') ?? DateTime.now(),
+      hash: json['hash'] ?? '',
+      source: json['source'] ?? '',
+      chatRef: json['chatRef'] ?? '',
+      maskedPhone: json['maskedPhone'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'buyer': buyer,
+      'seller': seller,
+      'product': product,
+      'amount': amount,
+      'status': status,
+      'verifiedAt': verifiedAt.toIso8601String(),
+      'hash': hash,
+      'source': source,
+      'chatRef': chatRef,
+      'maskedPhone': maskedPhone,
+    };
+  }
 }
 
 class WhatsAppMessage {
