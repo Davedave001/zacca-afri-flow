@@ -33,25 +33,25 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         {
           "name": "Budgets",
           "icon": Icons.account_balance_wallet,
-          "color": Colors.green,
+          "color": Color(0xFF3117CE), // Your primary purple
           "route": "/financial-companion",
         },
         {
           "name": "Expense",
           "icon": Icons.receipt_long,
-          "color": Colors.red,
+          "color": Color(0xFFFF4757), // Modern red
           "route": "/financial-companion",
         },
         {
           "name": "Revenue",
           "icon": Icons.trending_up,
-          "color": Colors.blue,
+          "color": Color(0xFF2ED573), // Fresh green
           "route": "/business-analytics-dashboard",
         },
         {
           "name": "Charts of Account",
           "icon": Icons.pie_chart,
-          "color": Colors.purple,
+          "color": Color(0xFF08F5F8), // Your cyan
           "route": "/financial-companion",
         },
       ],
@@ -100,25 +100,25 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         {
           "name": "Inventory",
           "icon": Icons.inventory,
-          "color": Colors.blue,
+          "color": Color(0xFF3117CE), // Your primary purple
           "route": "/financial-companion",
         },
         {
           "name": "Tax",
           "icon": Icons.calculate,
-          "color": Colors.teal,
+          "color": Color(0xFFFFA502), // Vibrant orange
           "route": "/financial-companion",
         },
         {
           "name": "Excel Sync",
           "icon": Icons.table_chart,
-          "color": Colors.green,
+          "color": Color(0xFF2ED573), // Fresh green
           "route": "/financial-companion",
         },
         {
           "name": "Workflow",
           "icon": Icons.work,
-          "color": Colors.orange,
+          "color": Color(0xFF08F5F8), // Your cyan
           "route": "/financial-companion",
         },
       ],
@@ -167,25 +167,25 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
         {
           "name": "Import Chat",
           "icon": Icons.chat_bubble,
-          "color": Colors.green,
+          "color": Color(0xFF2ED573), // Fresh green
           "route": "/whats-app-import-screen",
         },
         {
           "name": "Permissions",
           "icon": Icons.security,
-          "color": Colors.blue,
+          "color": Color(0xFF3117CE), // Your primary purple
           "route": "/financial-companion",
         },
         {
           "name": "Pay Bills",
           "icon": Icons.payment,
-          "color": Colors.orange,
+          "color": Color(0xFFFFA502), // Vibrant orange
           "route": "/financial-companion",
         },
         {
           "name": "Send Money",
           "icon": Icons.send,
-          "color": Colors.green,
+          "color": Color(0xFF08F5F8), // Your cyan
           "route": "/financial-companion",
         },
       ],
@@ -557,10 +557,10 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                       },
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey.shade50,
+                          color: Color(0xFFF5F7FF), // Your purple-tinted background
                           borderRadius: BorderRadius.circular(12),
                           border: Border.all(
-                            color: Colors.grey.shade200,
+                            color: Color(0xFF3117CE).withValues(alpha: 0.1),
                             width: 1,
                           ),
                         ),
@@ -724,17 +724,17 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
       decoration: BoxDecoration(
-        color: Colors.grey.shade50,
+        color: Color(0xFFF5F7FF), // Your purple-tinted background
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: Colors.grey.shade200,
+          color: Color(0xFF3117CE).withValues(alpha: 0.1), // Subtle purple border
           width: 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 8,
-            offset: Offset(0, 2),
+            color: Color(0xFF3117CE).withValues(alpha: 0.08),
+            blurRadius: 12,
+            offset: Offset(0, 4),
           ),
         ],
       ),
@@ -759,7 +759,7 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                   child: Text(
                     'View all',
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Colors.green,
+                          color: Color(0xFF08F5F8), // Your cyan
                           fontWeight: FontWeight.w500,
                         ),
                   ),

@@ -5,52 +5,52 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTheme {
   AppTheme._();
 
-  // Professional Depth Palette - Financial mobile application colors
+  // Zacca AI Premium Palette - Powerful and Smooth UI/UX
   static const Color primaryLight =
-      Color(0xFF3117CE); // Deep blue for trust and credibility
-  static const Color primaryVariantLight = Color(0xFF2610A8);
+      Color(0xFF3117CE); // Your primary deep purple for trust and premium feel
+  static const Color primaryVariantLight = Color(0xFF2610A8); // Darker variant
   static const Color secondaryLight =
-      Color(0xFF7CE3E8); // Aqua for energetic contrast
-  static const Color secondaryVariantLight = Color(0xFF5BDDE3);
+      Color(0xFF08F5F8); // Your vibrant cyan for energy and innovation
+  static const Color secondaryVariantLight = Color(0xFF06D1D4); // Slightly darker cyan
   static const Color backgroundLight =
-      Color(0xFFF8F9FA); // Subtle off-white for reduced eye strain
+      Color(0xFFF5F7FF); // Soft purple-tinted background for premium feel
   static const Color surfaceLight =
-      Color(0xFFFFFFFF); // Clean backgrounds for readability
+      Color(0xFFFFFFFF); // Pure white for clean contrast
   static const Color errorLight =
-      Color(0xFFEF4444); // Critical alerts optimized for mobile
+      Color(0xFFFF4757); // Modern red for alerts
   static const Color successLight =
-      Color(0xFF10B981); // Transaction confirmations
+      Color(0xFF2ED573); // Fresh green for success states
   static const Color warningLight =
-      Color(0xFFF59E0B); // Alert states for bright conditions
+      Color(0xFFFFA502); // Vibrant orange for warnings
   static const Color onPrimaryLight = Color(0xFFFFFFFF);
   static const Color onSecondaryLight = Color(0xFF000000);
   static const Color onBackgroundLight =
-      Color(0xFF1F2937); // High contrast body text
-  static const Color onSurfaceLight = Color(0xFF1F2937);
+      Color(0xFF1A1A2E); // Deep text for excellent readability
+  static const Color onSurfaceLight = Color(0xFF1A1A2E);
   static const Color onErrorLight = Color(0xFFFFFFFF);
 
   static const Color primaryDark =
-      Color(0xFF5B4AE8); // Lighter blue for dark mode
+      Color(0xFF4A3AE8); // Brighter purple for dark mode visibility
   static const Color primaryVariantDark = Color(0xFF3117CE);
-  static const Color secondaryDark = Color(0xFF7CE3E8);
-  static const Color secondaryVariantDark = Color(0xFF5BDDE3);
+  static const Color secondaryDark = Color(0xFF08F5F8); // Keep your cyan vibrant
+  static const Color secondaryVariantDark = Color(0xFF06D1D4);
   static const Color backgroundDark =
-      Color(0xFF0F1419); // Deep background for OLED efficiency
-  static const Color surfaceDark = Color(0xFF1A1F2E); // Elevated surfaces
+      Color(0xFF0A0B1A); // Deep purple-tinted background for premium dark mode
+  static const Color surfaceDark = Color(0xFF1A1B2E); // Elevated surfaces with purple tint
   static const Color errorDark = Color(0xFFFF6B6B);
-  static const Color successDark = Color(0xFF4ADE80);
-  static const Color warningDark = Color(0xFFFBBF24);
+  static const Color successDark = Color(0xFF2ED573);
+  static const Color warningDark = Color(0xFFFFA502);
   static const Color onPrimaryDark = Color(0xFFFFFFFF);
   static const Color onSecondaryDark = Color(0xFF000000);
   static const Color onBackgroundDark = Color(0xFFE5E7EB);
   static const Color onSurfaceDark = Color(0xFFE5E7EB);
   static const Color onErrorDark = Color(0xFFFFFFFF);
 
-  // Card and dialog colors
+  // Card and dialog colors - Enhanced with theme consistency
   static const Color cardLight = Color(0xFFFFFFFF);
-  static const Color cardDark = Color(0xFF1A1F2E);
+  static const Color cardDark = Color(0xFF1A1B2E);
   static const Color dialogLight = Color(0xFFFFFFFF);
-  static const Color dialogDark = Color(0xFF1A1F2E);
+  static const Color dialogDark = Color(0xFF1A1B2E);
 
   // Shadow colors - Subtle elevation system
   static const Color shadowLight =
