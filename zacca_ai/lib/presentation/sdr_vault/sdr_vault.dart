@@ -42,7 +42,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
       backgroundColor: colorScheme.background,
       appBar: CustomAppBar(
         title: 'SDR Vault',
-        showBackButton: true,
         actions: [
           IconButton(
             onPressed: _toggleSearch,
@@ -87,9 +86,8 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
             // Filter Panel
             if (_isFilterExpanded)
               AdvancedFilterPanel(
-                onFilterChanged: (filters) {
-                  // Handle filter changes
-                },
+                isExpanded: _isFilterExpanded,
+                onToggle: _toggleFilter,
               ),
 
             // Multi-select Toolbar
@@ -100,7 +98,19 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
             Padding(
               padding: EdgeInsets.all(4.w),
               child: SalesChartWidget(
-                verifiedVBRs: _verifiedVBRs,
+                confirmedSDRs: _verifiedVBRs.map((vbr) => SDRModel(
+                  id: vbr.id,
+                  buyer: vbr.buyer,
+                  seller: vbr.seller,
+                  product: vbr.product,
+                  quantity: 1,
+                  amount: vbr.amount,
+                  status: vbr.status,
+                  date: vbr.verifiedAt,
+                  chatRef: vbr.chatRef,
+                  maskedPhone: vbr.maskedPhone,
+                  notes: 'Verified VBR',
+                )).toList(),
               ),
             ),
 
@@ -137,13 +147,13 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
       floatingActionButton: FloatingActionButton(
         onPressed: _showExportOptions,
         child: Icon(Icons.download, color: Colors.white),
-        backgroundColor: AppTheme.getPrimaryColor(theme.brightness == Brightness.light),
+        backgroundColor: theme.brightness == Brightness.light ? AppTheme.primaryLight : AppTheme.primaryDark,
       ),
       bottomNavigationBar: CustomBottomBar(
         currentIndex: 2,
         onTap: (index) {
           if (index == 0) {
-            Navigator.pushNamed(context, AppRoutes.dashboard);
+            Navigator.pushNamed(context, AppRoutes.home);
           } else if (index == 1) {
             Navigator.pushNamed(context, AppRoutes.smartDraftInbox);
           }
@@ -417,7 +427,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
                   ),
                   SizedBox(height: 3.h),
                   _buildShareOption(
-                    icon: Icons.whatsapp,
+                    icon: Icons.chat,
                     title: 'WhatsApp',
                     subtitle: 'Share via WhatsApp',
                     onTap: () => _shareToWhatsApp(vbr),

@@ -36,7 +36,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   bool _isBulkSelectionMode = false;
   Set<String> _selectedTransactionIds = {};
   bool _isLoading = false;
-  
+
   // SDR data
   List<SDRModel> _draftSDRs = SampleData.draftSDRs;
 
@@ -54,7 +54,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
 
   Future<void> _loadTransactions() async {
     setState(() => _isLoading = true);
-    
+
     // Simulate loading delay
     await Future.delayed(Duration(seconds: 1));
 
@@ -74,7 +74,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       filtered = filtered.where((sdr) {
         return sdr.product.toLowerCase().contains(_searchQuery.toLowerCase()) ||
                sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.maskedPhone.contains(_searchQuery);
+               sdr.maskedPhone?.contains(_searchQuery) ?? false;
       }).toList();
     }
 
@@ -193,7 +193,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
                 _isBulkSelectionMode = false;
               });
               Navigator.pop(context);
-              
+
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text('Transactions deleted successfully'),
@@ -218,7 +218,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       backgroundColor: colorScheme.background,
       appBar: CustomAppBar(
         title: 'Smart Draft Inbox',
-        showBackButton: true,
         actions: [
           if (_isBulkSelectionMode)
             IconButton(
@@ -239,28 +238,29 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
             padding: EdgeInsets.all(4.w),
             child: Column(
               children: [
-                SearchBarWidget(
-                  isExpanded: _isSearchExpanded,
+          SearchBarWidget(
+            isExpanded: _isSearchExpanded,
                   onToggle: () => setState(() => _isSearchExpanded = !_isSearchExpanded),
-                  onSearchChanged: _onSearchChanged,
-                ),
+            onChanged: _onSearchChanged,
+          ),
                 SizedBox(height: 2.h),
-                FilterChipsWidget(
-                  selectedFilter: _selectedFilter,
+          FilterChipsWidget(
+                  filters: ['All', 'Pending Verification', 'Partial Payment', 'Paid'],
+            selectedFilter: _selectedFilter,
                   filterCounts: _filterCounts,
-                  onFilterChanged: _onFilterChanged,
-                ),
-              ],
-            ),
+            onFilterChanged: _onFilterChanged,
+          ),
+        ],
+      ),
           ),
 
           // Bulk Action Bar
           if (_isBulkSelectionMode && _selectedTransactionIds.isNotEmpty)
-            BulkActionBarWidget(
-              selectedCount: _selectedTransactionIds.length,
-              onApprove: _bulkApprove,
-              onReject: _bulkReject,
-              onDelete: _bulkDelete,
+          BulkActionBarWidget(
+            selectedCount: _selectedTransactionIds.length,
+            onApproveAll: _bulkApprove,
+            onRejectAll: _bulkReject,
+            onDeleteAll: _bulkDelete,
             ),
 
           // Content
@@ -277,14 +277,14 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         onPressed: _importWhatsAppChat,
         icon: Icon(Icons.upload_file, color: Colors.white),
         label: Text('Import WhatsApp Chat'),
-        backgroundColor: AppTheme.getPrimaryColor(theme.brightness == Brightness.light),
+        backgroundColor: theme.brightness == Brightness.light ? AppTheme.primaryLight : AppTheme.primaryDark,
         foregroundColor: Colors.white,
       ),
       bottomNavigationBar: CustomBottomBar(
         currentIndex: 1,
         onTap: (index) {
           if (index == 0) {
-            Navigator.pushNamed(context, AppRoutes.dashboard);
+            Navigator.pushNamed(context, AppRoutes.home);
           } else if (index == 2) {
             Navigator.pushNamed(context, AppRoutes.sdrVault);
           }
@@ -308,23 +308,23 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         color: Colors.grey.shade300,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 2.h,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 2.h,
             width: 30.w,
             color: Colors.grey.shade400,
-          ),
-          SizedBox(height: 1.h),
-          Container(
-            height: 1.5.h,
+                    ),
+                    SizedBox(height: 1.h),
+                    Container(
+                      height: 1.5.h,
             width: 60.w,
             color: Colors.grey.shade400,
-          ),
-          SizedBox(height: 1.h),
-          Container(
-            height: 1.5.h,
+                  ),
+                  SizedBox(height: 1.h),
+                  Container(
+                    height: 1.5.h,
             width: 40.w,
             color: Colors.grey.shade400,
           ),
@@ -337,7 +337,8 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     return EmptyStateWidget(
       title: 'No Draft SDRs Found',
       subtitle: 'Import WhatsApp chats to start creating Smart Draft Records',
-      imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center',
+      buttonText: 'Import Chat',
+      illustrationUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center',
     );
   }
 
@@ -492,7 +493,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       backgroundColor: Colors.transparent,
       builder: (context) => VerificationDialog(
         sdr: sdr,
-        onVerify: (code) => _processVerification(sdr, 'Manual Code', code),
+        onVerify: (mpesaCode, bankCode) => _processVerification(sdr, 'Manual Code', mpesaCode),
       ),
     );
   }
@@ -504,7 +505,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       backgroundColor: Colors.transparent,
       builder: (context) => SMSSelectionModal(
         sdr: sdr,
-        onSelect: (sms) => _processVerification(sdr, 'SMS', sms),
+        onSelect: (proof) => _verifyWithProof(sdr, proof),
       ),
     );
   }
@@ -522,7 +523,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         source: source,
         amount: sdr.amount,
         date: DateTime.now(),
-        sender: sdr.maskedPhone,
+        sender: sdr.maskedPhone ?? 'Unknown',
         receiver: 'SME-001',
       );
       
