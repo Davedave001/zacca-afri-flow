@@ -43,9 +43,9 @@ class _CustomBottomBarState extends State<CustomBottomBar>
 
   final List<_BottomBarItem> _items = [
     _BottomBarItem(
-      icon: Icons.dashboard_outlined,
-      activeIcon: Icons.dashboard,
-      label: 'Dashboard',
+      icon: Icons.home_outlined,
+      activeIcon: Icons.home,
+      label: 'Home',
       route: '/dashboard',
     ),
     _BottomBarItem(

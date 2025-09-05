@@ -25,6 +25,97 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
   DateTime _lastSyncTime = DateTime.now().subtract(Duration(minutes: 5));
   List<Map<String, dynamic>> _recentActivities = [];
 
+  // M-Pesa style service categories
+  final List<Map<String, dynamic>> _serviceCategories = [
+    {
+      "title": "Financial Services",
+      "services": [
+        {
+          "name": "Financial Companion",
+          "icon": Icons.account_balance_wallet,
+          "color": Colors.green,
+          "route": "/financial-companion",
+        },
+        {
+          "name": "Loan Offers",
+          "icon": Icons.account_balance,
+          "color": Colors.blue,
+          "route": "/loan-offers-screen",
+        },
+        {
+          "name": "Business Analytics",
+          "icon": Icons.trending_up,
+          "color": Colors.purple,
+          "route": "/business-analytics-dashboard",
+        },
+        {
+          "name": "M-PESA Balance",
+          "icon": Icons.phone_android,
+          "color": Colors.green,
+          "route": "/financial-companion",
+        },
+      ],
+    },
+    {
+      "title": "Business Tools",
+      "services": [
+        {
+          "name": "WhatsApp Import",
+          "icon": Icons.chat_bubble,
+          "color": Colors.green,
+          "route": "/whats-app-import-screen",
+        },
+        {
+          "name": "Smart Drafts",
+          "icon": Icons.inbox,
+          "color": Colors.orange,
+          "route": "/smart-draft-inbox",
+        },
+        {
+          "name": "SDR Vault",
+          "icon": Icons.folder,
+          "color": Colors.blue,
+          "route": "/sdr-vault",
+        },
+        {
+          "name": "Invoice Generator",
+          "icon": Icons.receipt,
+          "color": Colors.red,
+          "route": "/financial-companion",
+        },
+      ],
+    },
+    {
+      "title": "Quick Actions",
+      "services": [
+        {
+          "name": "Send Money",
+          "icon": Icons.send,
+          "color": Colors.green,
+          "route": "/financial-companion",
+        },
+        {
+          "name": "Pay Bills",
+          "icon": Icons.payment,
+          "color": Colors.blue,
+          "route": "/financial-companion",
+        },
+        {
+          "name": "Buy Airtime",
+          "icon": Icons.phone,
+          "color": Colors.orange,
+          "route": "/financial-companion",
+        },
+        {
+          "name": "Withdraw Cash",
+          "icon": Icons.account_balance_wallet,
+          "color": Colors.red,
+          "route": "/financial-companion",
+        },
+      ],
+    },
+  ];
+
   // Mock data for business metrics
   final List<Map<String, dynamic>> _mockMetrics = [
     {
@@ -85,29 +176,6 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       "description": "For Mary Wanjiku - Service delivery",
       "amount": "KES 12,000",
       "time": "6h ago",
-    },
-  ];
-
-  final List<Map<String, dynamic>> _quickActions = [
-    {
-      "title": "Import WhatsApp Chat",
-      "icon": "chat",
-      "route": "/whats-app-import-screen",
-    },
-    {
-      "title": "Record Audio Transaction",
-      "icon": "mic",
-      "route": "/whats-app-import-screen",
-    },
-    {
-      "title": "Create Invoice",
-      "icon": "receipt",
-      "route": "/smart-draft-inbox",
-    },
-    {
-      "title": "View Loan Offers",
-      "icon": "account_balance",
-      "route": "/loan-offers-screen",
     },
   ];
 
@@ -283,6 +351,99 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     );
   }
 
+  Widget _buildServiceCategory(Map<String, dynamic> category) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 3.h),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Category Header
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  category['title'],
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                        fontWeight: FontWeight.w600,
+                      ),
+                ),
+                Text(
+                  'View all',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: Colors.green,
+                        fontWeight: FontWeight.w500,
+                      ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 1.h),
+          
+          // Services Grid
+          Container(
+            height: 20.h,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.only(left: 4.w),
+              itemCount: category['services'].length,
+              itemBuilder: (context, index) {
+                final service = category['services'][index];
+                return Container(
+                  width: 20.w,
+                  margin: EdgeInsets.only(right: 4.w),
+                  child: Column(
+                    children: [
+                      // Service Icon
+                      GestureDetector(
+                        onTap: () {
+                          HapticFeedback.selectionClick();
+                          Navigator.pushNamed(context, service['route']);
+                        },
+                        child: Container(
+                          width: 15.w,
+                          height: 15.w,
+                          decoration: BoxDecoration(
+                            color: service['color'].withValues(alpha: 0.1),
+                            borderRadius: BorderRadius.circular(15.w / 2),
+                            border: Border.all(
+                              color: service['color'].withValues(alpha: 0.3),
+                              width: 1,
+                            ),
+                          ),
+                          child: Icon(
+                            service['icon'],
+                            color: service['color'],
+                            size: 7.w,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 1.h),
+                      
+                      // Service Name
+                      Text(
+                        service['name'],
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                              fontWeight: FontWeight.w500,
+                            ),
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -360,44 +521,8 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 ),
               ),
 
-              // Quick Actions
-              SizedBox(height: 3.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: Text(
-                  'Quick Actions',
-                  style: theme.textTheme.titleMedium?.copyWith(
-                    color: colorScheme.onSurface,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              SizedBox(height: 1.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 4.w),
-                child: GridView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 3.w,
-                    mainAxisSpacing: 2.h,
-                    childAspectRatio: 1.2,
-                  ),
-                  itemCount: _quickActions.length,
-                  itemBuilder: (context, index) {
-                    final action = _quickActions[index];
-                    return QuickActionWidget(
-                      title: action['title'] as String,
-                      iconName: action['icon'] as String,
-                      onTap: () {
-                        HapticFeedback.selectionClick();
-                        Navigator.pushNamed(context, action['route'] as String);
-                      },
-                    );
-                  },
-                ),
-              ),
+              // Service Categories (M-Pesa style)
+              ..._serviceCategories.map((category) => _buildServiceCategory(category)).toList(),
 
               // Recent Activity
               SizedBox(height: 3.h),

@@ -11,7 +11,7 @@ class AppRoutes {
   // TODO: Add your routes here
   static const String initial = '/';
   static const String smartDraftInbox = '/smart-draft-inbox';
-  static const String dashboard = '/dashboard';
+  static const String home = '/dashboard';
   static const String loanOffers = '/loan-offers-screen';
   static const String businessAnalyticsDashboard =
       '/business-analytics-dashboard';
@@ -22,7 +22,7 @@ class AppRoutes {
   static Map<String, WidgetBuilder> routes = {
     initial: (context) => const SmartDraftInbox(),
     smartDraftInbox: (context) => const SmartDraftInbox(),
-    dashboard: (context) => const Dashboard(),
+    home: (context) => const Dashboard(),
     loanOffers: (context) => const LoanOffersScreen(),
     businessAnalyticsDashboard: (context) => const BusinessAnalyticsDashboard(),
     sdrVault: (context) => const SdrVault(),
