@@ -295,7 +295,7 @@ class _AdvancedFilterPanelState extends State<AdvancedFilterPanel> {
 
   Widget _buildContactSelector(ThemeData theme, ColorScheme colorScheme) {
     return DropdownButtonFormField<String>(
-      value: _selectedContact,
+      initialValue: _selectedContact,
       decoration: InputDecoration(
         hintText: 'Select contact',
         border: OutlineInputBorder(

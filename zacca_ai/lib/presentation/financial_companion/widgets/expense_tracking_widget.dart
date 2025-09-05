@@ -153,12 +153,12 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButton<String>(
-            initialValue: value,
+            value: value,
             isExpanded: true,
             underline: const SizedBox(),
             items: items.map((String item) {
               return DropdownMenuItem<String>(
-                initialValue: item,
+                value: item,
                 child: Text(item),
               );
             }).toList(),
@@ -532,14 +532,14 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      initialValue: _selectedCategory,
+                      value: _selectedCategory,
                       decoration: const InputDecoration(
                         labelText: 'Category',
                         border: OutlineInputBorder(),
                       ),
                       items: ['Office', 'Technology', 'Meals', 'Travel', 'Marketing', 'Utilities', 'Insurance', 'Other']
-                          .map((category) => DropdownMenuItem(
-                                initialValue: category,
+                          .map<String, DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
+                                value: category,
                                 child: Text(category),
                               ))
                           .toList(),
@@ -553,14 +553,14 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      initialValue: _selectedCurrency,
+                      value: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map((currency) => DropdownMenuItem(
-                                initialValue: currency,
+                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                                value: currency,
                                 child: Text(currency),
                               ))
                           .toList(),

@@ -171,12 +171,12 @@ class _InvoiceQuoteWidgetState extends State<InvoiceQuoteWidget> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButton<String>(
-            initialValue: value,
+            value: value,
             isExpanded: true,
             underline: const SizedBox(),
             items: items.map((String item) {
               return DropdownMenuItem<String>(
-                initialValue: item,
+                value: item,
                 child: Text(item),
               );
             }).toList(),
@@ -585,14 +585,14 @@ class _CreateInvoiceDialogState extends State<CreateInvoiceDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      initialValue: _selectedCurrency,
+                      value: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map((currency) => DropdownMenuItem(
-                                initialValue: currency,
+                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                                value: currency,
                                 child: Text(currency),
                               ))
                           .toList(),
@@ -712,14 +712,14 @@ class _CreateQuoteDialogState extends State<CreateQuoteDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      initialValue: _selectedCurrency,
+                      value: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
-                          .map((currency) => DropdownMenuItem(
-                                initialValue: currency,
+                          .map<String, DropdownMenuItem<String>>((currency) => DropdownMenuItem<String>(
+                                value: currency,
                                 child: Text(currency),
                               ))
                           .toList(),

@@ -176,12 +176,12 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButton<String>(
-            initialValue: value,
+            value: value,
             isExpanded: true,
             underline: const SizedBox(),
             items: items.map((String item) {
               return DropdownMenuItem<String>(
-                initialValue: item,
+                value: item,
                 child: Text(item),
               );
             }).toList(),
@@ -431,7 +431,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
                 ),
                 const SizedBox(height: 4),
                 LinearProgressIndicator(
-                  initialValue: utilizationRate > 100 ? 1.0 : utilizationRate / 100,
+                  value: utilizationRate > 100 ? 1.0 : utilizationRate / 100,
                   backgroundColor: Colors.grey[200],
                   valueColor: AlwaysStoppedAnimation<Color>(
                     isOverBudget ? Colors.red : 
@@ -597,14 +597,14 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    initialValue: _selectedCategory,
+                    value: _selectedCategory,
                     decoration: const InputDecoration(
                       labelText: 'Category',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Operating', 'Marketing', 'Technology', 'Sales', 'Other']
-                        .map((category) => DropdownMenuItem(
-                              initialValue: category,
+                        .map<String, DropdownMenuItem<String>>((category) => DropdownMenuItem<String>(
+                              value: category,
                               child: Text(category),
                             ))
                         .toList(),
@@ -618,14 +618,14 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    initialValue: _selectedPeriod,
+                    value: _selectedPeriod,
                     decoration: const InputDecoration(
                       labelText: 'Period',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', '2024 Annual']
-                        .map((period) => DropdownMenuItem(
-                              initialValue: period,
+                        .map<String, DropdownMenuItem<String>>((period) => DropdownMenuItem<String>(
+                              value: period,
                               child: Text(period),
                             ))
                         .toList(),
