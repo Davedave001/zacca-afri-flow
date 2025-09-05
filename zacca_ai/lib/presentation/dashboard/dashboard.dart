@@ -5,6 +5,7 @@ import 'package:sizer/sizer.dart';
 import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
+import '../../widgets/promotional_slideshow_widget.dart';
 import './widgets/business_health_score_widget.dart';
 import './widgets/metric_card_widget.dart';
 import './widgets/recent_activity_widget.dart';
@@ -175,6 +176,34 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
       "description": "For Mary Wanjiku - Service delivery",
       "amount": "KES 12,000",
       "time": "6h ago",
+    },
+  ];
+
+  // Promotional slideshow data
+  final List<Map<String, dynamic>> _promotionalSlides = [
+    {
+      "type": "loan_offer",
+      "title": "LOAN OFFER",
+      "message": "Get up to KES 500,000 instantly",
+      "subtitle": "Apply now with 0% interest for 30 days",
+    },
+    {
+      "type": "stock_alert",
+      "title": "STOCK ALERT",
+      "message": "Safaricom shares up 5.2% today",
+      "subtitle": "Track your portfolio performance",
+    },
+    {
+      "type": "payment_alert",
+      "title": "PAYMENT ALERT",
+      "message": "Invoice #INV-001 payment received",
+      "subtitle": "KES 15,000 from John Kamau",
+    },
+    {
+      "type": "promotional",
+      "title": "SPECIAL OFFER",
+      "message": "Get 20% off on all business tools",
+      "subtitle": "Limited time offer - Act now!",
     },
   ];
 
@@ -478,6 +507,13 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 trend: 'up',
                 onTap: () =>
                     _showMetricDetails('Business Health Score', '78.5%'),
+              ),
+
+              // Promotional Slideshow
+              SizedBox(height: 2.h),
+              PromotionalSlideshowWidget(
+                slides: _promotionalSlides,
+                height: 15.h,
               ),
 
               // Key Metrics Cards
