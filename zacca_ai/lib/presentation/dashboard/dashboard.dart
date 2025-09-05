@@ -6,6 +6,7 @@ import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import '../../widgets/promotional_slideshow_widget.dart';
+import '../../widgets/integrated_wallet_health_widget.dart';
 import './widgets/business_health_score_widget.dart';
 import './widgets/metric_card_widget.dart';
 import './widgets/recent_activity_widget.dart';
@@ -269,6 +270,121 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
     );
   }
 
+  void _showWalletAction(String action) {
+    HapticFeedback.mediumImpact();
+    
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.all(4.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Center(
+              child: Container(
+                width: 12.w,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .outline
+                      .withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            SizedBox(height: 3.h),
+            Icon(
+              _getWalletActionIcon(action),
+              size: 15.w,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              action,
+              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+            SizedBox(height: 1.h),
+            Text(
+              _getWalletActionDescription(action),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 3.h),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  // Navigate to specific wallet action
+                  _navigateToWalletAction(action);
+                },
+                child: Text('Continue'),
+              ),
+            ),
+            SizedBox(height: 2.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  IconData _getWalletActionIcon(String action) {
+    switch (action) {
+      case 'Deposit':
+        return Icons.add;
+      case 'Overdraft':
+        return Icons.swap_horiz;
+      case 'MyCards':
+        return Icons.credit_card;
+      case 'Statement':
+        return Icons.description;
+      default:
+        return Icons.account_balance_wallet;
+    }
+  }
+
+  String _getWalletActionDescription(String action) {
+    switch (action) {
+      case 'Deposit':
+        return 'Add money to your Zacca wallet from your bank account or mobile money';
+      case 'Overdraft':
+        return 'Access overdraft facility for your business needs';
+      case 'MyCards':
+        return 'Manage your virtual and physical cards';
+      case 'Statement':
+        return 'View your transaction history and statements';
+      default:
+        return 'Manage your wallet';
+    }
+  }
+
+  void _navigateToWalletAction(String action) {
+    // Navigate to specific wallet functionality
+    switch (action) {
+      case 'Deposit':
+        Navigator.pushNamed(context, '/financial-companion');
+        break;
+      case 'Overdraft':
+        Navigator.pushNamed(context, '/loan-offers-screen');
+        break;
+      case 'MyCards':
+        Navigator.pushNamed(context, '/financial-companion');
+        break;
+      case 'Statement':
+        Navigator.pushNamed(context, '/business-analytics-dashboard');
+        break;
+    }
+  }
+
   void _showMetricDetails(String title, String value) {
     showModalBottomSheet(
       context: context,
@@ -501,12 +617,16 @@ class _DashboardState extends State<Dashboard> with TickerProviderStateMixin {
                 onRefresh: _onRefresh,
               ),
 
-              // Business Health Score
-              BusinessHealthScoreWidget(
-                score: 78.5,
+              // Integrated Wallet & Health Score
+              IntegratedWalletHealthWidget(
+                businessHealthScore: 78.5,
                 trend: 'up',
                 onTap: () =>
                     _showMetricDetails('Business Health Score', '78.5%'),
+                onDeposit: () => _showWalletAction('Deposit'),
+                onWithdraw: () => _showWalletAction('Overdraft'),
+                onSavings: () => _showWalletAction('MyCards'),
+                onStatement: () => _showWalletAction('Statement'),
               ),
 
               // Promotional Slideshow
