@@ -425,28 +425,37 @@ class _InventoryManagementWidgetState extends State<InventoryManagementWidget> {
             const SizedBox(height: 4),
             Row(
               children: [
-                Text(
-                  'Qty: ${item['quantity']}',
-                  style: TextStyle(
-                    color: isLowStock ? Colors.orange : Colors.grey[600],
-                    fontSize: 12,
-                    fontWeight: isLowStock ? FontWeight.w600 : FontWeight.normal,
+                Flexible(
+                  child: Text(
+                    'Qty: ${item['quantity']}',
+                    style: TextStyle(
+                      color: isLowStock ? Colors.orange : Colors.grey[600],
+                      fontSize: 12,
+                      fontWeight: isLowStock ? FontWeight.w600 : FontWeight.normal,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Text(
-                  'Min: ${item['minQuantity']}',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    'Min: ${item['minQuantity']}',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Text(
-                  'Location: ${item['location']}',
-                  style: TextStyle(
-                    color: Colors.grey[600],
-                    fontSize: 12,
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    'Location: ${item['location']}',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 12,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],

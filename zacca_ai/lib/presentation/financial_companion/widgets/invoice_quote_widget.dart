@@ -402,19 +402,23 @@ class _InvoiceQuoteWidgetState extends State<InvoiceQuoteWidget> {
             const SizedBox(height: 4),
             Row(
               children: [
-                Text(
-                  'Due: ${invoice['dueDate']}',
-                  style: TextStyle(
-                    color: isOverdue ? Colors.red : Colors.grey[600],
-                    fontSize: 12,
-                    fontWeight: isOverdue ? FontWeight.w600 : FontWeight.normal,
+                Flexible(
+                  child: Text(
+                    'Due: ${invoice['dueDate']}',
+                    style: TextStyle(
+                      color: isOverdue ? Colors.red : Colors.grey[600],
+                      fontSize: 12,
+                      fontWeight: isOverdue ? FontWeight.w600 : FontWeight.normal,
+                    ),
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                const SizedBox(width: 16),
-                Text(
-                  '${invoice['items'].length} items',
-                  style: TextStyle(
-                    color: Colors.grey[600],
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(
+                    '${invoice['items'].length} items',
+                    style: TextStyle(
+                      color: Colors.grey[600],
                     fontSize: 12,
                   ),
                 ),
