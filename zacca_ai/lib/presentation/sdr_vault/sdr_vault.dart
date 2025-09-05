@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/app_export.dart';
@@ -10,7 +9,6 @@ import '../../data/sample_data.dart';
 import './widgets/advanced_filter_panel.dart';
 import './widgets/export_options_sheet.dart';
 import './widgets/search_bar_widget.dart';
-import './widgets/vault_summary_cards.dart';
 import './widgets/confirmed_sdr_card.dart';
 import './widgets/sales_chart_widget.dart';
 
@@ -39,7 +37,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       appBar: CustomAppBar(
         title: 'SDR Vault',
         actions: [
@@ -47,25 +45,25 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
             onPressed: _toggleSearch,
             icon: Icon(
               _isSearchVisible ? Icons.close : Icons.search,
-              color: colorScheme.onBackground,
+              color: colorScheme.onSurface,
             ),
           ),
           IconButton(
             onPressed: _toggleFilter,
             icon: Icon(
               _isFilterExpanded ? Icons.filter_list_off : Icons.filter_list,
-              color: colorScheme.onBackground,
+              color: colorScheme.onSurface,
             ),
           ),
           if (_isMultiSelectMode)
             IconButton(
               onPressed: _toggleMultiSelectMode,
-              icon: Icon(Icons.close, color: colorScheme.onBackground),
+              icon: Icon(Icons.close, color: colorScheme.onSurface),
             )
           else
             IconButton(
               onPressed: _toggleMultiSelectMode,
-              icon: Icon(Icons.checklist, color: colorScheme.onBackground),
+              icon: Icon(Icons.checklist, color: colorScheme.onSurface),
             ),
         ],
       ),
@@ -123,7 +121,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
                     'Verified Business Records',
                     style: theme.textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: colorScheme.onBackground,
+                      color: colorScheme.onSurface,
                     ),
                   ),
                   Spacer(),
@@ -169,7 +167,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
         color: colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: colorScheme.outline.withOpacity(0.2),
+            color: colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -240,23 +238,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     });
   }
 
-  Future<void> _refreshData() async {
-    setState(() {
-      // Refresh logic here
-    });
-  }
-
-  void _exportTransactionPdf(Map<String, dynamic> transaction) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Exporting transaction as PDF...')),
-    );
-  }
-
-  void _shareTransaction(Map<String, dynamic> transaction) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Sharing transaction...')),
-    );
-  }
 
   void _exportAllPdf() {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -411,7 +392,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
               height: 0.5.h,
               margin: EdgeInsets.symmetric(vertical: 1.h),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.outline.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -463,7 +444,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
       leading: Container(
         padding: EdgeInsets.all(2.w),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.primary.withOpacity(0.1),
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(

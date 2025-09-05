@@ -74,7 +74,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       filtered = filtered.where((sdr) {
         return sdr.product.toLowerCase().contains(_searchQuery.toLowerCase()) ||
                sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.maskedPhone?.contains(_searchQuery) ?? false;
+               (sdr.maskedPhone?.contains(_searchQuery) ?? false);
       }).toList();
     }
 
@@ -114,33 +114,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     });
   }
 
-  void _approveTransaction(String transactionId) {
-    setState(() {
-      _draftSDRs.removeWhere((sdr) => sdr.id == transactionId);
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Transaction approved successfully'),
-        backgroundColor: AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
-
-  void _rejectTransaction(String transactionId) {
-    setState(() {
-      _draftSDRs.removeWhere((sdr) => sdr.id == transactionId);
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Transaction rejected'),
-        backgroundColor: AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
 
   void _bulkApprove() {
     setState(() {
@@ -215,19 +188,19 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.surface,
       appBar: CustomAppBar(
         title: 'Smart Draft Inbox',
         actions: [
           if (_isBulkSelectionMode)
             IconButton(
               onPressed: _toggleBulkSelection,
-              icon: Icon(Icons.close, color: colorScheme.onBackground),
+              icon: Icon(Icons.close, color: colorScheme.onSurface),
             )
           else
             IconButton(
               onPressed: _toggleBulkSelection,
-              icon: Icon(Icons.checklist, color: colorScheme.onBackground),
+              icon: Icon(Icons.checklist, color: colorScheme.onSurface),
             ),
         ],
       ),
@@ -365,64 +338,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     );
   }
 
-  Widget _buildDetailSection(String title, List<Widget> children) {
-    final theme = Theme.of(context);
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: theme.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        SizedBox(height: 1.h),
-        ...children,
-        SizedBox(height: 2.h),
-      ],
-    );
-  }
-
-  Widget _buildDetailRow(String label, String value) {
-    final theme = Theme.of(context);
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 0.5.h),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 30.w,
-            child: Text(
-              label,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              value,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Color _getConfidenceColor(double score) {
-    if (score >= 0.8) {
-      return AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light);
-    } else if (score >= 0.6) {
-      return AppTheme.getWarningColor(Theme.of(context).brightness == Brightness.light);
-    } else {
-      return AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light);
-    }
-  }
 
   // SDR Methods
   void _onSearchChanged(String query) {
