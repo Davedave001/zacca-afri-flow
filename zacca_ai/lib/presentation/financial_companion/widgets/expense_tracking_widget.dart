@@ -142,7 +142,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
           style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w600,
-            color: Colors.grey[700],
+            color: Colors.white, // White text for menu titles
           ),
         ),
         const SizedBox(height: 4),

@@ -16,7 +16,7 @@ class TaxManagementWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
-              color: Colors.grey[800],
+              color: Colors.white, // White text for header
             ),
           ),
           const SizedBox(height: 8),
@@ -24,7 +24,7 @@ class TaxManagementWidget extends StatelessWidget {
             'Comprehensive tax management including GST, VAT, and compliance reporting',
             style: TextStyle(
               fontSize: 16,
-              color: Colors.grey[600],
+              color: Colors.white, // White text for accompanying text
             ),
           ),
           

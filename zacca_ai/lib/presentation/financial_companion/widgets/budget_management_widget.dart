@@ -316,7 +316,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: Colors.white, // White text for header
           ),
         ),
         const SizedBox(height: 12),

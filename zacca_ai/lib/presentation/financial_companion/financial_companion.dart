@@ -103,8 +103,8 @@ class _FinancialCompanionState extends State<FinancialCompanion>
               controller: _tabController,
               isScrollable: true,
               indicatorColor: AppTheme.primaryLight,
-              labelColor: AppTheme.primaryLight,
-              unselectedLabelColor: Colors.grey[600],
+              labelColor: Colors.white, // White text for selected tabs
+              unselectedLabelColor: Colors.grey[300], // Light grey for unselected tabs
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
@@ -300,7 +300,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
       style: const TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.bold,
-        color: Colors.black87,
+        color: Colors.white, // White text for section headers
       ),
     );
   }
@@ -361,6 +361,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
                       style: const TextStyle(
                         fontSize: 14,
                         fontWeight: FontWeight.w600,
+                        color: Colors.black, // Black text for action buttons
                       ),
                     ),
                   ],
