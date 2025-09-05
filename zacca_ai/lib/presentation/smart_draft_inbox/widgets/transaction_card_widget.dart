@@ -30,6 +30,7 @@ class TransactionCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
     final confidenceScore = (transaction['confidenceScore'] as double?) ?? 0.0;
     final amount = transaction['amount'] as String? ?? '0';
     final contact = transaction['contact'] as String? ?? 'Unknown';

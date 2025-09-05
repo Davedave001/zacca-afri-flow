@@ -24,6 +24,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   bool _isMultiSelectMode = false;
   String _searchQuery = '';
   final Set<int> _selectedTransactions = {};
+  Map<String, dynamic>? _contextMenuTransaction;
   OverlayEntry? _contextMenuOverlay;
 
   // Mock transaction data
