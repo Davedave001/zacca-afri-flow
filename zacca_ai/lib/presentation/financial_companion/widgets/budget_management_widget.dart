@@ -98,7 +98,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
             icon: const Icon(Icons.add),
             label: const Text('Create Budget'),
             style: ElevatedButton.styleFrom(
-              backgroundColor: AppTheme.primaryColor,
+              backgroundColor: AppTheme.primaryLight,
               foregroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(vertical: 16),
               shape: RoundedRectangleBorder(
@@ -176,12 +176,12 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButton<String>(
-            value: value,
+            initialValue: value,
             isExpanded: true,
             underline: const SizedBox(),
             items: items.map((String item) {
               return DropdownMenuItem<String>(
-                value: item,
+                initialValue: item,
                 child: Text(item),
               );
             }).toList(),
@@ -266,7 +266,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: textColor.withOpacity(0.2)),
+        border: Border.all(color: textColor.withValues(alpha:0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -345,7 +345,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha:0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -356,7 +356,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
         leading: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: _getCategoryColor(budget['category']).withOpacity(0.1),
+            color: _getCategoryColor(budget['category']).withValues(alpha:0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
@@ -379,7 +379,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               decoration: BoxDecoration(
-                color: statusColor.withOpacity(0.1),
+                color: statusColor.withValues(alpha:0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Text(
@@ -431,7 +431,7 @@ class _BudgetManagementWidgetState extends State<BudgetManagementWidget> {
                 ),
                 const SizedBox(height: 4),
                 LinearProgressIndicator(
-                  value: utilizationRate > 100 ? 1.0 : utilizationRate / 100,
+                  initialValue: utilizationRate > 100 ? 1.0 : utilizationRate / 100,
                   backgroundColor: Colors.grey[200],
                   valueColor: AlwaysStoppedAnimation<Color>(
                     isOverBudget ? Colors.red : 
@@ -597,14 +597,14 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedCategory,
+                    initialValue: _selectedCategory,
                     decoration: const InputDecoration(
                       labelText: 'Category',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Operating', 'Marketing', 'Technology', 'Sales', 'Other']
                         .map((category) => DropdownMenuItem(
-                              value: category,
+                              initialValue: category,
                               child: Text(category),
                             ))
                         .toList(),
@@ -618,14 +618,14 @@ class _CreateBudgetDialogState extends State<CreateBudgetDialog> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _selectedPeriod,
+                    initialValue: _selectedPeriod,
                     decoration: const InputDecoration(
                       labelText: 'Period',
                       border: OutlineInputBorder(),
                     ),
                     items: ['Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', '2024 Annual']
                         .map((period) => DropdownMenuItem(
-                              value: period,
+                              initialValue: period,
                               child: Text(period),
                             ))
                         .toList(),

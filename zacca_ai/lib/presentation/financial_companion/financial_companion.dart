@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
@@ -66,7 +65,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppTheme.backgroundColor,
+      backgroundColor: AppTheme.backgroundLight,
       appBar: CustomAppBar(
         title: 'Financial Companion',
         actions: [
@@ -95,7 +94,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
               color: Colors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 2),
                 ),
@@ -104,8 +103,8 @@ class _FinancialCompanionState extends State<FinancialCompanion>
             child: TabBar(
               controller: _tabController,
               isScrollable: true,
-              indicatorColor: AppTheme.primaryColor,
-              labelColor: AppTheme.primaryColor,
+              indicatorColor: AppTheme.primaryLight,
+              labelColor: AppTheme.primaryLight,
               unselectedLabelColor: Colors.grey[600],
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w600,
@@ -214,7 +213,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -333,7 +332,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -389,7 +388,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -451,7 +450,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -571,7 +570,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),

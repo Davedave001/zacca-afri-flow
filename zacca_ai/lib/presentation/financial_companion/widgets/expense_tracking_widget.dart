@@ -93,7 +93,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
         icon: const Icon(Icons.add),
         label: const Text('Add New Expense'),
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppTheme.primaryColor,
+          backgroundColor: AppTheme.primaryLight,
           foregroundColor: Colors.white,
           padding: const EdgeInsets.symmetric(vertical: 16),
           shape: RoundedRectangleBorder(
@@ -153,12 +153,12 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
             borderRadius: BorderRadius.circular(8),
           ),
           child: DropdownButton<String>(
-            value: value,
+            initialValue: value,
             isExpanded: true,
             underline: const SizedBox(),
             items: items.map((String item) {
               return DropdownMenuItem<String>(
-                value: item,
+                initialValue: item,
                 child: Text(item),
               );
             }).toList(),
@@ -213,7 +213,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: textColor.withOpacity(0.2)),
+        border: Border.all(color: textColor.withValues(alpha:0.2)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -290,7 +290,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha:0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -301,7 +301,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
         leading: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: _getCategoryColor(expense['category']).withOpacity(0.1),
+            color: _getCategoryColor(expense['category']).withValues(alpha:0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
@@ -334,7 +334,7 @@ class _ExpenseTrackingWidgetState extends State<ExpenseTrackingWidget> {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: statusColor.withOpacity(0.1),
+                    color: statusColor.withValues(alpha:0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
@@ -532,14 +532,14 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                 children: [
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCategory,
+                      initialValue: _selectedCategory,
                       decoration: const InputDecoration(
                         labelText: 'Category',
                         border: OutlineInputBorder(),
                       ),
                       items: ['Office', 'Technology', 'Meals', 'Travel', 'Marketing', 'Utilities', 'Insurance', 'Other']
                           .map((category) => DropdownMenuItem(
-                                value: category,
+                                initialValue: category,
                                 child: Text(category),
                               ))
                           .toList(),
@@ -553,14 +553,14 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                   const SizedBox(width: 16),
                   Expanded(
                     child: DropdownButtonFormField<String>(
-                      value: _selectedCurrency,
+                      initialValue: _selectedCurrency,
                       decoration: const InputDecoration(
                         labelText: 'Currency',
                         border: OutlineInputBorder(),
                       ),
                       items: ['USD', 'EUR', 'GBP', 'CAD', 'AUD']
                           .map((currency) => DropdownMenuItem(
-                                value: currency,
+                                initialValue: currency,
                                 child: Text(currency),
                               ))
                           .toList(),
