@@ -40,124 +40,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   // SDR data
   List<SDRModel> _draftSDRs = SampleData.draftSDRs;
 
-  // Mock data
-  final List<Map<String, dynamic>> _mockTransactions = [
-    {
-      "id": "sdr_001",
-      "contact": "John Mwangi",
-      "amount": "15,000",
-      "summary":
-          "Payment received for website development project. Client confirmed completion of Phase 1 deliverables.",
-      "confidenceScore": 0.95,
-      "timestamp": DateTime.now().subtract(Duration(hours: 2)),
-      "status": "pending",
-      "type": "income",
-      "category": "Services",
-      "extractedEntities": {
-        "amount": "KES 15,000",
-        "contact": "John Mwangi",
-        "service": "Website development",
-        "phase": "Phase 1"
-      }
-    },
-    {
-      "id": "sdr_002",
-      "contact": "Grace Wanjiku",
-      "amount": "8,500",
-      "summary":
-          "Inventory purchase - office supplies and stationery for Q1 operations.",
-      "confidenceScore": 0.78,
-      "timestamp": DateTime.now().subtract(Duration(hours: 5)),
-      "status": "pending",
-      "type": "expense",
-      "category": "Office Supplies",
-      "extractedEntities": {
-        "amount": "KES 8,500",
-        "contact": "Grace Wanjiku",
-        "category": "Office supplies",
-        "period": "Q1"
-      }
-    },
-    {
-      "id": "sdr_003",
-      "contact": "David Kiprotich",
-      "amount": "25,000",
-      "summary":
-          "Monthly retainer payment for digital marketing services. Campaign performance exceeded targets.",
-      "confidenceScore": 0.92,
-      "timestamp": DateTime.now().subtract(Duration(days: 1, hours: 3)),
-      "status": "approved",
-      "type": "income",
-      "category": "Marketing",
-      "extractedEntities": {
-        "amount": "KES 25,000",
-        "contact": "David Kiprotich",
-        "service": "Digital marketing",
-        "frequency": "Monthly"
-      }
-    },
-    {
-      "id": "sdr_004",
-      "contact": "Sarah Njeri",
-      "amount": "3,200",
-      "summary": "Transport reimbursement for client meetings in Nairobi CBD.",
-      "confidenceScore": 0.65,
-      "timestamp": DateTime.now().subtract(Duration(days: 1, hours: 8)),
-      "status": "rejected",
-      "type": "expense",
-      "category": "Transport",
-      "extractedEntities": {
-        "amount": "KES 3,200",
-        "contact": "Sarah Njeri",
-        "purpose": "Client meetings",
-        "location": "Nairobi CBD"
-      }
-    },
-    {
-      "id": "sdr_005",
-      "contact": "Michael Ochieng",
-      "amount": "12,000",
-      "summary":
-          "Equipment rental for photography session. Invoice includes setup and breakdown services.",
-      "confidenceScore": 0.88,
-      "timestamp": DateTime.now().subtract(Duration(days: 2, hours: 1)),
-      "status": "pending",
-      "type": "expense",
-      "category": "Equipment",
-      "extractedEntities": {
-        "amount": "KES 12,000",
-        "contact": "Michael Ochieng",
-        "service": "Equipment rental",
-        "type": "Photography"
-      }
-    },
-    {
-      "id": "sdr_006",
-      "contact": "Lucy Akinyi",
-      "amount": "45,000",
-      "summary":
-          "Consulting fee for business strategy development. Includes market analysis and growth recommendations.",
-      "confidenceScore": 0.97,
-      "timestamp": DateTime.now().subtract(Duration(days: 3, hours: 4)),
-      "status": "approved",
-      "type": "income",
-      "category": "Consulting",
-      "extractedEntities": {
-        "amount": "KES 45,000",
-        "contact": "Lucy Akinyi",
-        "service": "Business strategy",
-        "deliverables": "Market analysis, Growth recommendations"
-      }
-    }
-  ];
-
-  final List<String> _filters = [
-    'All',
-    'Pending Review',
-    'Approved',
-    'Rejected'
-  ];
-
   @override
   void initState() {
     super.initState();
@@ -172,9 +54,9 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
 
   Future<void> _loadTransactions() async {
     setState(() => _isLoading = true);
-
-    // Simulate API call
-    await Future.delayed(Duration(milliseconds: 800));
+    
+    // Simulate loading delay
+    await Future.delayed(Duration(seconds: 1));
 
     setState(() => _isLoading = false);
   }
@@ -184,30 +66,21 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     await _loadTransactions();
   }
 
-  List<Map<String, dynamic>> get _filteredTransactions {
-    List<Map<String, dynamic>> filtered = _mockTransactions;
+  List<SDRModel> get _filteredSDRs {
+    List<SDRModel> filtered = _draftSDRs;
 
-    // Apply filter
-    if (_selectedFilter != 'All') {
-      String statusFilter = _selectedFilter.toLowerCase().replaceAll(' ', '');
-      if (statusFilter == 'pendingreview') statusFilter = 'pending';
-      filtered = filtered
-          .where((t) => (t['status'] as String).toLowerCase() == statusFilter)
-          .toList();
+    // Apply search filter
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((sdr) {
+        return sdr.product.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.maskedPhone.contains(_searchQuery);
+      }).toList();
     }
 
-    // Apply search
-    if (_searchQuery.isNotEmpty) {
-      filtered = filtered.where((t) {
-        final contact = (t['contact'] as String).toLowerCase();
-        final summary = (t['summary'] as String).toLowerCase();
-        final amount = (t['amount'] as String).toLowerCase();
-        final query = _searchQuery.toLowerCase();
-
-        return contact.contains(query) ||
-            summary.contains(query) ||
-            amount.contains(query);
-      }).toList();
+    // Apply status filter
+    if (_selectedFilter != 'All') {
+      filtered = filtered.where((sdr) => sdr.status == _selectedFilter).toList();
     }
 
     return filtered;
@@ -215,32 +88,11 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
 
   Map<String, int> get _filterCounts {
     return {
-      'All': _mockTransactions.length,
-      'Pending Review':
-          _mockTransactions.where((t) => t['status'] == 'pending').length,
-      'Approved':
-          _mockTransactions.where((t) => t['status'] == 'approved').length,
-      'Rejected':
-          _mockTransactions.where((t) => t['status'] == 'rejected').length,
+      'All': _draftSDRs.length,
+      'Pending Verification': _draftSDRs.where((sdr) => sdr.status == 'Pending Verification').length,
+      'Partial Payment': _draftSDRs.where((sdr) => sdr.status == 'Partial Payment').length,
+      'Paid': _draftSDRs.where((sdr) => sdr.status == 'Paid').length,
     };
-  }
-
-
-  void _toggleSearch() {
-    setState(() {
-      _isSearchExpanded = !_isSearchExpanded;
-      if (!_isSearchExpanded) {
-        _searchQuery = '';
-      }
-    });
-  }
-
-  void _onSearchChanged(String query) {
-    setState(() => _searchQuery = query);
-  }
-
-  void _onFilterChanged(String filter) {
-    setState(() => _selectedFilter = filter);
   }
 
   void _toggleBulkSelection() {
@@ -263,81 +115,60 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   }
 
   void _approveTransaction(String transactionId) {
-    HapticFeedback.lightImpact();
-    final transaction =
-        _mockTransactions.firstWhere((t) => t['id'] == transactionId);
     setState(() {
-      transaction['status'] = 'approved';
+      _draftSDRs.removeWhere((sdr) => sdr.id == transactionId);
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Transaction approved successfully'),
-        backgroundColor: AppTheme.getSuccessColor(
-            Theme.of(context).brightness == Brightness.light),
+        backgroundColor: AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
   void _rejectTransaction(String transactionId) {
-    HapticFeedback.lightImpact();
-    final transaction =
-        _mockTransactions.firstWhere((t) => t['id'] == transactionId);
     setState(() {
-      transaction['status'] = 'rejected';
+      _draftSDRs.removeWhere((sdr) => sdr.id == transactionId);
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Transaction rejected'),
-        backgroundColor: AppTheme.getWarningColor(
-            Theme.of(context).brightness == Brightness.light),
+        backgroundColor: AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
-
   void _bulkApprove() {
-    HapticFeedback.lightImpact();
     setState(() {
-      for (final id in _selectedTransactionIds) {
-        final transaction = _mockTransactions.firstWhere((t) => t['id'] == id);
-        transaction['status'] = 'approved';
-      }
+      _draftSDRs.removeWhere((sdr) => _selectedTransactionIds.contains(sdr.id));
       _selectedTransactionIds.clear();
       _isBulkSelectionMode = false;
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content:
-            Text('${_selectedTransactionIds.length} transactions approved'),
-        backgroundColor: AppTheme.getSuccessColor(
-            Theme.of(context).brightness == Brightness.light),
+        content: Text('${_selectedTransactionIds.length} transactions approved'),
+        backgroundColor: AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
   }
 
   void _bulkReject() {
-    HapticFeedback.lightImpact();
     setState(() {
-      for (final id in _selectedTransactionIds) {
-        final transaction = _mockTransactions.firstWhere((t) => t['id'] == id);
-        transaction['status'] = 'rejected';
-      }
+      _draftSDRs.removeWhere((sdr) => _selectedTransactionIds.contains(sdr.id));
       _selectedTransactionIds.clear();
       _isBulkSelectionMode = false;
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content:
-            Text('${_selectedTransactionIds.length} transactions rejected'),
-        backgroundColor: AppTheme.getWarningColor(
-            Theme.of(context).brightness == Brightness.light),
+        content: Text('${_selectedTransactionIds.length} transactions rejected'),
+        backgroundColor: AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -348,8 +179,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Delete Transactions'),
-        content: Text(
-            'Are you sure you want to delete ${_selectedTransactionIds.length} transactions? This action cannot be undone.'),
+        content: Text('Are you sure you want to delete ${_selectedTransactionIds.length} transactions? This action cannot be undone.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
@@ -357,20 +187,17 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
-              HapticFeedback.mediumImpact();
               setState(() {
-                _mockTransactions.removeWhere(
-                    (t) => _selectedTransactionIds.contains(t['id']));
+                _draftSDRs.removeWhere((sdr) => _selectedTransactionIds.contains(sdr.id));
                 _selectedTransactionIds.clear();
                 _isBulkSelectionMode = false;
               });
-
+              Navigator.pop(context);
+              
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
-                  content: Text('Transactions deleted'),
-                  backgroundColor: AppTheme.getErrorColor(
-                      Theme.of(context).brightness == Brightness.light),
+                  content: Text('Transactions deleted successfully'),
+                  backgroundColor: AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light),
                   behavior: SnackBarBehavior.floating,
                 ),
               );
@@ -388,173 +215,118 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     final colorScheme = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: colorScheme.surface,
+      backgroundColor: colorScheme.background,
       appBar: CustomAppBar(
         title: 'Smart Draft Inbox',
-        variant: CustomAppBarVariant.standard,
-        showNotificationBadge: _filterCounts['Pending Review']! > 0,
+        showBackButton: true,
         actions: [
-          if (!_isBulkSelectionMode)
+          if (_isBulkSelectionMode)
             IconButton(
-              icon: CustomIconWidget(
-                iconName: 'search',
-                color: colorScheme.onSurface,
-                size: 24,
-              ),
-              onPressed: _toggleSearch,
-            ),
-          if (_filteredTransactions.isNotEmpty && !_isBulkSelectionMode)
-            IconButton(
-              icon: CustomIconWidget(
-                iconName: 'checklist',
-                color: colorScheme.onSurface,
-                size: 24,
-              ),
               onPressed: _toggleBulkSelection,
+              icon: Icon(Icons.close, color: colorScheme.onBackground),
+            )
+          else
+            IconButton(
+              onPressed: _toggleBulkSelection,
+              icon: Icon(Icons.checklist, color: colorScheme.onBackground),
             ),
         ],
       ),
       body: Column(
         children: [
-          // Search Bar
-          SearchBarWidget(
-            isExpanded: _isSearchExpanded,
-            onToggle: _toggleSearch,
-            onChanged: _onSearchChanged,
-            hintText: 'Search by contact, amount, or keywords...',
+          // Search and Filter Bar
+          Container(
+            padding: EdgeInsets.all(4.w),
+            child: Column(
+              children: [
+                SearchBarWidget(
+                  isExpanded: _isSearchExpanded,
+                  onToggle: () => setState(() => _isSearchExpanded = !_isSearchExpanded),
+                  onSearchChanged: _onSearchChanged,
+                ),
+                SizedBox(height: 2.h),
+                FilterChipsWidget(
+                  selectedFilter: _selectedFilter,
+                  filterCounts: _filterCounts,
+                  onFilterChanged: _onFilterChanged,
+                ),
+              ],
+            ),
           ),
 
-          // Filter Chips
-          FilterChipsWidget(
-            filters: _filters,
-            selectedFilter: _selectedFilter,
-            onFilterChanged: _onFilterChanged,
-            filterCounts: _filterCounts,
-          ),
+          // Bulk Action Bar
+          if (_isBulkSelectionMode && _selectedTransactionIds.isNotEmpty)
+            BulkActionBarWidget(
+              selectedCount: _selectedTransactionIds.length,
+              onApprove: _bulkApprove,
+              onReject: _bulkReject,
+              onDelete: _bulkDelete,
+            ),
 
-          // Main Content
+          // Content
           Expanded(
             child: _isLoading
                 ? _buildLoadingState()
-                : _filteredTransactions.isEmpty
+                : _filteredSDRs.isEmpty
                     ? _buildEmptyState()
-                    : _buildTransactionsList(),
+                    : _buildSDRList(),
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _importWhatsAppChat,
-        backgroundColor: Color(0xFF08F5F8),
-        foregroundColor: Colors.white,
-        icon: Icon(Icons.chat),
+        icon: Icon(Icons.upload_file, color: Colors.white),
         label: Text('Import WhatsApp Chat'),
+        backgroundColor: AppTheme.getPrimaryColor(theme.brightness == Brightness.light),
+        foregroundColor: Colors.white,
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Bulk Action Bar
-          BulkActionBarWidget(
-            selectedCount: _selectedTransactionIds.length,
-            onApproveAll: _bulkApprove,
-            onRejectAll: _bulkReject,
-            onDeleteAll: _bulkDelete,
-            onCancel: _toggleBulkSelection,
-          ),
-
-          // Bottom Navigation
-          CustomBottomBar(
-            currentIndex: 2, // Inbox tab
-            variant: CustomBottomBarVariant.standard,
-          ),
-        ],
+      bottomNavigationBar: CustomBottomBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.pushNamed(context, AppRoutes.dashboard);
+          } else if (index == 2) {
+            Navigator.pushNamed(context, AppRoutes.sdrVault);
+          }
+        },
       ),
     );
   }
 
   Widget _buildLoadingState() {
     return ListView.builder(
-      padding: EdgeInsets.symmetric(vertical: 2.h),
       itemCount: 5,
       itemBuilder: (context, index) => _buildSkeletonCard(),
     );
   }
 
   Widget _buildSkeletonCard() {
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
       padding: EdgeInsets.all(4.w),
       decoration: BoxDecoration(
-        color: colorScheme.surface,
+        color: Colors.grey.shade300,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: colorScheme.outline.withValues(alpha: 0.2),
-          width: 1,
-        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 40.w,
-                      height: 2.h,
-                      decoration: BoxDecoration(
-                        color: colorScheme.outline.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                    SizedBox(height: 1.h),
-                    Container(
-                      width: 25.w,
-                      height: 1.5.h,
-                      decoration: BoxDecoration(
-                        color: colorScheme.outline.withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Container(
-                    width: 20.w,
-                    height: 2.h,
-                    decoration: BoxDecoration(
-                      color: colorScheme.outline.withValues(alpha: 0.2),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                  SizedBox(height: 1.h),
-                  Container(
-                    width: 15.w,
-                    height: 1.5.h,
-                    decoration: BoxDecoration(
-                      color: colorScheme.outline.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          SizedBox(height: 2.h),
           Container(
-            width: double.infinity,
-            height: 3.h,
-            decoration: BoxDecoration(
-              color: colorScheme.outline.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(4),
-            ),
+            height: 2.h,
+            width: 30.w,
+            color: Colors.grey.shade400,
+          ),
+          SizedBox(height: 1.h),
+          Container(
+            height: 1.5.h,
+            width: 60.w,
+            color: Colors.grey.shade400,
+          ),
+          SizedBox(height: 1.h),
+          Container(
+            height: 1.5.h,
+            width: 40.w,
+            color: Colors.grey.shade400,
           ),
         ],
       ),
@@ -563,255 +335,31 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
 
   Widget _buildEmptyState() {
     return EmptyStateWidget(
-      title: _searchQuery.isNotEmpty
-          ? 'No Results Found'
-          : _selectedFilter == 'All'
-              ? 'No Transactions Yet'
-              : 'No ${_selectedFilter} Transactions',
-      subtitle: _searchQuery.isNotEmpty
-          ? 'Try adjusting your search terms or filters to find what you\'re looking for.'
-          : _selectedFilter == 'All'
-              ? 'Import your first WhatsApp chat to start generating Smart Draft Records automatically.'
-              : 'No transactions match the selected filter. Try selecting a different filter.',
-      buttonText: _searchQuery.isNotEmpty || _selectedFilter != 'All'
-          ? 'Clear Filters'
-          : 'Import Your First Chat',
-      onButtonPressed: _searchQuery.isNotEmpty || _selectedFilter != 'All'
-          ? () {
-              setState(() {
-                _searchQuery = '';
-                _selectedFilter = 'All';
-                _isSearchExpanded = false;
-              });
-            }
-          : () => Navigator.pushNamed(context, '/whats-app-import-screen'),
-      illustrationUrl:
-          'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center',
+      title: 'No Draft SDRs Found',
+      subtitle: 'Import WhatsApp chats to start creating Smart Draft Records',
+      imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop&crop=center',
     );
   }
 
-  Widget _buildTransactionsList() {
-    final filteredSDRs = _getFilteredSDRs();
-
+  Widget _buildSDRList() {
     return RefreshIndicator(
       onRefresh: _refreshTransactions,
       child: ListView.builder(
         controller: _scrollController,
-        padding: EdgeInsets.all(4.w),
-        itemCount: filteredSDRs.length,
+        padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+        itemCount: _filteredSDRs.length,
         itemBuilder: (context, index) {
-          final sdr = filteredSDRs[index];
-          final isSelected = _selectedTransactionIds.contains(sdr.id);
-
+          final sdr = _filteredSDRs[index];
           return SDRCardWidget(
             sdr: sdr,
-            isSelected: _isBulkSelectionMode && isSelected,
+            isSelected: _selectedTransactionIds.contains(sdr.id),
+            onLongPress: () => _toggleTransactionSelection(sdr.id),
             onUploadScreenshot: () => _uploadScreenshot(sdr),
             onPasteCode: () => _pasteCode(sdr),
             onSelectSMS: () => _selectSMS(sdr),
             onDelete: () => _deleteSDR(sdr),
-            onLongPress: _isBulkSelectionMode
-                ? null
-                : () {
-                    _toggleBulkSelection();
-                    _toggleTransactionSelection(sdr.id);
-                  },
           );
         },
-      ),
-    );
-  }
-
-  // Removed unused method _buildTransactionDetailsSheet
-    final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
-    final extractedEntities =
-        transaction['extractedEntities'] as Map<String, dynamic>? ?? {};
-
-    return Container(
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      child: Column(
-        children: [
-          // Handle
-          Container(
-            width: 12.w,
-            height: 0.5.h,
-            margin: EdgeInsets.symmetric(vertical: 1.h),
-            decoration: BoxDecoration(
-              color: colorScheme.outline.withValues(alpha: 0.3),
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-
-          // Header
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 1.h),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'Transaction Details',
-                    style: theme.textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: CustomIconWidget(
-                    iconName: 'close',
-                    color: colorScheme.onSurfaceVariant,
-                    size: 24,
-                  ),
-                ),
-              ],
-            ),
-          ),
-
-          Divider(height: 1),
-
-          // Content
-          Expanded(
-            child: SingleChildScrollView(
-              controller: scrollController,
-              padding: EdgeInsets.all(4.w),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Basic Info
-                  _buildDetailSection(
-                    'Transaction Information',
-                    [
-                      _buildDetailRow(
-                          'Contact', transaction['contact'] as String),
-                      _buildDetailRow('Amount', 'KES ${transaction['amount']}'),
-                      _buildDetailRow('Type',
-                          (transaction['type'] as String).toUpperCase()),
-                      _buildDetailRow(
-                          'Category', transaction['category'] as String),
-                      _buildDetailRow('Status',
-                          (transaction['status'] as String).toUpperCase()),
-                    ],
-                  ),
-
-                  SizedBox(height: 3.h),
-
-                  // Summary
-                  _buildDetailSection(
-                    'AI Summary',
-                    [
-                      Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(3.w),
-                        decoration: BoxDecoration(
-                          color: colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          transaction['summary'] as String,
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            height: 1.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 3.h),
-
-                  // Extracted Entities
-                  if (extractedEntities.isNotEmpty)
-                    _buildDetailSection(
-                      'Extracted Information',
-                      extractedEntities.entries
-                          .map((entry) => _buildDetailRow(
-                                entry.key.replaceAll('_', ' ').toUpperCase(),
-                                entry.value.toString(),
-                              ))
-                          .toList(),
-                    ),
-
-                  SizedBox(height: 3.h),
-
-                  // Confidence Score
-                  _buildDetailSection(
-                    'AI Confidence',
-                    [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: LinearProgressIndicator(
-                              value: transaction['confidenceScore'] as double,
-                              backgroundColor:
-                                  colorScheme.outline.withValues(alpha: 0.2),
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                _getConfidenceColor(
-                                    transaction['confidenceScore'] as double),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 3.w),
-                          Text(
-                            '${((transaction['confidenceScore'] as double) * 100).toInt()}%',
-                            style: theme.textTheme.titleMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                              color: _getConfidenceColor(
-                                  transaction['confidenceScore'] as double),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: 4.h),
-
-                  // Action Buttons
-                  if ((transaction['status'] as String) == 'pending')
-                    Row(
-                      children: [
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              _approveTransaction(transaction['id'] as String);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppTheme.getSuccessColor(
-                                  theme.brightness == Brightness.light),
-                              foregroundColor: Colors.white,
-                            ),
-                            child: Text('Approve'),
-                          ),
-                        ),
-                        SizedBox(width: 3.w),
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              _rejectTransaction(transaction['id'] as String);
-                            },
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: AppTheme.getWarningColor(
-                                  theme.brightness == Brightness.light),
-                              side: BorderSide(
-                                color: AppTheme.getWarningColor(
-                                    theme.brightness == Brightness.light),
-                              ),
-                            ),
-                            child: Text('Reject'),
-                          ),
-                        ),
-                      ],
-                    ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -830,13 +378,13 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         ),
         SizedBox(height: 1.h),
         ...children,
+        SizedBox(height: 2.h),
       ],
     );
   }
 
   Widget _buildDetailRow(String label, String value) {
     final theme = Theme.of(context);
-    final colorScheme = theme.colorScheme;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 0.5.h),
@@ -844,12 +392,11 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 25.w,
+            width: 30.w,
             child: Text(
               label,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-                fontWeight: FontWeight.w500,
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
           ),
@@ -857,7 +404,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
             child: Text(
               value,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurface,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -867,36 +414,22 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   }
 
   Color _getConfidenceColor(double score) {
-    final theme = Theme.of(context);
-
-    if (score >= 0.9) {
-      return AppTheme.getSuccessColor(theme.brightness == Brightness.light);
-    } else if (score >= 0.7) {
-      return AppTheme.getWarningColor(theme.brightness == Brightness.light);
+    if (score >= 0.8) {
+      return AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light);
+    } else if (score >= 0.6) {
+      return AppTheme.getWarningColor(Theme.of(context).brightness == Brightness.light);
     } else {
-      return AppTheme.getErrorColor(theme.brightness == Brightness.light);
+      return AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light);
     }
   }
 
   // SDR Methods
-  List<SDRModel> _getFilteredSDRs() {
-    List<SDRModel> filtered = _draftSDRs;
+  void _onSearchChanged(String query) {
+    setState(() => _searchQuery = query);
+  }
 
-    // Apply search filter
-    if (_searchQuery.isNotEmpty) {
-      filtered = filtered.where((sdr) {
-        return sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.product.toLowerCase().contains(_searchQuery.toLowerCase());
-      }).toList();
-    }
-
-    // Apply status filter
-    if (_selectedFilter != 'All') {
-      filtered = filtered.where((sdr) => sdr.status == _selectedFilter).toList();
-    }
-
-    return filtered;
+  void _onFilterChanged(String filter) {
+    setState(() => _selectedFilter = filter);
   }
 
   void _importWhatsAppChat() async {
@@ -907,101 +440,93 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
         allowMultiple: false,
       );
 
-      if (result != null) {
-        // Simulate processing
-        setState(() {
-          _isLoading = true;
-        });
-
+      if (result != null && result.files.single.path != null) {
+        setState(() => _isLoading = true);
+        
+        // Simulate processing delay
         await Future.delayed(Duration(seconds: 2));
-
-        // Add new SDR (simulate AI parsing)
+        
+        // Create a new SDR from the imported chat
         final newSDR = SDRModel(
-          id: "305",
-          buyer: "New Customer",
-          seller: "Zacca Farm",
-          product: "Sample Product",
+          id: 'SDR_${DateTime.now().millisecondsSinceEpoch}',
+          buyer: 'Imported Customer',
+          seller: 'Your Business',
+          product: 'Imported Product',
           quantity: 1,
-          amount: 1000,
-          status: "Pending Verification",
+          amount: 1000.0,
+          status: 'Pending Verification',
           date: DateTime.now(),
-          chatRef: "WhatsAppExport.txt",
-          maskedPhone: "0755XXXXXX",
+          chatRef: 'WhatsApp Chat Import',
+          maskedPhone: '254***123456',
+          notes: 'Imported from WhatsApp chat file',
         );
-
+        
         setState(() {
           _draftSDRs.insert(0, newSDR);
           _isLoading = false;
         });
-
+        
         _showSuccessSnackBar('WhatsApp chat imported successfully!');
       }
     } catch (e) {
-      setState(() {
-        _isLoading = false;
-      });
       _showErrorSnackBar('Failed to import WhatsApp chat: $e');
     }
   }
 
   void _uploadScreenshot(SDRModel sdr) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) => UploadScreenshotModal(
         sdr: sdr,
-        onUpload: (filePath) {
-          _processVerification(sdr, 'Screenshot', filePath);
-        },
+        onUpload: (filePath) => _processVerification(sdr, 'Screenshot', filePath),
       ),
     );
   }
 
   void _pasteCode(SDRModel sdr) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) => VerificationDialog(
         sdr: sdr,
-        onVerify: (mpesaCode, bankCode) {
-          final code = mpesaCode.isNotEmpty ? mpesaCode : bankCode!;
-          final source = mpesaCode.isNotEmpty ? 'M-Pesa' : 'Bank';
-          _processVerification(sdr, source, code);
-        },
+        onVerify: (code) => _processVerification(sdr, 'Manual Code', code),
       ),
     );
   }
 
   void _selectSMS(SDRModel sdr) {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (context) => SMSSelectionModal(
         sdr: sdr,
-        onSelect: (proof) {
-          _verifyWithProof(sdr, proof);
-        },
+        onSelect: (sms) => _processVerification(sdr, 'SMS', sms),
       ),
     );
   }
 
   void _processVerification(SDRModel sdr, String source, String proof) {
-    // Simulate verification process
-    setState(() {
-      _isLoading = true;
-    });
-
+    setState(() => _isLoading = true);
+    
+    // Simulate verification delay
     Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _isLoading = false;
-      });
-
-      // For demo purposes, always verify successfully
-      _verifyWithProof(sdr, ProofModel(
+      setState(() => _isLoading = false);
+      
+      // Create a proof model
+      final proofModel = ProofModel(
         code: proof,
         source: source,
         amount: sdr.amount,
-        date: sdr.date.add(Duration(minutes: 2)),
-        sender: sdr.maskedPhone ?? 'Unknown',
+        date: DateTime.now(),
+        sender: sdr.maskedPhone,
         receiver: 'SME-001',
-      ));
+      );
+      
+      _verifyWithProof(sdr, proofModel);
     });
   }
 
@@ -1009,17 +534,13 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     final result = VerificationService.verifySDR(sdr, proof);
     
     if (result.isVerified) {
-      // Convert to VBR
       final vbr = VerificationService.convertToVBR(sdr, proof);
       
-      // Remove from draft SDRs
+      // Remove from drafts and add to verified VBRs
       setState(() {
         _draftSDRs.removeWhere((item) => item.id == sdr.id);
       });
       
-      _showSuccessSnackBar('Transaction verified and logged to Vault!');
-      
-      // Show success animation
       _showVerificationSuccess(sdr, vbr);
     } else {
       _showErrorSnackBar(result.statusMessage);
@@ -1029,71 +550,49 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   void _showVerificationSuccess(SDRModel sdr, VBRModel vbr) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+        title: Row(
+          children: [
+            Icon(Icons.check_circle, color: Colors.green, size: 28),
+            SizedBox(width: 2.w),
+            Text('Verification Successful!'),
+          ],
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 20.w,
-              height: 20.w,
-              decoration: BoxDecoration(
-                color: Color(0xFF4ADE80).withValues(alpha: 0.2),
-                shape: BoxShape.circle,
-              ),
-              child: Icon(
-                Icons.verified,
-                color: Color(0xFF4ADE80),
-                size: 10.w,
-              ),
-            ),
-            SizedBox(height: 3.h),
-            Text(
-              'Transaction Verified!',
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF4ADE80),
-              ),
-            ),
+            Text('SDR #${sdr.id} has been successfully verified and converted to VBR.'),
             SizedBox(height: 2.h),
-            Text(
-              'SDR #${sdr.id} has been converted to VBR and moved to the Vault.',
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
-            ),
-            SizedBox(height: 2.h),
+            Text('Blockchain Hash:', style: TextStyle(fontWeight: FontWeight.bold)),
+            SizedBox(height: 0.5.h),
             Container(
-              padding: EdgeInsets.all(3.w),
+              padding: EdgeInsets.all(2.w),
               decoration: BoxDecoration(
                 color: Colors.grey.shade100,
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Blockchain Hash:',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    vbr.hash,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      fontFamily: 'monospace',
-                    ),
-                  ),
-                ],
+              child: Text(
+                vbr.hash,
+                style: TextStyle(
+                  fontFamily: 'monospace',
+                  fontSize: 12,
+                ),
               ),
             ),
+            SizedBox(height: 1.h),
+            Text('Verification Source: ${vbr.source}'),
+            Text('Verified At: ${vbr.verifiedAt.toString()}'),
           ],
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text('View in Vault'),
+            onPressed: () {
+              Navigator.pop(context);
+              _showSuccessSnackBar('Transaction verified and logged to Vault!');
+            },
+            child: Text('OK'),
           ),
         ],
       ),
@@ -1105,10 +604,10 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       context: context,
       builder: (context) => AlertDialog(
         title: Text('Delete SDR'),
-        content: Text('Are you sure you want to delete SDR #${sdr.id}?'),
+        content: Text('Are you sure you want to delete SDR #${sdr.id}? This action cannot be undone.'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context),
             child: Text('Cancel'),
           ),
           TextButton(
@@ -1116,8 +615,8 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
               setState(() {
                 _draftSDRs.removeWhere((item) => item.id == sdr.id);
               });
-              Navigator.of(context).pop();
-              _showSuccessSnackBar('SDR deleted successfully!');
+              Navigator.pop(context);
+              _showSuccessSnackBar('SDR deleted successfully');
             },
             child: Text('Delete'),
           ),
@@ -1130,7 +629,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Colors.green,
+        backgroundColor: AppTheme.getSuccessColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
@@ -1140,7 +639,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: AppTheme.getErrorColor(true),
+        backgroundColor: AppTheme.getErrorColor(Theme.of(context).brightness == Brightness.light),
         behavior: SnackBarBehavior.floating,
       ),
     );
