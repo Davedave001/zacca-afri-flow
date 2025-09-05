@@ -6,7 +6,6 @@ import 'widgets/expense_tracking_widget.dart';
 import 'widgets/invoice_quote_widget.dart';
 import 'widgets/inventory_management_widget.dart';
 import 'widgets/budget_management_widget.dart';
-import 'widgets/multi_currency_widget.dart';
 import 'widgets/tax_management_widget.dart';
 import 'widgets/chart_of_accounts_widget.dart';
 import 'widgets/role_permissions_widget.dart';
@@ -33,7 +32,6 @@ class _FinancialCompanionState extends State<FinancialCompanion>
     'Invoices',
     'Inventory',
     'Budgets',
-    'Multi-Currency',
     'Tax & GST',
     'Chart of Accounts',
     'Permissions',
@@ -103,8 +101,8 @@ class _FinancialCompanionState extends State<FinancialCompanion>
               controller: _tabController,
               isScrollable: true,
               indicatorColor: AppTheme.primaryLight,
-              labelColor: Colors.white, // White text for selected tabs
-              unselectedLabelColor: Colors.grey[300], // Light grey for unselected tabs
+              labelColor: Colors.black, // Black text for selected tabs
+              unselectedLabelColor: Colors.grey[600], // Darker grey for unselected tabs
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 14,
@@ -123,7 +121,6 @@ class _FinancialCompanionState extends State<FinancialCompanion>
                 const InvoiceQuoteWidget(),
                 const InventoryManagementWidget(),
                 const BudgetManagementWidget(),
-                const MultiCurrencyWidget(),
                 const TaxManagementWidget(),
                 const ChartOfAccountsWidget(),
                 const RolePermissionsWidget(),
