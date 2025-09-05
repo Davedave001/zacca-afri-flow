@@ -13,9 +13,9 @@ class AppTheme {
       Color(0xFF08F5F8); // Your vibrant cyan for energy and innovation
   static const Color secondaryVariantLight = Color(0xFF06D1D4); // Slightly darker cyan
   static const Color backgroundLight =
-      Color(0xFFF5F7FF); // Soft purple-tinted background for premium feel
+      Color(0xFF3117CE); // Your primary purple as main background
   static const Color surfaceLight =
-      Color(0xFFFFFFFF); // Pure white for clean contrast
+      Color(0xFF3D1FE8); // Slightly lighter purple for elevated surfaces
   static const Color errorLight =
       Color(0xFFFF4757); // Modern red for alerts
   static const Color successLight =
@@ -25,8 +25,8 @@ class AppTheme {
   static const Color onPrimaryLight = Color(0xFFFFFFFF);
   static const Color onSecondaryLight = Color(0xFF000000);
   static const Color onBackgroundLight =
-      Color(0xFF1A1A2E); // Deep text for excellent readability
-  static const Color onSurfaceLight = Color(0xFF1A1A2E);
+      Color(0xFFFFFFFF); // White text for excellent readability on purple
+  static const Color onSurfaceLight = Color(0xFFFFFFFF);
   static const Color onErrorLight = Color(0xFFFFFFFF);
 
   static const Color primaryDark =
@@ -46,10 +46,10 @@ class AppTheme {
   static const Color onSurfaceDark = Color(0xFFE5E7EB);
   static const Color onErrorDark = Color(0xFFFFFFFF);
 
-  // Card and dialog colors - Enhanced with theme consistency
-  static const Color cardLight = Color(0xFFFFFFFF);
+  // Card and dialog colors - Blending with purple background
+  static const Color cardLight = Color(0xFF3D1FE8); // Slightly lighter purple for cards
   static const Color cardDark = Color(0xFF1A1B2E);
-  static const Color dialogLight = Color(0xFFFFFFFF);
+  static const Color dialogLight = Color(0xFF3D1FE8); // Matching card color
   static const Color dialogDark = Color(0xFF1A1B2E);
 
   // Shadow colors - Subtle elevation system
@@ -57,17 +57,17 @@ class AppTheme {
       Color(0x0A000000); // Minimal shadow for clean aesthetics
   static const Color shadowDark = Color(0x1A000000);
 
-  // Divider and border colors - Purposeful space definition
+  // Divider and border colors - Blending with purple theme
   static const Color dividerLight =
-      Color(0xFFE5E7EB); // Subtle borders for essential separation
+      Color(0xFF4A2BC7); // Purple-tinted dividers for smooth blending
   static const Color dividerDark = Color(0xFF374151);
 
-  // Text colors with mobile-optimized contrast
+  // Text colors optimized for purple background
   static const Color textPrimaryLight =
-      Color(0xFF1F2937); // High contrast for mobile readability
+      Color(0xFFFFFFFF); // White text for high contrast on purple
   static const Color textSecondaryLight =
-      Color(0xFF6B7280); // Supporting text for smaller screens
-  static const Color textDisabledLight = Color(0xFF9CA3AF);
+      Color(0xFFB8B5FF); // Light purple for secondary text
+  static const Color textDisabledLight = Color(0xFF8B7ED8);
 
   static const Color textPrimaryDark = Color(0xFFE5E7EB);
   static const Color textSecondaryDark = Color(0xFFD1D5DB);
