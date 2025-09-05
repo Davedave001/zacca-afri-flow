@@ -26,7 +26,6 @@ class FinancialCompanion extends StatefulWidget {
 class _FinancialCompanionState extends State<FinancialCompanion>
     with TickerProviderStateMixin {
   late TabController _tabController;
-  int _selectedIndex = 0;
 
   final List<String> _tabs = [
     'Overview',
@@ -51,7 +50,7 @@ class _FinancialCompanionState extends State<FinancialCompanion>
     _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(() {
       setState(() {
-        _selectedIndex = _tabController.index;
+        // Tab changed - could add logic here if needed
       });
     });
   }

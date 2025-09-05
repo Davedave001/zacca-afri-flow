@@ -851,7 +851,7 @@ class _StockAdjustmentDialogState extends State<StockAdjustmentDialog> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: _adjustmentType,
+                    initialValue: _adjustmentType,
                     decoration: const InputDecoration(
                       labelText: 'Type',
                       border: OutlineInputBorder(),
