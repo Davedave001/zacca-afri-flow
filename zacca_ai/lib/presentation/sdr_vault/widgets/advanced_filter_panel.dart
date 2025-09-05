@@ -80,7 +80,7 @@ class _AdvancedFilterPanelState extends State<AdvancedFilterPanel> {
                       children: [
                         CustomIconWidget(
                           iconName: 'filter_list',
-                          color: colorScheme.primary,
+                          color: Colors.white,
                           size: 20,
                         ),
                         SizedBox(width: 3.w),

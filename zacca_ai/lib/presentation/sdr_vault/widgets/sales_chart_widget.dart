@@ -73,6 +73,7 @@ class SalesChartWidget extends StatelessWidget {
           // Chart
           Container(
             height: 25.h,
+            width: double.infinity,
             child: LineChart(
               LineChartData(
                 gridData: FlGridData(
@@ -153,11 +154,11 @@ class SalesChartWidget extends StatelessWidget {
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.8),
                             fontWeight: FontWeight.bold,
-                            fontSize: 10,
+                            fontSize: 9,
                           ),
                         );
                       },
-                      reservedSize: 42,
+                      reservedSize: 35,
                     ),
                   ),
                 ),

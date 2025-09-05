@@ -46,8 +46,8 @@ class VaultSummaryCards extends StatelessWidget {
         itemBuilder: (context, index) {
           final data = summaryData[index];
           return Container(
-            width: 40.w,
-            padding: EdgeInsets.all(4.w),
+            width: 45.w,
+            padding: EdgeInsets.all(3.w),
             decoration: BoxDecoration(
               color: colorScheme.surface,
               borderRadius: BorderRadius.circular(16),

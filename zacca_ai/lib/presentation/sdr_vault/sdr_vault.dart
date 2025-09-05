@@ -165,49 +165,76 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
       ),
       body: RefreshIndicator(
         onRefresh: _refreshData,
-        child: Column(
-          children: [
-            // Summary Cards
-            VaultSummaryCards(),
-            SizedBox(height: 2.h),
-            // Search Bar (Collapsible)
-            if (_isSearchVisible)
-              SearchBarWidget(
-                isVisible: _isSearchVisible,
-                onSearchChanged: (query) {
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              // Summary Cards
+              VaultSummaryCards(),
+              SizedBox(height: 2.h),
+              // Search Bar (Collapsible)
+              if (_isSearchVisible)
+                SearchBarWidget(
+                  isVisible: _isSearchVisible,
+                  onSearchChanged: (query) {
+                    setState(() {
+                      _searchQuery = query;
+                    });
+                  },
+                  onSearchTap: () {
+                    // Handle search tap if needed
+                  },
+                ),
+              // Advanced Filter Panel
+              AdvancedFilterPanel(
+                isExpanded: _isFilterExpanded,
+                onToggle: () {
                   setState(() {
-                    _searchQuery = query;
+                    _isFilterExpanded = !_isFilterExpanded;
                   });
                 },
-                onSearchTap: () {
-                  // Handle search tap if needed
-                },
               ),
-            // Advanced Filter Panel
-            AdvancedFilterPanel(
-              isExpanded: _isFilterExpanded,
-              onToggle: () {
-                setState(() {
-                  _isFilterExpanded = !_isFilterExpanded;
-                });
-              },
-            ),
-            SizedBox(height: 2.h),
-            // Multi-select toolbar
-            if (_isMultiSelectMode)
-              _buildMultiSelectToolbar(theme, colorScheme),
-            // Sales Chart
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              child: SalesChartWidget(confirmedSDRs: _confirmedSDRs),
-            ),
-            SizedBox(height: 2.h),
-            
-            // Confirmed SDRs List
-            Expanded(
-              child: _buildConfirmedSDRsList(),
-            ),
-          ],
+              SizedBox(height: 2.h),
+              // Multi-select toolbar
+              if (_isMultiSelectMode)
+                _buildMultiSelectToolbar(theme, colorScheme),
+              // Sales Chart
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                child: SalesChartWidget(confirmedSDRs: _confirmedSDRs),
+              ),
+              SizedBox(height: 2.h),
+              
+              // Confirmed SDRs List Header
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Verified SDR Records',
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Text(
+                      '${_confirmedSDRs.length} records',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 2.h),
+              
+              // Confirmed SDRs List
+              _buildConfirmedSDRsList(),
+              
+              // Bottom spacing for navigation
+              SizedBox(height: 10.h),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: CustomBottomBar(
@@ -629,57 +656,60 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     final filteredSDRs = _getFilteredConfirmedSDRs();
 
     if (filteredSDRs.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.inbox,
-              size: 20.w,
-              color: Colors.grey[400],
-            ),
-            SizedBox(height: 2.h),
-            Text(
-              'No confirmed SDRs found',
-              style: TextStyle(
-                fontSize: 16.sp,
-                color: Colors.grey[600],
-                fontWeight: FontWeight.w500,
+      return Container(
+        height: 30.h,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.inbox,
+                size: 20.w,
+                color: Colors.grey[400],
               ),
-            ),
-            SizedBox(height: 1.h),
-            Text(
-              'Import WhatsApp chats to create SDRs',
-              style: TextStyle(
-                fontSize: 14.sp,
-                color: Colors.grey[500],
+              SizedBox(height: 2.h),
+              Text(
+                'No confirmed SDRs found',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  color: Colors.grey[600],
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+              SizedBox(height: 1.h),
+              Text(
+                'Import WhatsApp chats to create SDRs',
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.grey[500],
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
 
-    return ListView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 4.w),
-      itemCount: filteredSDRs.length,
-      itemBuilder: (context, index) {
-        final sdr = filteredSDRs[index];
+    return Column(
+      children: filteredSDRs.map((sdr) {
         final isSelected = _selectedTransactions.contains(int.parse(sdr.id));
 
-        return ConfirmedSDRCard(
-          sdr: sdr,
-          isSelected: _isMultiSelectMode && isSelected,
-          onDownloadPDF: () => _downloadPDF(sdr),
-          onShare: () => _shareSDR(sdr),
-          onLongPress: _isMultiSelectMode
-              ? null
-              : () {
-                  _toggleMultiSelectMode();
-                  _toggleTransactionSelection(int.parse(sdr.id));
-                },
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 4.w),
+          child: ConfirmedSDRCard(
+            sdr: sdr,
+            isSelected: _isMultiSelectMode && isSelected,
+            onDownloadPDF: () => _downloadPDF(sdr),
+            onShare: () => _shareSDR(sdr),
+            onLongPress: _isMultiSelectMode
+                ? null
+                : () {
+                    _toggleMultiSelectMode();
+                    _toggleTransactionSelection(int.parse(sdr.id));
+                  },
+          ),
         );
-      },
+      }).toList(),
     );
   }
 
