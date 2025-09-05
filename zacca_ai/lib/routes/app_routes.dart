@@ -5,6 +5,7 @@ import '../presentation/loan_offers_screen/loan_offers_screen.dart';
 import '../presentation/business_analytics_dashboard/business_analytics_dashboard.dart';
 import '../presentation/sdr_vault/sdr_vault.dart';
 import '../presentation/whats_app_import_screen/whats_app_import_screen.dart';
+import '../presentation/financial_companion/financial_companion.dart';
 
 class AppRoutes {
   // TODO: Add your routes here
@@ -16,6 +17,7 @@ class AppRoutes {
       '/business-analytics-dashboard';
   static const String sdrVault = '/sdr-vault';
   static const String whatsAppImport = '/whats-app-import-screen';
+  static const String financialCompanion = '/financial-companion';
 
   static Map<String, WidgetBuilder> routes = {
     initial: (context) => const SmartDraftInbox(),
@@ -25,6 +27,7 @@ class AppRoutes {
     businessAnalyticsDashboard: (context) => const BusinessAnalyticsDashboard(),
     sdrVault: (context) => const SdrVault(),
     whatsAppImport: (context) => const WhatsAppImportScreen(),
+    financialCompanion: (context) => const FinancialCompanion(),
     // TODO: Add your other routes here
   };
 }

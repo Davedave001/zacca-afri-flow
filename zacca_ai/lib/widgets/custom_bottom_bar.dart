@@ -49,6 +49,12 @@ class _CustomBottomBarState extends State<CustomBottomBar>
       route: '/dashboard',
     ),
     _BottomBarItem(
+      icon: Icons.account_balance_wallet_outlined,
+      activeIcon: Icons.account_balance_wallet,
+      label: 'Finance',
+      route: '/financial-companion',
+    ),
+    _BottomBarItem(
       icon: Icons.chat_bubble_outline,
       activeIcon: Icons.chat_bubble,
       label: 'WhatsApp',
