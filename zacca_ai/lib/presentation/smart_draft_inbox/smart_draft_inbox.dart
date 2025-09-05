@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sizer/sizer.dart';
+import 'package:file_picker/file_picker.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
+import '../../models/sdr_model.dart';
+import '../../data/sample_data.dart';
 import './widgets/bulk_action_bar_widget.dart';
 import './widgets/empty_state_widget.dart';
 import './widgets/filter_chips_widget.dart';
 import './widgets/search_bar_widget.dart';
 import './widgets/timeline_date_separator_widget.dart';
 import './widgets/transaction_card_widget.dart';
+import './widgets/sdr_card_widget.dart';
+import './widgets/verification_dialog.dart';
 
 class SmartDraftInbox extends StatefulWidget {
   const SmartDraftInbox({super.key});
@@ -30,6 +35,9 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   bool _isBulkSelectionMode = false;
   Set<String> _selectedTransactionIds = {};
   bool _isLoading = false;
+  
+  // SDR data
+  List<SDRModel> _draftSDRs = SampleData.draftSDRs;
 
   // Mock data
   final List<Map<String, dynamic>> _mockTransactions = [
@@ -516,6 +524,13 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
           ),
         ],
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _importWhatsAppChat,
+        backgroundColor: Color(0xFF08F5F8),
+        foregroundColor: Colors.white,
+        icon: Icon(Icons.chat),
+        label: Text('Import WhatsApp Chat'),
+      ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -658,59 +673,33 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
   }
 
   Widget _buildTransactionsList() {
-    final groupedTransactions = _groupedTransactions;
-    final sortedDates = groupedTransactions.keys.toList()
-      ..sort((a, b) => b.compareTo(a)); // Most recent first
+    final filteredSDRs = _getFilteredSDRs();
 
     return RefreshIndicator(
       onRefresh: _refreshTransactions,
       child: ListView.builder(
         controller: _scrollController,
-        padding: EdgeInsets.only(bottom: 2.h),
-        itemCount: sortedDates.length * 2, // Date separator + transactions
+        padding: EdgeInsets.all(4.w),
+        itemCount: filteredSDRs.length,
         itemBuilder: (context, index) {
-          if (index.isEven) {
-            // Date separator
-            final dateIndex = index ~/ 2;
-            final date = sortedDates[dateIndex];
-            final transactions = groupedTransactions[date]!;
+          final sdr = filteredSDRs[index];
+          final isSelected = _selectedTransactionIds.contains(sdr.id);
 
-            return TimelineDateSeparatorWidget(
-              date: date,
-              transactionCount: transactions.length,
-            );
-          } else {
-            // Transactions for this date
-            final dateIndex = index ~/ 2;
-            final date = sortedDates[dateIndex];
-            final transactions = groupedTransactions[date]!;
-
-            return Column(
-              children: transactions.map((transaction) {
-                final transactionId = transaction['id'] as String;
-                final isSelected =
-                    _selectedTransactionIds.contains(transactionId);
-
-                return TransactionCardWidget(
-                  transaction: transaction,
-                  isSelected: _isBulkSelectionMode && isSelected,
-                  onTap: _isBulkSelectionMode
-                      ? () => _toggleTransactionSelection(transactionId)
-                      : () => _viewTransactionDetails(transactionId),
-                  onLongPress: _isBulkSelectionMode
-                      ? null
-                      : () {
-                          _toggleBulkSelection();
-                          _toggleTransactionSelection(transactionId);
-                        },
-                  onApprove: () => _approveTransaction(transactionId),
-                  onEdit: () => _editTransaction(transactionId),
-                  onReject: () => _rejectTransaction(transactionId),
-                  onDelete: () => _deleteTransaction(transactionId),
-                );
-              }).toList(),
-            );
-          }
+          return SDRCardWidget(
+            sdr: sdr,
+            isSelected: _isBulkSelectionMode && isSelected,
+            onViewPDF: () => _viewPDF(sdr),
+            onEdit: () => _editSDR(sdr),
+            onVerify: () => _verifySDR(sdr),
+            onUploadToLedger: () => _uploadToLedger(sdr),
+            onDelete: () => _deleteSDR(sdr),
+            onLongPress: _isBulkSelectionMode
+                ? null
+                : () {
+                    _toggleBulkSelection();
+                    _toggleTransactionSelection(sdr.id);
+                  },
+          );
         },
       ),
     );
@@ -973,5 +962,187 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     } else {
       return AppTheme.getErrorColor(theme.brightness == Brightness.light);
     }
+  }
+
+  // SDR Methods
+  List<SDRModel> _getFilteredSDRs() {
+    List<SDRModel> filtered = _draftSDRs;
+
+    // Apply search filter
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((sdr) {
+        return sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.items.any((item) => 
+                   item.product.toLowerCase().contains(_searchQuery.toLowerCase()));
+      }).toList();
+    }
+
+    // Apply status filter
+    if (_selectedFilter != 'All') {
+      filtered = filtered.where((sdr) => sdr.status == _selectedFilter).toList();
+    }
+
+    return filtered;
+  }
+
+  void _importWhatsAppChat() async {
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['txt'],
+        allowMultiple: false,
+      );
+
+      if (result != null) {
+        // Simulate processing
+        setState(() {
+          _isLoading = true;
+        });
+
+        await Future.delayed(Duration(seconds: 2));
+
+        // Add new SDR (simulate AI parsing)
+        final newSDR = SDRModel(
+          id: "4525",
+          buyer: "New Customer",
+          seller: "Zacca Farm",
+          items: [
+            SDRItem(product: "Sample Product", quantity: 1, price: 1000),
+          ],
+          total: 1000,
+          paid: 0,
+          status: "Pending",
+          date: DateTime.now(),
+        );
+
+        setState(() {
+          _draftSDRs.insert(0, newSDR);
+          _isLoading = false;
+        });
+
+        _showSuccessSnackBar('WhatsApp chat imported successfully!');
+      }
+    } catch (e) {
+      setState(() {
+        _isLoading = false;
+      });
+      _showErrorSnackBar('Failed to import WhatsApp chat: $e');
+    }
+  }
+
+  void _viewPDF(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('PDF Preview'),
+        content: Text('PDF for SDR #${sdr.id} would open here'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Close'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _editSDR(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Edit SDR #${sdr.id}'),
+        content: Text('Edit form for SDR would appear here'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _showSuccessSnackBar('SDR updated successfully!');
+            },
+            child: Text('Save'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _verifySDR(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => VerificationDialog(
+        sdr: sdr,
+        onVerify: (mpesaCode, bankCode) {
+          setState(() {
+            final index = _draftSDRs.indexWhere((item) => item.id == sdr.id);
+            if (index != -1) {
+              _draftSDRs[index] = sdr.copyWith(
+                mpesaCode: mpesaCode,
+                bankCode: bankCode,
+                status: 'Paid',
+                paid: sdr.total,
+              );
+            }
+          });
+          _showSuccessSnackBar('Payment verified successfully!');
+        },
+      ),
+    );
+  }
+
+  void _uploadToLedger(SDRModel sdr) {
+    setState(() {
+      _draftSDRs.removeWhere((item) => item.id == sdr.id);
+    });
+    _showSuccessSnackBar('SDR uploaded to ledger successfully!');
+  }
+
+  void _deleteSDR(SDRModel sdr) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Delete SDR'),
+        content: Text('Are you sure you want to delete SDR #${sdr.id}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                _draftSDRs.removeWhere((item) => item.id == sdr.id);
+              });
+              Navigator.of(context).pop();
+              _showSuccessSnackBar('SDR deleted successfully!');
+            },
+            child: Text('Delete'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSuccessSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  void _showErrorSnackBar(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: AppTheme.getErrorColor(true),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
   }
 }

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
+import 'package:fl_chart/fl_chart.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
+import '../../models/sdr_model.dart';
+import '../../data/sample_data.dart';
 import './widgets/advanced_filter_panel.dart';
 import './widgets/context_menu_widget.dart';
 import './widgets/export_options_sheet.dart';
 import './widgets/grouped_transaction_list.dart';
 import './widgets/search_bar_widget.dart';
 import './widgets/vault_summary_cards.dart';
+import './widgets/confirmed_sdr_card.dart';
+import './widgets/sales_chart_widget.dart';
 
 class SdrVault extends StatefulWidget {
   const SdrVault({super.key});
@@ -25,6 +30,9 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   String _searchQuery = '';
   final Set<int> _selectedTransactions = {};
   OverlayEntry? _contextMenuOverlay;
+  
+  // Confirmed SDRs data
+  List<SDRModel> _confirmedSDRs = SampleData.confirmedSDRs;
 
   // Mock transaction data
   final List<Map<String, dynamic>> _allTransactions = [
@@ -206,13 +214,16 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
             // Multi-select toolbar
             if (_isMultiSelectMode)
               _buildMultiSelectToolbar(theme, colorScheme),
-            // Transaction List
+            // Sales Chart
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 4.w),
+              child: SalesChartWidget(confirmedSDRs: _confirmedSDRs),
+            ),
+            SizedBox(height: 2.h),
+            
+            // Confirmed SDRs List
             Expanded(
-              child: GroupedTransactionList(
-                transactions: _filteredTransactions,
-                onTransactionTap: _handleTransactionTap,
-                onTransactionLongPress: _handleTransactionLongPress,
-              ),
+              child: _buildConfirmedSDRsList(),
             ),
           ],
         ),
@@ -653,6 +664,208 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
       SnackBar(
           content: Text(
               'Archiving ${_selectedTransactions.length} transactions...')),
+    );
+  }
+
+  Widget _buildConfirmedSDRsList() {
+    final filteredSDRs = _getFilteredConfirmedSDRs();
+
+    if (filteredSDRs.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.inbox,
+              size: 20.w,
+              color: Colors.grey[400],
+            ),
+            SizedBox(height: 2.h),
+            Text(
+              'No confirmed SDRs found',
+              style: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            SizedBox(height: 1.h),
+            Text(
+              'Import WhatsApp chats to create SDRs',
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.grey[500],
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: EdgeInsets.symmetric(horizontal: 4.w),
+      itemCount: filteredSDRs.length,
+      itemBuilder: (context, index) {
+        final sdr = filteredSDRs[index];
+        final isSelected = _selectedTransactions.contains(int.parse(sdr.id));
+
+        return ConfirmedSDRCard(
+          sdr: sdr,
+          isSelected: _isMultiSelectMode && isSelected,
+          onDownloadPDF: () => _downloadPDF(sdr),
+          onShare: () => _shareSDR(sdr),
+          onLongPress: _isMultiSelectMode
+              ? null
+              : () {
+                  _toggleMultiSelectMode();
+                  _toggleTransactionSelection(int.parse(sdr.id));
+                },
+        );
+      },
+    );
+  }
+
+  List<SDRModel> _getFilteredConfirmedSDRs() {
+    List<SDRModel> filtered = _confirmedSDRs;
+
+    // Apply search filter
+    if (_searchQuery.isNotEmpty) {
+      filtered = filtered.where((sdr) {
+        return sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+               sdr.items.any((item) => 
+                   item.product.toLowerCase().contains(_searchQuery.toLowerCase()));
+      }).toList();
+    }
+
+    return filtered;
+  }
+
+  void _downloadPDF(SDRModel sdr) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Downloading PDF for SDR #${sdr.id}...'),
+        backgroundColor: Colors.green,
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  void _shareSDR(SDRModel sdr) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => Container(
+        padding: EdgeInsets.all(4.w),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Share SDR #${sdr.id}',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+            SizedBox(height: 3.h),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _buildShareOption(
+                  context,
+                  'WhatsApp',
+                  Icons.chat,
+                  Color(0xFF25D366),
+                  () => _shareToWhatsApp(sdr),
+                ),
+                _buildShareOption(
+                  context,
+                  'Email',
+                  Icons.email,
+                  Color(0xFFEA4335),
+                  () => _shareToEmail(sdr),
+                ),
+                _buildShareOption(
+                  context,
+                  'Copy Link',
+                  Icons.link,
+                  Color(0xFF08F5F8),
+                  () => _copyLink(sdr),
+                ),
+              ],
+            ),
+            SizedBox(height: 2.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildShareOption(
+    BuildContext context,
+    String label,
+    IconData icon,
+    Color color,
+    VoidCallback onTap,
+  ) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(3.w),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color, width: 1),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, color: color, size: 8.w),
+            SizedBox(height: 1.h),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontWeight: FontWeight.w500,
+                fontSize: 12.sp,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _shareToWhatsApp(SDRModel sdr) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Sharing SDR #${sdr.id} to WhatsApp...'),
+        backgroundColor: Color(0xFF25D366),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  void _shareToEmail(SDRModel sdr) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Sharing SDR #${sdr.id} via Email...'),
+        backgroundColor: Color(0xFFEA4335),
+        behavior: SnackBarBehavior.floating,
+      ),
+    );
+  }
+
+  void _copyLink(SDRModel sdr) {
+    Navigator.of(context).pop();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Link for SDR #${sdr.id} copied to clipboard'),
+        backgroundColor: Color(0xFF08F5F8),
+        behavior: SnackBarBehavior.floating,
+      ),
     );
   }
 }

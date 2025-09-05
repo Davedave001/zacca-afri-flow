@@ -10,11 +10,14 @@ import 'package:sizer/sizer.dart';
 import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_bottom_bar.dart';
+import '../../models/sdr_model.dart';
+import '../../data/sample_data.dart';
 import './widgets/file_drop_zone_widget.dart';
 import './widgets/instruction_steps_widget.dart';
 import './widgets/processing_status_widget.dart';
 import './widgets/results_preview_widget.dart';
 import './widgets/selected_file_card_widget.dart';
+import './widgets/message_card_widget.dart';
 
 class WhatsAppImportScreen extends StatefulWidget {
   const WhatsAppImportScreen({super.key});
@@ -39,6 +42,9 @@ class _WhatsAppImportScreenState extends State<WhatsAppImportScreen>
 
   // File data
   List<Map<String, dynamic>> _selectedFiles = [];
+  
+  // WhatsApp messages
+  List<WhatsAppMessage> _whatsappMessages = SampleData.whatsappMessages;
 
   // Mock processing data
   final List<Map<String, dynamic>> _mockTransactionData = [
@@ -240,6 +246,155 @@ class _WhatsAppImportScreenState extends State<WhatsAppImportScreen>
     );
   }
 
+  void _showMessageDetails(WhatsAppMessage message) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.7,
+        maxChildSize: 0.9,
+        minChildSize: 0.5,
+        builder: (context, scrollController) => Container(
+          padding: EdgeInsets.all(4.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 12.w,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+              SizedBox(height: 3.h),
+              Row(
+                children: [
+                  Container(
+                    width: 12.w,
+                    height: 12.w,
+                    decoration: BoxDecoration(
+                      color: message.isFromBusiness 
+                          ? Color(0xFF08F5F8)
+                          : Color(0xFF3117CE),
+                      borderRadius: BorderRadius.circular(12.w / 2),
+                    ),
+                    child: Icon(
+                      message.isFromBusiness ? Icons.business : Icons.person,
+                      color: Colors.white,
+                      size: 6.w,
+                    ),
+                  ),
+                  SizedBox(width: 3.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          message.sender,
+                          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        Text(
+                          message.isFromBusiness ? 'Business Account' : 'Customer',
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                color: Colors.grey[600],
+                              ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Text(
+                    _formatDateTime(message.timestamp),
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 3.h),
+              Expanded(
+                child: SingleChildScrollView(
+                  controller: scrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Message Content',
+                        style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                      SizedBox(height: 1.h),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(4.w),
+                        decoration: BoxDecoration(
+                          color: message.isFromBusiness 
+                              ? Color(0xFF4A2BC7).withValues(alpha: 0.1)
+                              : Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: message.isFromBusiness 
+                                ? Color(0xFF08F5F8).withValues(alpha: 0.3)
+                                : Colors.grey.shade300,
+                          ),
+                        ),
+                        child: Text(
+                          message.content,
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                height: 1.5,
+                              ),
+                        ),
+                      ),
+                      if (message.mediaUrl != null) ...[
+                        SizedBox(height: 2.h),
+                        Text(
+                          'Attachments',
+                          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        SizedBox(height: 1.h),
+                        Container(
+                          padding: EdgeInsets.all(3.w),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade100,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(Icons.attach_file, color: Colors.grey[600]),
+                              SizedBox(width: 2.w),
+                              Text(
+                                'Media file attached',
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String _formatDateTime(DateTime dateTime) {
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year} at ${dateTime.hour}:${dateTime.minute.toString().padLeft(2, '0')}';
+  }
+
   int _getTransactionCount() {
     return _mockTransactionData.length * _selectedFiles.length;
   }
@@ -340,6 +495,51 @@ class _WhatsAppImportScreenState extends State<WhatsAppImportScreen>
                 InstructionStepsWidget(),
 
                 SizedBox(height: 3.h),
+
+                // WhatsApp Messages Preview
+                if (_whatsappMessages.isNotEmpty) ...[
+                  Container(
+                    width: 90.w,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Recent WhatsApp Messages',
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              '${_whatsappMessages.length} messages',
+                              style: theme.textTheme.bodySmall?.copyWith(
+                                color: Colors.white.withValues(alpha: 0.8),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 2.h),
+                        Container(
+                          height: 40.h,
+                          child: ListView.builder(
+                            itemCount: _whatsappMessages.length,
+                            itemBuilder: (context, index) {
+                              final message = _whatsappMessages[index];
+                              return MessageCardWidget(
+                                message: message,
+                                onTap: () => _showMessageDetails(message),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 3.h),
+                ],
 
                 // Bulk import toggle
                 Container(
