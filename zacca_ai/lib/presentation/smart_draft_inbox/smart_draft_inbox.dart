@@ -890,8 +890,7 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
       filtered = filtered.where((sdr) {
         return sdr.buyer.toLowerCase().contains(_searchQuery.toLowerCase()) ||
                sdr.id.toLowerCase().contains(_searchQuery.toLowerCase()) ||
-               sdr.items.any((item) => 
-                   item.product.toLowerCase().contains(_searchQuery.toLowerCase()));
+               sdr.product.toLowerCase().contains(_searchQuery.toLowerCase());
       }).toList();
     }
 
@@ -921,16 +920,16 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
 
         // Add new SDR (simulate AI parsing)
         final newSDR = SDRModel(
-          id: "4525",
+          id: "305",
           buyer: "New Customer",
           seller: "Zacca Farm",
-          items: [
-            SDRItem(product: "Sample Product", quantity: 1, price: 1000),
-          ],
-          total: 1000,
-          paid: 0,
-          status: "Pending",
+          product: "Sample Product",
+          quantity: 1,
+          amount: 1000,
+          status: "Pending Verification",
           date: DateTime.now(),
+          chatRef: "WhatsAppExport.txt",
+          maskedPhone: "0755XXXXXX",
         );
 
         setState(() {

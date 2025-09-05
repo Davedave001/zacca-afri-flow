@@ -138,7 +138,7 @@ class ConfirmedSDRCard extends StatelessWidget {
                   ),
                   SizedBox(width: 2.w),
                   Text(
-                    'KES ${sdr.total.toStringAsFixed(0)}',
+                    'KES ${sdr.amount.toStringAsFixed(0)}',
                     style: theme.textTheme.titleLarge?.copyWith(
                       color: Colors.white,
                       fontWeight: FontWeight.w700,

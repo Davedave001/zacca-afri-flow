@@ -125,7 +125,7 @@ class _VerificationDialogState extends State<VerificationDialog> {
                     children: [
                       Text('Total Amount:', style: theme.textTheme.bodyMedium),
                       Text(
-                        'KES ${widget.sdr.total.toStringAsFixed(0)}',
+                        'KES ${widget.sdr.amount.toStringAsFixed(0)}',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w600,
                           color: Color(0xFF08F5F8),
@@ -139,7 +139,7 @@ class _VerificationDialogState extends State<VerificationDialog> {
                     children: [
                       Text('Paid:', style: theme.textTheme.bodyMedium),
                       Text(
-                        'KES ${widget.sdr.paid.toStringAsFixed(0)}',
+                        'KES 0.00',
                         style: theme.textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.w500,
                         ),

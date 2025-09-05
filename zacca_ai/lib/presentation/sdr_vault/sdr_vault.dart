@@ -32,8 +32,7 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
   // Verified VBRs data
   List<VBRModel> _verifiedVBRs = SampleData.verifiedVBRs;
 
-  // Mock transaction data
-  final List<Map<String, dynamic>> _allTransactions = [
+  // Mock transaction data removed - using VBRs instead
     {
       "id": 1,
       "description": "M-Pesa payment from John Mwangi",
