@@ -12,8 +12,6 @@ import './widgets/bulk_action_bar_widget.dart';
 import './widgets/empty_state_widget.dart';
 import './widgets/filter_chips_widget.dart';
 import './widgets/search_bar_widget.dart';
-import './widgets/timeline_date_separator_widget.dart';
-import './widgets/transaction_card_widget.dart';
 import './widgets/sdr_card_widget.dart';
 import './widgets/verification_dialog.dart';
 
@@ -224,21 +222,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     };
   }
 
-  Map<DateTime, List<Map<String, dynamic>>> get _groupedTransactions {
-    final Map<DateTime, List<Map<String, dynamic>>> grouped = {};
-
-    for (final transaction in _filteredTransactions) {
-      final date = transaction['timestamp'] as DateTime;
-      final dateKey = DateTime(date.year, date.month, date.day);
-
-      if (!grouped.containsKey(dateKey)) {
-        grouped[dateKey] = [];
-      }
-      grouped[dateKey]!.add(transaction);
-    }
-
-    return grouped;
-  }
 
   void _toggleSearch() {
     setState(() {
@@ -312,74 +295,6 @@ class _SmartDraftInboxState extends State<SmartDraftInbox>
     );
   }
 
-  void _deleteTransaction(String transactionId) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text('Delete Transaction'),
-        content: Text(
-            'Are you sure you want to delete this transaction? This action cannot be undone.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-              HapticFeedback.mediumImpact();
-              setState(() {
-                _mockTransactions.removeWhere((t) => t['id'] == transactionId);
-                _selectedTransactionIds.remove(transactionId);
-              });
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Transaction deleted'),
-                  backgroundColor: AppTheme.getErrorColor(
-                      Theme.of(context).brightness == Brightness.light),
-                  behavior: SnackBarBehavior.floating,
-                ),
-              );
-            },
-            child: Text('Delete'),
-          ),
-        ],
-      ),
-    );
-  }
-
-  void _editTransaction(String transactionId) {
-    // Navigate to edit screen
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text('Edit functionality coming soon'),
-        behavior: SnackBarBehavior.floating,
-      ),
-    );
-  }
-
-  void _viewTransactionDetails(String transactionId) {
-    final transaction =
-        _mockTransactions.firstWhere((t) => t['id'] == transactionId);
-
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
-        builder: (context, scrollController) => _buildTransactionDetailsSheet(
-          transaction,
-          scrollController,
-        ),
-      ),
-    );
-  }
 
   void _bulkApprove() {
     HapticFeedback.lightImpact();

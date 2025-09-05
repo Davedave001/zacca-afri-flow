@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:fl_chart/fl_chart.dart';
 
 import '../../core/app_export.dart';
 import '../../widgets/custom_app_bar.dart';
@@ -10,7 +9,6 @@ import '../../data/sample_data.dart';
 import './widgets/advanced_filter_panel.dart';
 import './widgets/context_menu_widget.dart';
 import './widgets/export_options_sheet.dart';
-import './widgets/grouped_transaction_list.dart';
 import './widgets/search_bar_widget.dart';
 import './widgets/vault_summary_cards.dart';
 import './widgets/confirmed_sdr_card.dart';
@@ -126,22 +124,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     },
   ];
 
-  List<Map<String, dynamic>> get _filteredTransactions {
-    if (_searchQuery.isEmpty) {
-      return _allTransactions;
-    }
-
-    return _allTransactions.where((transaction) {
-      final description = (transaction["description"] ?? "").toLowerCase();
-      final contact = (transaction["contact"] ?? "").toLowerCase();
-      final amount = transaction["amount"].toString();
-      final query = _searchQuery.toLowerCase();
-
-      return description.contains(query) ||
-          contact.contains(query) ||
-          amount.contains(query);
-    }).toList();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -314,30 +296,6 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
     });
   }
 
-  void _handleTransactionTap(Map<String, dynamic> transaction) {
-    if (_isMultiSelectMode) {
-      setState(() {
-        final id = transaction["id"] as int;
-        if (_selectedTransactions.contains(id)) {
-          _selectedTransactions.remove(id);
-        } else {
-          _selectedTransactions.add(id);
-        }
-
-        if (_selectedTransactions.isEmpty) {
-          _isMultiSelectMode = false;
-        }
-      });
-    } else {
-      _showTransactionDetails(transaction);
-    }
-  }
-
-  void _handleTransactionLongPress(Map<String, dynamic> transaction) {
-    if (!_isMultiSelectMode) {
-      _showContextMenu(transaction);
-    }
-  }
 
   void _showContextMenu(Map<String, dynamic> transaction) {
     _removeContextMenu();
@@ -867,5 +825,24 @@ class _SdrVaultState extends State<SdrVault> with TickerProviderStateMixin {
         behavior: SnackBarBehavior.floating,
       ),
     );
+  }
+
+  void _toggleMultiSelectMode() {
+    setState(() {
+      _isMultiSelectMode = !_isMultiSelectMode;
+      if (!_isMultiSelectMode) {
+        _selectedTransactions.clear();
+      }
+    });
+  }
+
+  void _toggleTransactionSelection(int transactionId) {
+    setState(() {
+      if (_selectedTransactions.contains(transactionId)) {
+        _selectedTransactions.remove(transactionId);
+      } else {
+        _selectedTransactions.add(transactionId);
+      }
+    });
   }
 }
