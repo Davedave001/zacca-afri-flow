@@ -1,35 +1,38 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone, TrendingUp, Users, DollarSign, Shield, ChevronLeft, ChevronRight } from "lucide-react";
 import { useState, useEffect } from "react";
+import heroImage from "@/assets/hero-nairobi-ai.jpg";
+import mamaMbogaImage from "@/assets/mama-mboga-ai.jpg";
+import blockchainImage from "@/assets/blockchain-network.jpg";
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  // Kenyan entrepreneur photos - you can replace these with your actual uploaded images
+  // Kenyan entrepreneur photos using existing assets
   const entrepreneurPhotos = [
     {
-      src: "/api/placeholder/1920/1080", // Replace with your boda rider photo
-      alt: "Kenyan boda boda rider entrepreneur in action",
-      title: "Michael - Boda Boda Operator",
-      subtitle: "Nakuru County"
+      src: heroImage,
+      alt: "Futuristic Nairobi skyline with AI data streams",
+      title: "Nairobi Tech Hub",
+      subtitle: "Innovation Center"
     },
     {
-      src: "/api/placeholder/1920/1080", // Replace with your market vendor photo
-      alt: "Kenyan market vendor entrepreneur with fresh produce",
+      src: mamaMbogaImage,
+      alt: "Mama mboga using AI-powered fintech",
       title: "Grace - Market Vendor",
       subtitle: "Eastleigh Market"
     },
     {
-      src: "/api/placeholder/1920/1080", // Replace with your digital seller photo
-      alt: "Young Kenyan digital entrepreneur selling online",
-      title: "Sarah - Digital Entrepreneur",
-      subtitle: "Nairobi"
+      src: blockchainImage,
+      alt: "Blockchain network visualization",
+      title: "Digital Infrastructure",
+      subtitle: "Kenya's Fintech Revolution"
     },
     {
-      src: "/api/placeholder/1920/1080", // Replace with your craft vendor photo
-      alt: "Kenyan craft vendor entrepreneur with handmade goods",
-      title: "Amina - Craft Vendor",
-      subtitle: "Maasai Market"
+      src: heroImage, // Reusing for demo - you can add more images
+      alt: "Kenyan entrepreneurs thriving with technology",
+      title: "Tech Entrepreneurs",
+      subtitle: "Nairobi"
     }
   ];
 
@@ -53,7 +56,7 @@ export const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
       {/* Full-Width Slideshow Background */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10">
         <div className="relative w-full h-full">
           {entrepreneurPhotos.map((photo, index) => (
             <div
@@ -66,6 +69,10 @@ export const HeroSection = () => {
                 src={photo.src} 
                 alt={photo.alt}
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  console.log('Image failed to load:', photo.src);
+                  e.currentTarget.style.display = 'none';
+                }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/95" />
             </div>
