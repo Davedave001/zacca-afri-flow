@@ -1,122 +1,131 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowRight, Smartphone, Users, Zap, MessageCircle } from "lucide-react";
+import { ArrowRight, Smartphone, Users, Zap, MessageCircle, Shield, Clock, Heart } from "lucide-react";
 import blockchainImage from "@/assets/blockchain-network.jpg";
 
 export const CTASection = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
         <img 
           src={blockchainImage} 
           alt="Blockchain network visualization"
-          className="w-full h-full object-cover opacity-10"
+          className="w-full h-full object-cover opacity-5"
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-background/95" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/90 to-white/95" />
       </div>
 
-      {/* Animated Background Elements */}
+      {/* Subtle AI-inspired Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {/* Floating gradient orbs */}
+        <div className="absolute top-1/4 -right-32 w-96 h-96 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-1/4 -left-32 w-96 h-96 bg-gradient-to-br from-terracotta/5 to-gold/5 rounded-full blur-3xl animate-float" style={{ animationDelay: '2s' }} />
+        
+        {/* Data-inspired dots */}
+        {[...Array(12)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-primary/30 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-primary/20 rounded-full animate-pulse"
             style={{
-              top: `${Math.random() * 100}%`,
-              left: `${Math.random() * 100}%`,
+              top: `${10 + (i % 4) * 20}%`,
+              left: `${15 + (i % 3) * 25}%`,
               animationDelay: `${i * 0.3}s`,
-              animationDuration: `${2 + Math.random() * 2}s`,
             }}
           />
         ))}
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <Card className="feature-card max-w-4xl mx-auto p-8 lg:p-12 text-center">
-          {/* AI Assistant Animation */}
-          <div className="mb-8">
-            <div className="w-20 h-20 bg-gradient-to-br from-primary/20 to-terracotta/20 rounded-full flex items-center justify-center mx-auto mb-6 animate-float">
-              <Zap className="w-10 h-10 text-primary animate-pulse-glow" />
-            </div>
-            <div className="flex items-center justify-center gap-2 text-primary mb-4">
-              <MessageCircle className="w-5 h-5 animate-pulse" />
-              <span className="text-sm font-medium animate-fade-up">AI Assistant Speaking</span>
-            </div>
+        <Card className="bg-white border-0 shadow-xl max-w-5xl mx-auto p-8 lg:p-12 text-center">
+          {/* Trust Badge */}
+          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-3 mb-8">
+            <Shield className="w-4 h-4 text-primary" />
+            <span className="text-sm font-semibold text-primary">Licensed & Regulated by CBK</span>
           </div>
 
           {/* Main CTA Content */}
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Ready to Unlock Your 
-            <span className="text-gradient-primary"> Business Potential</span>?
+          <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8">
+            Your <span className="text-primary">Dream Business</span>
+            <br />
+            <span className="text-muted-foreground">Starts Here</span>
           </h2>
           
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join thousands of African entrepreneurs who've transformed their informal businesses into 
-            credit-worthy enterprises. Your journey to financial freedom starts with a simple chat.
+          <p className="text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed">
+            Join thousands of Kenyan entrepreneurs who've transformed their informal businesses into 
+            credit-worthy enterprises. <span className="font-semibold text-primary">No collateral needed. No bias. Just opportunity.</span>
           </p>
 
           {/* Features Highlight */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-            <div className="flex flex-col items-center p-4">
-              <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center mb-3">
-                <MessageCircle className="w-6 h-6 text-primary" />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-12">
+            <div className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
+                <MessageCircle className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-semibold text-foreground mb-1">Chat to Credit</h3>
-              <p className="text-sm text-muted-foreground">WhatsApp to creditworthiness</p>
+              <h3 className="font-bold text-foreground mb-2 text-lg">Chat to Credit</h3>
+              <p className="text-sm text-muted-foreground text-center">Transform your WhatsApp business conversations into verifiable credit history</p>
             </div>
             
-            <div className="flex flex-col items-center p-4">
-              <div className="w-12 h-12 bg-terracotta/10 rounded-xl flex items-center justify-center mb-3">
-                <Zap className="w-6 h-6 text-terracotta" />
+            <div className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-16 h-16 bg-accent/10 rounded-2xl flex items-center justify-center mb-4">
+                <Clock className="w-8 h-8 text-accent" />
               </div>
-              <h3 className="font-semibold text-foreground mb-1">Instant Assessment</h3>
-              <p className="text-sm text-muted-foreground">30-second credit scoring</p>
+              <h3 className="font-bold text-foreground mb-2 text-lg">Instant Approval</h3>
+              <p className="text-sm text-muted-foreground text-center">Get credit decisions in minutes, not months. Because opportunity waits for no one</p>
             </div>
             
-            <div className="flex flex-col items-center p-4">
-              <div className="w-12 h-12 bg-gold/10 rounded-xl flex items-center justify-center mb-3">
-                <Users className="w-6 h-6 text-gold" />
+            <div className="flex flex-col items-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+              <div className="w-16 h-16 bg-terracotta/10 rounded-2xl flex items-center justify-center mb-4">
+                <Heart className="w-8 h-8 text-terracotta" />
               </div>
-              <h3 className="font-semibold text-foreground mb-1">Smart Network</h3>
-              <p className="text-sm text-muted-foreground">Connect with lenders</p>
+              <h3 className="font-bold text-foreground mb-2 text-lg">Fair & Transparent</h3>
+              <p className="text-sm text-muted-foreground text-center">Built for Kenyans, by Kenyans. We see the entrepreneur in everyone</p>
             </div>
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-background font-semibold px-10 py-6 rounded-xl glow-on-hover group text-lg"
+              className="bg-primary hover:bg-primary/90 text-white font-semibold px-12 py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group text-lg"
             >
               <Smartphone className="w-6 h-6 mr-3" />
-              Download Zacca.ai App
+              Get Started Today
               <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
             
             <Button 
               variant="outline" 
               size="lg"
-              className="border-primary/30 text-primary hover:bg-primary/10 font-semibold px-10 py-6 rounded-xl text-lg"
+              className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-12 py-6 rounded-xl transition-all duration-300 text-lg"
             >
-              Watch Demo Video
+              Watch Success Stories
             </Button>
           </div>
 
           {/* Trust Indicators */}
-          <div className="border-t border-border pt-8">
-            <p className="text-sm text-muted-foreground mb-4">Trusted by leading institutions</p>
-            <div className="flex items-center justify-center gap-8 opacity-60">
-              <span className="text-lg font-bold">Kenya Commercial Bank</span>
-              <span className="text-lg font-bold">Equity Bank</span>
-              <span className="text-lg font-bold">Safaricom</span>
+          <div className="border-t border-gray-200 pt-8">
+            <p className="text-sm text-muted-foreground mb-6 font-medium">Trusted by leading institutions across Kenya</p>
+            <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🏦</span>
+                <span className="text-lg font-bold text-foreground">Kenya Commercial Bank</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🏛️</span>
+                <span className="text-lg font-bold text-foreground">Equity Bank</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">📱</span>
+                <span className="text-lg font-bold text-foreground">Safaricom</span>
+              </div>
             </div>
           </div>
 
           {/* Security Badge */}
-          <div className="mt-8 inline-flex items-center gap-2 bg-muted/30 rounded-full px-4 py-2">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-            <span className="text-sm text-muted-foreground">Bank-grade security & full compliance</span>
+          <div className="mt-8 inline-flex items-center gap-3 bg-gray-50 rounded-full px-6 py-3 border border-gray-200">
+            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
+            <span className="text-sm text-muted-foreground font-medium">Bank-grade security & full CBK compliance</span>
           </div>
         </Card>
       </div>
