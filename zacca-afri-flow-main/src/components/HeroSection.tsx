@@ -1,18 +1,76 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Smartphone, TrendingUp, Users, DollarSign, Shield } from "lucide-react";
-import heroImage from "@/assets/hero-nairobi-ai.jpg";
+import { ArrowRight, Smartphone, TrendingUp, Users, DollarSign, Shield, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
 
 export const HeroSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Kenyan entrepreneur photos - you can replace these with your actual uploaded images
+  const entrepreneurPhotos = [
+    {
+      src: "/api/placeholder/1920/1080", // Replace with your boda rider photo
+      alt: "Kenyan boda boda rider entrepreneur in action",
+      title: "Michael - Boda Boda Operator",
+      subtitle: "Nakuru County"
+    },
+    {
+      src: "/api/placeholder/1920/1080", // Replace with your market vendor photo
+      alt: "Kenyan market vendor entrepreneur with fresh produce",
+      title: "Grace - Market Vendor",
+      subtitle: "Eastleigh Market"
+    },
+    {
+      src: "/api/placeholder/1920/1080", // Replace with your digital seller photo
+      alt: "Young Kenyan digital entrepreneur selling online",
+      title: "Sarah - Digital Entrepreneur",
+      subtitle: "Nairobi"
+    },
+    {
+      src: "/api/placeholder/1920/1080", // Replace with your craft vendor photo
+      alt: "Kenyan craft vendor entrepreneur with handmade goods",
+      title: "Amina - Craft Vendor",
+      subtitle: "Maasai Market"
+    }
+  ];
+
+  // Auto-advance slideshow
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % entrepreneurPhotos.length);
+    }, 5000); // Change slide every 5 seconds
+
+    return () => clearInterval(timer);
+  }, [entrepreneurPhotos.length]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % entrepreneurPhotos.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + entrepreneurPhotos.length) % entrepreneurPhotos.length);
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-      {/* Hero Background with Kenyan Photography */}
+      {/* Full-Width Slideshow Background */}
       <div className="absolute inset-0">
-        <img 
-          src={heroImage} 
-          alt="Real Kenyan entrepreneurs and businesses thriving with technology"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/95" />
+        <div className="relative w-full h-full">
+          {entrepreneurPhotos.map((photo, index) => (
+            <div
+              key={index}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              <img 
+                src={photo.src} 
+                alt={photo.alt}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/95" />
+            </div>
+          ))}
+        </div>
       </div>
       
       {/* Subtle AI-inspired Design Flourishes */}
@@ -42,6 +100,54 @@ export const HeroSection = () => {
             }}
           />
         ))}
+      </div>
+
+      {/* Slideshow Navigation */}
+      <div className="absolute left-6 top-1/2 transform -translate-y-1/2 z-20">
+        <button
+          onClick={prevSlide}
+          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
+        >
+          <ChevronLeft className="w-6 h-6 text-primary group-hover:text-accent" />
+        </button>
+      </div>
+      
+      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-20">
+        <button
+          onClick={nextSlide}
+          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
+        >
+          <ChevronRight className="w-6 h-6 text-primary group-hover:text-accent" />
+        </button>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+        <div className="flex gap-3">
+          {entrepreneurPhotos.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'bg-primary scale-125' 
+                  : 'bg-white/60 hover:bg-white/80'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Current Entrepreneur Info */}
+      <div className="absolute top-8 left-8 z-20">
+        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg animate-fade-up">
+          <h3 className="text-xl font-bold text-primary mb-1">
+            {entrepreneurPhotos[currentSlide].title}
+          </h3>
+          <p className="text-muted-foreground font-medium">
+            {entrepreneurPhotos[currentSlide].subtitle}
+          </p>
+        </div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
