@@ -1,16 +1,16 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Smartphone, Users, Zap, MessageCircle, Shield, Clock, Heart } from "lucide-react";
-import blockchainImage from "@/assets/blockchain-network.jpg";
+import bodaBodaImage from "@/assets/Boda Boda Guy at South C.png";
 
 export const CTASection = () => {
   return (
-    <section className="py-24 relative bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
+    <section className="pt-12 pb-24 relative bg-gradient-to-br from-primary/5 to-accent/5 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0">
-        <img 
-          src={blockchainImage} 
-          alt="Blockchain network visualization"
+        <img
+          src={bodaBodaImage}
+          alt="Kenyan entrepreneur background"
           className="w-full h-full object-cover opacity-5"
         />
         <div className="absolute inset-0 bg-gradient-to-br from-white/95 via-white/90 to-white/95" />
@@ -38,11 +38,6 @@ export const CTASection = () => {
 
       <div className="container mx-auto px-6 relative z-10">
         <Card className="bg-white border-0 shadow-xl max-w-5xl mx-auto p-8 lg:p-12 text-center">
-          {/* Trust Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary/10 rounded-full px-6 py-3 mb-8">
-            <Shield className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Licensed & Regulated by CBK</span>
-          </div>
 
           {/* Main CTA Content */}
           <h2 className="text-4xl md:text-6xl font-bold text-foreground mb-8">
@@ -103,30 +98,6 @@ export const CTASection = () => {
             </Button>
           </div>
 
-          {/* Trust Indicators */}
-          <div className="border-t border-gray-200 pt-8">
-            <p className="text-sm text-muted-foreground mb-6 font-medium">Trusted by leading institutions across Kenya</p>
-            <div className="flex flex-wrap items-center justify-center gap-8 opacity-60">
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏦</span>
-                <span className="text-lg font-bold text-foreground">Kenya Commercial Bank</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">🏛️</span>
-                <span className="text-lg font-bold text-foreground">Equity Bank</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-2xl">📱</span>
-                <span className="text-lg font-bold text-foreground">Safaricom</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Security Badge */}
-          <div className="mt-8 inline-flex items-center gap-3 bg-gray-50 rounded-full px-6 py-3 border border-gray-200">
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-            <span className="text-sm text-muted-foreground font-medium">Bank-grade security & full CBK compliance</span>
-          </div>
         </Card>
       </div>
     </section>

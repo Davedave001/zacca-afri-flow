@@ -1,38 +1,45 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Smartphone, TrendingUp, Users, DollarSign, Shield, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Smartphone, Shield, ChevronLeft, ChevronRight, Play, Star, Users, TrendingUp } from "lucide-react";
 import { useState, useEffect } from "react";
-import heroImage from "@/assets/hero-nairobi-ai.jpg";
-import mamaMbogaImage from "@/assets/mama-mboga-ai.jpg";
-import blockchainImage from "@/assets/blockchain-network.jpg";
+import bodaBodaImage from "@/assets/Boda Boda Guy at South C.png";
+import vegetableVendor1Image from "@/assets/Vegetable Vender at City Market.png";
+import vegetableVendor2Image from "@/assets/Vegetable Vendor at Gikomba.png";
 
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [typingText, setTypingText] = useState("");
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   
-  // Kenyan entrepreneur photos using existing assets
+  // Phrases for typing effect
+  const phrases = [
+    "No collateral needed.",
+    "No bias.",
+    "Just opportunity."
+  ];
+  
+  // Kenyan entrepreneur photos - using your actual photos
   const entrepreneurPhotos = [
     {
-      src: heroImage,
-      alt: "Futuristic Nairobi skyline with AI data streams",
-      title: "Nairobi Tech Hub",
-      subtitle: "Innovation Center"
+      src: bodaBodaImage, // Your boda boda rider photo
+      alt: "Kenyan boda boda rider entrepreneur in South C",
+      title: "Michael - Boda Boda Operator",
+      subtitle: "South C, Nairobi",
+      description: "Transporting communities, building dreams"
     },
     {
-      src: mamaMbogaImage,
-      alt: "Mama mboga using AI-powered fintech",
-      title: "Grace - Market Vendor",
-      subtitle: "Eastleigh Market"
+      src: vegetableVendor1Image, // Your vegetable vendor photo
+      alt: "Kenyan vegetable vendor entrepreneur at City Market",
+      title: "James - Vegetable Vendor",
+      subtitle: "City Market, Nairobi",
+      description: "Fresh produce, fresh opportunities"
     },
     {
-      src: blockchainImage,
-      alt: "Blockchain network visualization",
-      title: "Digital Infrastructure",
-      subtitle: "Kenya's Fintech Revolution"
-    },
-    {
-      src: heroImage, // Reusing for demo - you can add more images
-      alt: "Kenyan entrepreneurs thriving with technology",
-      title: "Tech Entrepreneurs",
-      subtitle: "Nairobi"
+      src: vegetableVendor2Image, // Your second vegetable vendor photo
+      alt: "Kenyan vegetable vendor entrepreneur at Gikomba",
+      title: "Sarah - Vegetable Vendor",
+      subtitle: "Gikomba Market, Nairobi",
+      description: "Feeding families, growing businesses"
     }
   ];
 
@@ -45,6 +52,33 @@ export const HeroSection = () => {
     return () => clearInterval(timer);
   }, [entrepreneurPhotos.length]);
 
+  // Typing effect
+  useEffect(() => {
+    const currentPhrase = phrases[currentPhraseIndex];
+    
+    const timer = setTimeout(() => {
+      if (!isDeleting) {
+        // Typing
+        if (typingText.length < currentPhrase.length) {
+          setTypingText(currentPhrase.slice(0, typingText.length + 1));
+        } else {
+          // Wait before deleting
+          setTimeout(() => setIsDeleting(true), 2000);
+        }
+      } else {
+        // Deleting
+        if (typingText.length > 0) {
+          setTypingText(typingText.slice(0, -1));
+        } else {
+          setIsDeleting(false);
+          setCurrentPhraseIndex((prev) => (prev + 1) % phrases.length);
+        }
+      }
+    }, isDeleting ? 100 : 150); // Faster deleting, slower typing
+
+    return () => clearTimeout(timer);
+  }, [typingText, currentPhraseIndex, isDeleting, phrases]);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % entrepreneurPhotos.length);
   };
@@ -54,9 +88,9 @@ export const HeroSection = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
-      {/* Full-Width Slideshow Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-accent/10">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-white to-accent/5 pt-16">
+      {/* Enhanced Background with Gradient Overlay */}
+      <div className="absolute inset-0">
         <div className="relative w-full h-full">
           {entrepreneurPhotos.map((photo, index) => (
             <div
@@ -68,52 +102,31 @@ export const HeroSection = () => {
               <img 
                 src={photo.src} 
                 alt={photo.alt}
-                className="w-full h-full object-cover"
+          className="w-full h-full object-cover"
                 onError={(e) => {
                   console.log('Image failed to load:', photo.src);
-                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.parentElement.style.background = 'linear-gradient(135deg, #3117ce, #08f5f8)';
                 }}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-white/95 via-white/85 to-white/95" />
+              {/* Enhanced gradient overlay for better text readability */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/40 to-black/60" />
             </div>
           ))}
         </div>
-      </div>
-      
-      {/* Subtle AI-inspired Design Flourishes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Floating data dots */}
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-primary/20 rounded-full animate-float"
-            style={{
-              top: `${15 + i * 10}%`,
-              left: `${10 + (i % 3) * 30}%`,
-              animationDelay: `${i * 0.5}s`,
-            }}
-          />
-        ))}
         
-        {/* Gradient lines */}
-        {[...Array(3)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute h-px w-32 bg-gradient-to-r from-transparent via-primary/30 to-transparent"
-            style={{
-              top: `${25 + i * 20}%`,
-              right: `${10 + i * 5}%`,
-              animationDelay: `${i * 1}s`,
-            }}
-          />
-        ))}
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-accent/10 rounded-full animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-primary/10 rounded-full animate-bounce"></div>
+          <div className="absolute bottom-40 left-20 w-20 h-20 bg-accent/20 rounded-full animate-pulse"></div>
+        </div>
       </div>
 
-      {/* Slideshow Navigation */}
+      {/* Enhanced Slideshow Navigation */}
       <div className="absolute left-6 top-1/2 transform -translate-y-1/2 z-20">
         <button
           onClick={prevSlide}
-          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
+          className="p-4 bg-white/90 backdrop-blur-md rounded-full shadow-xl hover:bg-white hover:scale-110 transition-all duration-300 group border border-white/20"
         >
           <ChevronLeft className="w-6 h-6 text-primary group-hover:text-accent" />
         </button>
@@ -122,99 +135,114 @@ export const HeroSection = () => {
       <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-20">
         <button
           onClick={nextSlide}
-          className="p-3 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-300 group"
+          className="p-4 bg-white/90 backdrop-blur-md rounded-full shadow-xl hover:bg-white hover:scale-110 transition-all duration-300 group border border-white/20"
         >
           <ChevronRight className="w-6 h-6 text-primary group-hover:text-accent" />
         </button>
       </div>
 
-      {/* Slide Indicators */}
+      {/* Enhanced Slide Indicators */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex gap-3">
+        <div className="flex gap-4 bg-white/20 backdrop-blur-md rounded-full px-4 py-2">
           {entrepreneurPhotos.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+              className={`w-4 h-4 rounded-full transition-all duration-300 ${
                 index === currentSlide 
-                  ? 'bg-primary scale-125' 
+                  ? 'bg-white scale-125 shadow-lg' 
                   : 'bg-white/60 hover:bg-white/80'
               }`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Current Entrepreneur Info */}
-      <div className="absolute top-8 left-8 z-20">
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg animate-fade-up">
-          <h3 className="text-xl font-bold text-primary mb-1">
-            {entrepreneurPhotos[currentSlide].title}
-          </h3>
-          <p className="text-muted-foreground font-medium">
-            {entrepreneurPhotos[currentSlide].subtitle}
-          </p>
+          />
+        ))}
         </div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="max-w-5xl mx-auto text-center">
-          {/* Trust Badge */}
-          <div className="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-6 py-3 mb-8 animate-fade-up">
-            <Shield className="w-4 h-4 text-primary" />
-            <span className="text-sm font-semibold text-primary">Licensed & Regulated by CBK</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Left Column - Enhanced Content */}
+            <div className="text-center lg:text-left space-y-8">
+              {/* Trust Badge */}
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-4 py-2 border border-white/30 animate-fade-up">
+                <Star className="w-4 h-4 text-accent fill-accent" />
+                <span className="text-white text-sm font-semibold">Trusted by 10,000+ Entrepreneurs</span>
           </div>
 
-          {/* Main Headline - Human-Centered */}
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight mb-8 animate-fade-up animate-delay-200">
-            <span className="text-primary">Empowering</span>
-            <br />
-            <span className="text-foreground">Kenyan Dreams</span>
-            <br />
-            <span className="text-gradient-primary">Through AI & Trust</span>
+          {/* Main Headline */}
+              <div className="space-y-4 animate-fade-up animate-delay-200">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
+                  Transforming Informal Transactions into 
+                  <span className="text-accent block">Africa's Most Valuable</span>
+                  <span className="text-accent">Credit Passport</span>
           </h1>
+              </div>
 
-          {/* Subheading - Impact-Driven */}
-          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-4xl mx-auto leading-relaxed animate-fade-up animate-delay-400">
-            From mama mboga to tech startups, we're building a financial future where every Kenyan entrepreneur gets fair access to credit. 
-            <span className="font-semibold text-primary"> No collateral needed. No bias. Just opportunity.</span>
-          </p>
+              {/* Typing Effect */}
+              <div className="text-2xl md:text-3xl font-bold text-white min-h-[3rem] flex items-center justify-center lg:justify-start animate-fade-up animate-delay-400">
+                <span className="text-accent mr-2">{typingText}</span>
+                <span className="animate-pulse text-accent">|</span>
+              </div>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-fade-up animate-delay-600 mb-16">
+              {/* Enhanced CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up animate-delay-600">
             <Button 
               size="lg" 
-              className="bg-primary hover:bg-primary/90 text-white font-semibold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group"
+                  className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 text-white font-bold px-10 py-5 rounded-2xl shadow-2xl hover:shadow-primary/30 transition-all duration-300 group transform hover:scale-105"
             >
-              <Smartphone className="w-5 h-5 mr-2" />
-              Get Started Today
-              <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                  <Smartphone className="w-6 h-6 mr-3" />
+              Get the App
+                  <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform" />
             </Button>
             <Button 
               variant="outline" 
               size="lg"
-              className="border-primary text-primary hover:bg-primary hover:text-white font-semibold px-8 py-4 rounded-xl transition-all duration-300"
+              className="border-2 border-white/60 text-gray-800 hover:bg-white hover:text-primary font-bold px-10 py-5 rounded-2xl backdrop-blur-md transition-all duration-300 group transform hover:scale-105"
             >
-              Partner With Us
+              <Play className="w-5 h-5 mr-2" />
+              For Lenders
             </Button>
           </div>
 
-          {/* Impact Stats */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 animate-fade-up animate-delay-800">
-            <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-              <Users className="w-8 h-8 text-primary mx-auto mb-3" />
-              <div className="text-3xl font-bold text-primary mb-2">250K+</div>
-              <div className="text-muted-foreground font-medium">Entrepreneurs Empowered</div>
+              {/* Social Proof */}
+              <div className="flex flex-col sm:flex-row gap-6 items-center justify-center lg:justify-start animate-fade-up animate-delay-800">
+                <div className="flex items-center gap-2 text-white/90">
+                  <Users className="w-5 h-5 text-accent" />
+                  <span className="text-sm font-semibold">10,000+ Active Users</span>
+                </div>
+                <div className="flex items-center gap-2 text-white/90">
+                  <TrendingUp className="w-5 h-5 text-accent" />
+                  <span className="text-sm font-semibold">40% Growth Rate</span>
+                </div>
+              </div>
             </div>
-            <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-              <DollarSign className="w-8 h-8 text-accent mx-auto mb-3" />
-              <div className="text-3xl font-bold text-accent mb-2">$25M+</div>
-              <div className="text-muted-foreground font-medium">Credit Facilitated</div>
+
+            {/* Right Column - Enhanced Visual */}
+            <div className="relative animate-fade-up animate-delay-400">
+              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-2xl">
+                {/* Current Slide Info */}
+                <div className="text-center space-y-4">
+                  <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full mx-auto flex items-center justify-center">
+                    <span className="text-white text-2xl font-bold">{currentSlide + 1}</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-white">{entrepreneurPhotos[currentSlide].title}</h3>
+                  <p className="text-white/80">{entrepreneurPhotos[currentSlide].subtitle}</p>
+                  <p className="text-accent font-semibold">{entrepreneurPhotos[currentSlide].description}</p>
+                </div>
+                
+                {/* Success Metrics */}
+                <div className="mt-8 grid grid-cols-2 gap-4">
+                  <div className="text-center p-4 bg-white/10 rounded-xl">
+                    <div className="text-2xl font-bold text-accent">85%</div>
+                    <div className="text-sm text-white/80">Success Rate</div>
+                  </div>
+                  <div className="text-center p-4 bg-white/10 rounded-xl">
+                    <div className="text-2xl font-bold text-accent">24hr</div>
+                    <div className="text-sm text-white/80">Approval Time</div>
+                  </div>
+                </div>
             </div>
-            <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-100 shadow-sm">
-              <TrendingUp className="w-8 h-8 text-terracotta mx-auto mb-3" />
-              <div className="text-3xl font-bold text-terracotta mb-2">98.5%</div>
-              <div className="text-muted-foreground font-medium">Repayment Rate</div>
             </div>
           </div>
         </div>
