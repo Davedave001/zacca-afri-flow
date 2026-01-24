@@ -1,0 +1,240 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Zacca.ai Futuristic African Fintech Design System */
+
+@layer base {
+  :root {
+    /* Zacca.ai Brand Colors - Trust + Innovation + African Authenticity */
+    --background: 0 0% 100%;    /* Pure white */
+    --foreground: 0 0% 13%;     /* Dark grey #222222 */
+
+    --card: 0 0% 100%;          /* White cards */
+    --card-foreground: 0 0% 13%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 13%;
+
+    --primary: 252 100% 45%;    /* Deep violet-blue #3117ce */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 248 100% 97%;  /* Light grey #f8f9fa */
+    --secondary-foreground: 0 0% 13%;
+
+    --muted: 248 100% 97%;      /* Light grey #f8f9fa */
+    --muted-foreground: 0 0% 0%;
+
+    --accent: 188 100% 50%;     /* Electric aqua #08f5f8 */
+    --accent-foreground: 0 0% 13%;
+
+    /* African earth tones */
+    --ochre: 30 70% 45%;        /* Ochre */
+    --terracotta: 12 65% 62%;   /* Terracotta */
+    --gold: 51 100% 50%;        /* Gold */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 90%;         /* Light border */
+    --input: 0 0% 90%;
+    --ring: 252 100% 45%;       /* Primary ring */
+
+    --radius: 0.75rem;
+
+    /* Gradients for futuristic effects */
+    --gradient-hero: linear-gradient(135deg, #3117ce, #08f5f8);
+    --gradient-primary: linear-gradient(135deg, #3117ce, #08f5f8);
+    --gradient-card: linear-gradient(145deg, #ffffff, #f8f9fa);
+    --gradient-glow: radial-gradient(circle, rgba(49, 23, 206, 0.1), transparent 70%);
+    
+    /* Shadows with subtle glow effects */
+    --shadow-glow: 0 0 30px rgba(49, 23, 206, 0.2);
+    --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.1);
+    
+    /* Animation timings */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-glow: box-shadow 0.3s ease;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+  }
+  
+  p {
+    line-height: 1.7;
+  }
+}
+
+@layer components {
+  /* Hero section styles */
+  .hero-gradient {
+    background: var(--gradient-hero);
+    background-size: 400% 400%;
+    animation: gradient-shift 8s ease-in-out infinite;
+  }
+  
+  .data-stream {
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+    animation: stream-flow 3s linear infinite;
+  }
+
+  /* Interactive cards */
+  .feature-card {
+    background: var(--gradient-card);
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--shadow-card);
+    transition: var(--transition-smooth);
+  }
+  
+  .feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glow), var(--shadow-card);
+    border-color: hsl(var(--primary) / 0.5);
+  }
+
+  /* Glowing elements */
+  .glow-primary {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .glow-on-hover:hover {
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition-glow);
+  }
+
+  /* Text gradients */
+  .text-gradient-primary {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--ochre)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@layer utilities {
+  /* Animation keyframes */
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  @keyframes stream-flow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100vw); }
+  }
+  
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+    50% { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
+  }
+
+  /* Utility classes */
+  .animate-fade-up {
+    animation: fade-up 0.8s ease-out;
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animate-delay-600 {
+    animation-delay: 600ms;
+  }
+}
