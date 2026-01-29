@@ -119,20 +119,29 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
     line-height: 1.6;
     letter-spacing: -0.01em;
-    font-weight: 400;
+    font-weight: 500;
   }
   
   h1, h2, h3, h4, h5, h6 {
+    font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
     font-weight: 600;
     line-height: 1.2;
     letter-spacing: -0.03em;
   }
   
   p {
+    font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    font-weight: 500;
     line-height: 1.7;
+  }
+  
+  /* Apply Euclid Circular B to all body text elements, but not headers */
+  span, div, li, a, button, input, textarea, select, label, td, th {
+    font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+    font-weight: 500;
   }
 }
 

@@ -22,10 +22,77 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon.svg">
     
-    <!-- Poppins Font (Wegofin-style) -->
+    <!-- Gilroy Font (Konfio-style) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Inter Font (similar to Euclid Circular B) as web font fallback -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Note: Gilroy is a premium font. If you have a license, add the font files or link here. -->
+    <!-- For now, using a similar alternative or system fonts as fallback -->
+    <style>
+      @font-face {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 300;
+        src: local('Gilroy Light'), local('Gilroy-Light');
+      }
+      @font-face {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 400;
+        src: local('Gilroy Regular'), local('Gilroy-Regular');
+      }
+      @font-face {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 500;
+        src: local('Gilroy Medium'), local('Gilroy-Medium');
+      }
+      @font-face {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 600;
+        src: local('Gilroy SemiBold'), local('Gilroy-SemiBold');
+      }
+      @font-face {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 700;
+        src: local('Gilroy Bold'), local('Gilroy-Bold');
+      }
+      
+      /* Euclid Circular B Font for body text */
+      @font-face {
+        font-family: 'Euclid Circular B';
+        font-style: normal;
+        font-weight: 300;
+        src: url('/fonts/EuclidCircularB Light.woff.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Euclid Circular B';
+        font-style: normal;
+        font-weight: 400;
+        src: url('/fonts/EuclidCircularB- Regular.woff.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Euclid Circular B';
+        font-style: normal;
+        font-weight: 500;
+        src: url('/fonts/EuclidCircularB- Medium.woff.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Euclid Circular B';
+        font-style: normal;
+        font-weight: 600;
+        src: url('/fonts/EuclidCircularB- SemiBold.woff.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Euclid Circular B';
+        font-style: normal;
+        font-weight: 700;
+        src: url('/fonts/EuclidCirculaB-Bold.woff.ttf') format('truetype');
+      }
+    </style>
   </head>
 
   <body>

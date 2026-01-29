@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import dataAnalyticsImage from "@/assets/data-analytics-hero.png.png";
+import zaccaLogo from "@/assets/Zacca new.png";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,195 +61,177 @@ export const Header = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
       <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-14 sm:h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center gap-2 sm:gap-3 group">
-              {/* Logo Icon */}
-              <div className="relative">
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-primary via-primary/90 to-primary/70 rounded-lg sm:rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-                  {/* AI Brain/Neural Network */}
-                  <div className="relative">
-                    <div className="w-4 h-4 sm:w-6 sm:h-6 border-2 border-white rounded-full flex items-center justify-center animate-spin" style={{animationDuration: '3s'}}>
-                      <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full animate-spin" style={{animationDuration: '2s', animationDirection: 'reverse', backgroundColor: '#08f5f8'}}></div>
-                    </div>
-                    {/* Neural connections */}
-                    <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full opacity-60"></div>
-                    <div className="absolute -bottom-0.5 -left-0.5 sm:-bottom-1 sm:-left-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full opacity-60"></div>
-                    <div className="absolute -top-0.5 -left-0.5 sm:-top-1 sm:-left-1 w-1 h-1 bg-white rounded-full opacity-40"></div>
-                    <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-1 h-1 bg-white rounded-full opacity-40"></div>
-                  </div>
-                </div>
-                {/* Blockchain indicator */}
-                <div className="absolute -bottom-0.5 -right-0.5 sm:-bottom-1 sm:-right-1 w-2 h-2 sm:w-3 sm:h-3 bg-accent rounded-full border-2 border-white shadow-sm"></div>
-              </div>
-              
-              {/* Logo Text */}
-              <div className="flex flex-col">
-                <span className="text-lg sm:text-xl lg:text-2xl font-bold text-primary group-hover:text-primary/80 transition-colors">
-                  Zacca.ai
-                </span>
-                <span className="text-xs text-muted-foreground font-medium -mt-0.5 sm:-mt-1">
-                  Financial OS
-                </span>
-              </div>
+        <div className="flex items-center justify-between h-16 sm:h-18">
+          {/* Logo - Left */}
+          <div className="flex items-center flex-shrink-0 pl-6 lg:pl-8">
+            <Link to="/" className="flex items-center group">
+              <img 
+                src={zaccaLogo} 
+                alt="Zacca.ai Logo" 
+                className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+              />
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center justify-center flex-1 mx-4 lg:mx-8">
-            <div className="flex items-center justify-between w-full max-w-2xl">
+          {/* Desktop Navigation - Left aligned closer to logo */}
+          <nav className="hidden lg:flex items-center ml-4 lg:ml-6">
+            <ul className="flex items-center gap-6 lg:gap-8">
               {navigationItems.map((item) => (
-                item.hasDropdown ? (
-                  <DropdownMenu key={item.name}>
-                    <DropdownMenuTrigger asChild>
-                      <button className="text-sm lg:text-base font-medium px-2 lg:px-4 py-2 rounded-lg transition-all duration-200 hover:bg-primary/10 text-gray-700 hover:text-primary flex items-center gap-1">
-                        {item.name}
-                        <ChevronDown className="w-3 h-3 lg:w-4 lg:h-4" />
-                      </button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-screen p-0 bg-white border-0 shadow-lg rounded-none">
-                      <div className="w-full bg-gray-50 py-8 lg:py-16 px-4 lg:px-8">
-                        <div className="max-w-7xl mx-auto">
-                          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-12">
-                            {/* Column 1 - Technology Solutions */}
-                            <div className="space-y-8">
-                              <div>
-                                <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-4">
-                                  Technology Solutions
-                                </h2>
-                                <p className="text-sm lg:text-base text-gray-600 leading-relaxed">
-                                  Zacca.ai offers a full array of advanced solutions engineered for the complete alternative credit lifecycle.
+                <li key={item.name}>
+                  {item.hasDropdown ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <button 
+                          className="text-base lg:text-lg font-medium text-black hover:text-[#3117ce] transition-colors flex items-center gap-1"
+                          style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+                        >
+                          {item.name}
+                          <ChevronDown className="w-3 h-3 lg:w-4 lg:h-4 text-[#3117ce]" />
+                        </button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent className="w-screen p-0 bg-white border-0 shadow-lg rounded-none">
+                        <div className="w-full bg-gray-50 py-8 lg:py-16 px-4 lg:px-8">
+                          <div className="max-w-7xl mx-auto">
+                            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-12">
+                              {/* Column 1 - Technology Solutions */}
+                              <div className="space-y-8">
+                                <div>
+                                  <h2 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3 lg:mb-4">
+                                    Technology Solutions
+                                  </h2>
+                                  <p className="text-sm lg:text-base text-gray-600 leading-relaxed">
+                                    Zacca.ai offers a full array of advanced solutions engineered for the complete alternative credit lifecycle.
+                                  </p>
+                                </div>
+                              </div>
+
+                              {/* Column 2 - Solutions List (First 3) */}
+                              <div className="space-y-6">
+                                {solutionsItems.slice(0, 3).map((solution, index) => (
+                                  <DropdownMenuItem key={index} className="p-0 focus:bg-transparent">
+                                    {solution.isClickable ? (
+                                      <Link to={solution.href} className="w-full">
+                                        <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-[#3117ce]/20">
+                                          <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-[#3117ce] transition-colors">
+                                            {solution.title}
+                                          </h3>
+                                          <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
+                                            {solution.description}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    ) : (
+                                      <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-[#3117ce]/20">
+                                        <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-[#3117ce] transition-colors">
+                                          {solution.title}
+                                        </h3>
+                                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
+                                          {solution.description}
+                                        </p>
+                                      </div>
+                                    )}
+                                  </DropdownMenuItem>
+                                ))}
+                              </div>
+
+                              {/* Column 3 - Solutions List (Last 3) */}
+                              <div className="space-y-6">
+                                {solutionsItems.slice(3, 6).map((solution, index) => (
+                                  <DropdownMenuItem key={index + 3} className="p-0 focus:bg-transparent">
+                                    {solution.isClickable ? (
+                                      <Link to={solution.href} className="w-full">
+                                        <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-[#3117ce]/20">
+                                          <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-[#3117ce] transition-colors">
+                                            {solution.title}
+                                          </h3>
+                                          <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
+                                            {solution.description}
+                                          </p>
+                                        </div>
+                                      </Link>
+                                    ) : (
+                                      <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-[#3117ce]/20">
+                                        <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-[#3117ce] transition-colors">
+                                          {solution.title}
+                                        </h3>
+                                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
+                                          {solution.description}
+                                        </p>
+                                      </div>
+                                    )}
+                                  </DropdownMenuItem>
+                                ))}
+                              </div>
+
+                              {/* Column 4 - Image with Text */}
+                              <div className="space-y-6">
+                                {/* Image */}
+                                <div className="w-full h-64 rounded-lg overflow-hidden mb-4 border border-[#3117ce]/20 hover:border-[#3117ce]/40 transition-all duration-300 group">
+                                  <img
+                                    src={dataAnalyticsImage}
+                                    alt="Data Analytics and Credit Scoring Technology"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                    onError={(e) => {
+                                      // Fallback to gradient background if image fails to load
+                                      e.currentTarget.style.display = 'none';
+                                      e.currentTarget.parentElement.innerHTML = `
+                                        <div class="w-full h-full bg-gradient-to-br from-[#3117ce]/20 via-[#3117ce]/20 to-[#3117ce]/10 flex items-center justify-center">
+                                          <div class="text-center">
+                                            <div class="w-16 h-16 bg-gradient-to-br from-[#3117ce] to-[#3117ce] rounded-full mx-auto mb-3 flex items-center justify-center">
+                                              <span class="text-white text-2xl font-bold">AI</span>
+                                            </div>
+                                            <span class="text-gray-600 text-sm font-medium">Data Analytics</span>
+                                          </div>
+                                        </div>
+                                      `;
+                                    }}
+                                  />
+                                </div>
+                                
+                                {/* Text Below Image */}
+                                <p className="text-gray-700 leading-relaxed font-medium">
+                                  Eliminate credit risk assessment friction, increase liquidity, and scale your alternative credit-scoring with a smarter approach to data.
                                 </p>
                               </div>
                             </div>
-
-                            {/* Column 2 - Solutions List (First 3) */}
-                            <div className="space-y-6">
-                              {solutionsItems.slice(0, 3).map((solution, index) => (
-                                <DropdownMenuItem key={index} className="p-0 focus:bg-transparent">
-                                  {solution.isClickable ? (
-                                    <Link to={solution.href} className="w-full">
-                                      <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-primary/20">
-                                        <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-primary transition-colors">
-                                          {solution.title}
-                                        </h3>
-                                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
-                                          {solution.description}
-                                        </p>
-                                      </div>
-                                    </Link>
-                                  ) : (
-                                    <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-primary/20">
-                                      <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-primary transition-colors">
-                                        {solution.title}
-                                      </h3>
-                                      <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
-                                        {solution.description}
-                                      </p>
-                                    </div>
-                                  )}
-                                </DropdownMenuItem>
-                              ))}
-                            </div>
-
-                            {/* Column 3 - Solutions List (Last 3) */}
-                            <div className="space-y-6">
-                              {solutionsItems.slice(3, 6).map((solution, index) => (
-                                <DropdownMenuItem key={index + 3} className="p-0 focus:bg-transparent">
-                                  {solution.isClickable ? (
-                                    <Link to={solution.href} className="w-full">
-                                      <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-primary/20">
-                                        <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-primary transition-colors">
-                                          {solution.title}
-                                        </h3>
-                                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
-                                          {solution.description}
-                                        </p>
-                                      </div>
-                                    </Link>
-                                  ) : (
-                                    <div className="w-full p-4 rounded-lg hover:bg-white hover:shadow-md transition-all duration-300 cursor-pointer group border border-transparent hover:border-primary/20">
-                                      <h3 className="font-bold text-gray-900 mb-2 text-lg group-hover:text-primary transition-colors">
-                                        {solution.title}
-                                      </h3>
-                                      <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors">
-                                        {solution.description}
-                                      </p>
-                                    </div>
-                                  )}
-                                </DropdownMenuItem>
-                              ))}
-                            </div>
-
-                            {/* Column 4 - Image with Text */}
-                            <div className="space-y-6">
-                              {/* Image */}
-                              <div className="w-full h-64 rounded-lg overflow-hidden mb-4 border border-primary/20 hover:border-primary/40 transition-all duration-300 group">
-                                <img
-                                  src={dataAnalyticsImage}
-                                  alt="Data Analytics and Credit Scoring Technology"
-                                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                  onError={(e) => {
-                                    // Fallback to gradient background if image fails to load
-                                    e.currentTarget.style.display = 'none';
-                                    e.currentTarget.parentElement.innerHTML = `
-                                      <div class="w-full h-full bg-gradient-to-br from-primary/20 via-accent/20 to-primary/10 flex items-center justify-center">
-                                        <div class="text-center">
-                                          <div class="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full mx-auto mb-3 flex items-center justify-center">
-                                            <span class="text-white text-2xl font-bold">AI</span>
-                                          </div>
-                                          <span class="text-gray-600 text-sm font-medium">Data Analytics</span>
-                                        </div>
-                                      </div>
-                                    `;
-                                  }}
-                                />
-                              </div>
-                              
-                              {/* Text Below Image */}
-                              <p className="text-gray-700 leading-relaxed font-medium">
-                                Eliminate credit risk assessment friction, increase liquidity, and scale your alternative credit-scoring with a smarter approach to data.
-                              </p>
-                            </div>
                           </div>
                         </div>
-                      </div>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                ) : (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`text-base font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:bg-primary/10 ${
-                      item.isHome 
-                        ? "text-primary font-semibold bg-primary/10" 
-                        : "text-gray-700 hover:text-primary"
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                )
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
+                    <Link
+                      to={item.href}
+                      className={`text-base lg:text-lg font-medium transition-colors ${
+                        item.isHome 
+                          ? "text-[#3117ce]" 
+                          : "text-black hover:text-[#3117ce]"
+                      }`}
+                      style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+                    >
+                      {item.name}
+                    </Link>
+                  )}
+                </li>
               ))}
-            </div>
+            </ul>
           </nav>
 
-          {/* Contact Us Button */}
-          <div className="hidden lg:flex items-center">
-            <Link to="/contact">
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-white font-semibold px-4 lg:px-6 py-1.5 lg:py-2 rounded-lg transition-all duration-300 shadow-sm hover:shadow-md text-sm lg:text-base"
-              >
-                Contact Us
-              </Button>
+          {/* CTA Link - Right */}
+          <div className="hidden lg:flex items-center flex-shrink-0">
+            <Link 
+              to="/contact" 
+              className="text-sm lg:text-base font-medium text-[#3117ce] hover:text-[#3117ce]/80 transition-colors border-b-2 border-[#3117ce] pb-1"
+              style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+            >
+              Contact Us
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg text-gray-700 hover:text-primary hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-black hover:text-[#3117ce] hover:bg-gray-100 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -262,7 +245,7 @@ export const Header = () => {
               {navigationItems.map((item) => (
                 item.hasDropdown ? (
                   <div key={item.name} className="px-3 sm:px-4">
-                    <div className="text-sm sm:text-base font-medium text-gray-700 mb-2">
+                    <div className="text-sm sm:text-base font-medium text-black mb-2">
                       {item.name}
                     </div>
                     <div className="ml-4 space-y-2">
@@ -297,22 +280,24 @@ export const Header = () => {
                     to={item.href}
                     className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
                       item.isHome 
-                        ? "text-primary bg-primary/10 font-semibold" 
-                        : "text-gray-700 hover:text-primary hover:bg-gray-50"
+                        ? "text-[#3117ce]" 
+                        : "text-black hover:text-[#3117ce] hover:bg-gray-50"
                     }`}
                     onClick={() => setIsMenuOpen(false)}
+                    style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
                   >
                     {item.name}
                   </Link>
                 )
               ))}
               <div className="px-3 sm:px-4 pt-2">
-                <Link to="/contact" onClick={() => setIsMenuOpen(false)}>
-                  <Button 
-                    className="w-full bg-primary hover:bg-primary/90 text-white font-semibold py-2 rounded-lg transition-all duration-300 text-sm sm:text-base"
-                  >
-                    Contact Us
-                  </Button>
+                <Link 
+                  to="/contact" 
+                  onClick={() => setIsMenuOpen(false)} 
+                  className="block text-center text-sm sm:text-base font-medium text-[#3117ce] border-b-2 border-[#3117ce] pb-2"
+                  style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+                >
+                  Contact Us
                 </Link>
               </div>
             </div>
