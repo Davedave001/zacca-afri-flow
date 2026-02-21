@@ -1,11 +1,12 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
-import phoneMockupImage from "@/assets/New Mockup.png";
-import dataAnalyticsImage from "@/assets/data-analytics-hero.png.png";
-import smartWalletImage from "@/assets/smart wallet.png";
-import kariukimwangiImage from "@/assets/kariukimwangi.png";
+import mockupCard1Image from "@/assets/New Mockup Card 1.png";
+import mockupCard2Image from "@/assets/New Mockup Card 2.png";
+import mockupCard3Image from "@/assets/New Mockup Card 3 NEW.png";
 
+
+const cardImages = [mockupCard1Image, mockupCard2Image, mockupCard3Image] as const;
 
 const cards = [
   {
@@ -86,7 +87,7 @@ export const ScrollableCardsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative bg-white">
+    <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
       <div className="hidden lg:block">
         <div className="relative" style={{ minHeight: "300vh" }}>
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -105,7 +106,7 @@ export const ScrollableCardsSection = () => {
                     willChange: "transform, clip-path, opacity",
                   } as React.CSSProperties}
                 >
-                  <Card card={card} primary={index === 0} />
+                  <Card card={card} image={cardImages[index]} primary={index === 0} />
                 </div>
               ))}
             </div>
@@ -254,15 +255,21 @@ const getCardStyle = (index: number, scroll: number) => {
 
 const Card = ({
   card,
+  image,
 }: {
   card: (typeof cards)[number];
+  image: string;
   primary: boolean;
 }) => {
   return (
     <div
-      className="relative w-full max-w-5xl h-[460px] rounded-3xl overflow-hidden bg-white border-2 border-[#3117ce]/25 shadow-2xl"
+      className="relative w-full max-w-5xl h-[460px] rounded-3xl overflow-hidden shadow-2xl"
+      style={{
+        background: 'linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)',
+        padding: '2px'
+      }}
     >
-      <div className="px-8 py-5 grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+      <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
           <h2
             className="text-base lg:text-lg font-semibold text-[#3117ce]"
@@ -302,9 +309,9 @@ const Card = ({
         
         <div className="hidden lg:flex items-center justify-center overflow-hidden">
           <img
-            src={kariukimwangiImage}
+            src={image}
             alt={card.title}
-            className="max-w-[80%] max-h-[80%] w-auto h-auto object-contain"
+            className="w-full h-full object-contain"
           />
         </div>
       </div>

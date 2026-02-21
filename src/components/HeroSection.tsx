@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Smartphone } from "lucide-react";
 import { useState, useEffect } from "react";
-import phoneMockupImage from "@/assets/New Mockup.png";
+import phoneMockupImage from "@/assets/New Mockup Zacca.png";
 
 export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
@@ -16,27 +16,13 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
         {/* Overlay with Rounded Corners */}
         <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden">
-          {/* Split Background with Radial Gradients */}
-          <div className="absolute inset-0 flex">
-            {/* Left Side - Dark Purple/Blue Radial Background */}
-            <div 
-              className="w-full lg:w-1/2"
-              style={{
-                background: 'radial-gradient(ellipse 80% 100% at 30% 50%, #3117ce 0%, #2512a8 40%, #1a0d7a 80%, #150a5c 100%)'
-              }}
-            />
-            {/* Right Side - Lighter Radial Gradient Background */}
-            <div 
-              className="hidden lg:block w-1/2 relative overflow-hidden"
-              style={{
-                background: 'radial-gradient(ellipse 100% 120% at 70% 50%, #5c3fe0 0%, #4a2dd4 30%, #3117ce 60%, #2512a8 100%)'
-              }}
-            >
-              {/* Abstract curved shape for depth */}
-              <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-white/10 rounded-full blur-3xl transform translate-x-1/4 -translate-y-1/4" />
-              <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl transform -translate-x-1/4 translate-y-1/4" />
-            </div>
-          </div>
+          {/* Linear horizontal gradient - #3117ce and variants, left to right */}
+          <div 
+            className="absolute inset-0"
+            style={{
+              background: 'linear-gradient(90deg, #1a0d7a 0%, #2512a8 25%, #3117ce 50%, #4a2dd4 75%, #5c3fe0 100%)'
+            }}
+          />
 
           <div className="relative grid lg:grid-cols-2 min-h-[600px] lg:min-h-[700px]">
             
@@ -72,7 +58,7 @@ export const HeroSection = () => {
 
                 {/* Description */}
                 <p 
-                  className="text-sm sm:text-base lg:text-lg font-semibold text-white/90 max-w-xl leading-relaxed"
+                  className="text-sm sm:text-base lg:text-lg font-normal text-white/90 max-w-xl leading-relaxed"
                   style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
                 >
                   AI converts your WhatsApp chats and mobile money transactions into verified credit records. Get fair access to loans, insurance, and financial services.
@@ -116,10 +102,9 @@ export const HeroSection = () => {
             <div 
               className="lg:hidden flex items-center justify-center py-8 px-6 relative overflow-hidden"
               style={{
-                background: 'radial-gradient(ellipse 100% 120% at 50% 50%, #5c3fe0 0%, #4a2dd4 30%, #3117ce 60%, #2512a8 100%)'
+                background: 'linear-gradient(90deg, #1a0d7a 0%, #2512a8 25%, #3117ce 50%, #4a2dd4 75%, #5c3fe0 100%)'
               }}
             >
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 rounded-full blur-3xl transform translate-x-1/4 -translate-y-1/4" />
               <div className={`relative z-10 transition-all duration-1000 delay-400 ${animated ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                 <img 
                   src={phoneMockupImage} 

@@ -10,9 +10,6 @@ import ZaccaSmartWallet from "./pages/ZaccaSmartWallet";
 import LiquiChainDAO from "./pages/LiquiChainDAO";
 import TokenizedCollateral from "./pages/TokenizedCollateral";
 import AnalyticsAsAService from "./pages/AnalyticsAsAService";
-import Industry from "./pages/Industry";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,9 +28,6 @@ const App = () => (
           <Route path="/solutions/liquichain-dao" element={<LiquiChainDAO />} />
           <Route path="/solutions/tokenized-collateral" element={<TokenizedCollateral />} />
           <Route path="/solutions/analytics-as-a-service" element={<AnalyticsAsAService />} />
-          <Route path="/industry" element={<Industry />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

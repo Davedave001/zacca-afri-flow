@@ -1,22 +1,37 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { AccordionSection } from "@/components/AccordionSection";
 import { ScrollableCardsSection } from "@/components/ScrollableCardsSection";
-import { HowItWorksSection } from "@/components/HowItWorksSection";
-import { AboutSection } from "@/components/AboutSection";
-import { CTASection } from "@/components/CTASection";
+import { CTADownloadSection } from "@/components/CTADownloadSection";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      if (hash === "#solutions") {
+        document.getElementById("solutions")?.scrollIntoView({ behavior: "smooth" });
+      } else if (hash === "#about") {
+        document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+      } else if (hash === "#contact") {
+        document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      }
+    };
+    if (hash) {
+      requestAnimationFrame(() => requestAnimationFrame(scrollToHash));
+    }
+  }, [hash]);
+
   return (
     <main className="min-h-screen bg-white">
       <Header />
       <HeroSection />
       <AccordionSection />
       <ScrollableCardsSection />
-      <HowItWorksSection />
-      <AboutSection />
-      <CTASection />
+      <CTADownloadSection />
       <Footer />
     </main>
   );
