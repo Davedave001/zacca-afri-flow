@@ -18,49 +18,55 @@ export const HeroSection = () => {
           className="relative rounded-[30px] overflow-hidden min-h-[700px] lg:min-h-[800px]"
           style={{ background: "#FFFDFA" }}
         >
-          {/* Blurred ellipses - Figma Ellipse 1249 (bottom-left) & 1250 (center-right) */}
+          {/* Ellipse 1249 - Figma exact: semi-circle ellipse, bottom gradient */}
           <div
             className="absolute pointer-events-none"
             style={{
-              width: "min(2067px, 150vw)",
+              width: "2066.67px",
               height: "925px",
-              left: "-241px",
-              top: "60%",
+              left: "-240.83px",
+              top: "672.5px",
               background: "rgba(44, 20, 221, 0.8)",
-              filter: "blur(66px)",
-              borderRadius: "50%",
-            }}
-          />
-          <div
-            className="absolute pointer-events-none hidden lg:block"
-            style={{
-              width: "673px",
-              height: "653px",
-              left: "50%",
-              top: "45%",
-              transform: "translateY(-50%)",
-              marginLeft: "200px",
-              background: "rgba(44, 20, 221, 0.8)",
-              filter: "blur(66px)",
+              filter: "blur(65.5417px)",
               borderRadius: "50%",
             }}
           />
 
-          {/* Diagonal grid lines overlay - Figma Line 139-145 effect */}
+          {/* Mesh-like background with sparkles at intersections - visible in gradient area */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none overflow-hidden"
             style={{
-              backgroundImage: `repeating-linear-gradient(
-                60deg,
-                transparent,
-                transparent 2px,
-                rgba(44, 20, 221, 0.06) 2px,
-                rgba(44, 20, 221, 0.06) 3px
-              )`,
-              maskImage: "linear-gradient(to bottom, transparent 40%, black 70%, black 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, transparent 40%, black 70%, black 100%)",
+              maskImage: "linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.3) 50%, black 75%)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 25%, rgba(0,0,0,0.3) 50%, black 75%)",
             }}
-          />
+          >
+            <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+              <defs>
+                <pattern id="mesh-grid" width="80" height="80" patternUnits="userSpaceOnUse">
+                  {/* Diagonal mesh lines */}
+                  <line x1="0" y1="0" x2="80" y2="80" stroke="rgba(255,255,255,0.2)" strokeWidth="0.4" />
+                  <line x1="0" y1="80" x2="80" y2="0" stroke="rgba(255,255,255,0.2)" strokeWidth="0.4" />
+                  <line x1="40" y1="0" x2="40" y2="80" stroke="rgba(255,255,255,0.12)" strokeWidth="0.35" />
+                  <line x1="0" y1="40" x2="80" y2="40" stroke="rgba(255,255,255,0.12)" strokeWidth="0.35" />
+                  <line x1="0" y1="0" x2="80" y2="40" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
+                  <line x1="0" y1="40" x2="80" y2="0" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
+                  <line x1="0" y1="80" x2="80" y2="40" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
+                  <line x1="0" y1="40" x2="80" y2="80" stroke="rgba(255,255,255,0.1)" strokeWidth="0.3" />
+                  {/* Sparkles at intersections */}
+                  <circle cx="0" cy="0" r="1" fill="rgba(255,255,255,0.8)" />
+                  <circle cx="40" cy="40" r="1.2" fill="rgba(255,255,255,0.9)" />
+                  <circle cx="80" cy="80" r="1" fill="rgba(255,255,255,0.8)" />
+                  <circle cx="80" cy="0" r="1" fill="rgba(255,255,255,0.8)" />
+                  <circle cx="0" cy="80" r="1" fill="rgba(255,255,255,0.8)" />
+                  <circle cx="40" cy="0" r="0.8" fill="rgba(255,255,255,0.7)" />
+                  <circle cx="40" cy="80" r="0.8" fill="rgba(255,255,255,0.7)" />
+                  <circle cx="0" cy="40" r="0.8" fill="rgba(255,255,255,0.7)" />
+                  <circle cx="80" cy="40" r="0.8" fill="rgba(255,255,255,0.7)" />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#mesh-grid)" />
+            </svg>
+          </div>
 
           <div className="relative grid lg:grid-cols-2 gap-12 min-h-[600px] lg:min-h-[750px] items-center">
             {/* Left column - Hero content */}
