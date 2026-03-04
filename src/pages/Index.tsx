@@ -12,7 +12,9 @@ const Index = () => {
 
   useEffect(() => {
     const scrollToHash = () => {
-      if (hash === "#solutions") {
+      if (hash === "#hero") {
+        document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+      } else if (hash === "#solutions") {
         document.getElementById("solutions")?.scrollIntoView({ behavior: "smooth" });
       } else if (hash === "#about") {
         document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
@@ -26,7 +28,7 @@ const Index = () => {
   }, [hash]);
 
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen" style={{ background: "#FFFDFA" }}>
       <Header />
       <HeroSection />
       <AccordionSection />

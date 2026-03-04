@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Smartphone } from "lucide-react";
 import { useState, useEffect } from "react";
-import phoneMockupImage from "@/assets/New Mockup Zacca.png";
+import heroMockupImage from "@/assets/New Hero Mockup.png";
+import appStoreImage from "@/assets/Google and Apple Store Image.png";
 
 export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
@@ -12,104 +11,118 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-24 pb-8">
+    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
-        {/* Overlay with Rounded Corners */}
-        <div className="relative rounded-2xl lg:rounded-3xl overflow-hidden">
-          {/* Linear horizontal gradient - #3117ce and variants, left to right */}
-          <div 
-            className="absolute inset-0"
+        {/* Rounded container - Figma Frame 1000005101 */}
+        <div
+          className="relative rounded-[30px] overflow-hidden min-h-[700px] lg:min-h-[800px]"
+          style={{ background: "#FFFDFA" }}
+        >
+          {/* Blurred ellipses - Figma Ellipse 1249 & 1250 */}
+          <div
+            className="absolute w-[2066px] h-[925px] -left-60 -bottom-40 pointer-events-none"
             style={{
-              background: 'linear-gradient(90deg, #1a0d7a 0%, #2512a8 25%, #3117ce 50%, #4a2dd4 75%, #5c3fe0 100%)'
+              background: "rgba(44, 20, 221, 0.8)",
+              filter: "blur(65.5417px)",
+              borderRadius: "50%",
+            }}
+          />
+          <div
+            className="absolute w-[672px] h-[653px] right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block"
+            style={{
+              background: "rgba(44, 20, 221, 0.8)",
+              filter: "blur(65.5417px)",
+              borderRadius: "50%",
+              marginRight: "-200px",
             }}
           />
 
-          <div className="relative grid lg:grid-cols-2 min-h-[600px] lg:min-h-[700px]">
-            
-            {/* Left Column - Content (Dark Background) */}
-            <div className="flex items-center py-12 lg:py-16 px-6 lg:px-12 xl:px-16">
-              <div className={`space-y-6 w-full transition-all duration-1000 delay-200 ${animated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                {/* Small Uppercase Label */}
-                <div className="space-y-1">
-                  <p 
-                    className="text-xs sm:text-sm font-semibold text-white/80 uppercase tracking-wider"
-                    style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+          <div className="relative grid lg:grid-cols-2 gap-12 min-h-[600px] lg:min-h-[750px] items-center">
+            {/* Left column - Hero content */}
+            <div className="flex flex-col justify-center py-12 lg:py-16 px-6 lg:px-12 xl:px-16 order-2 lg:order-1">
+              <div className={`flex flex-col gap-6 lg:gap-[60px] max-w-[795px] transition-all duration-1000 ${animated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+                {/* Headline & description */}
+                <div className="flex flex-col gap-4">
+                  <h1
+                    className="text-3xl sm:text-4xl md:text-5xl lg:text-[57px] leading-tight text-black"
+                    style={{
+                      fontFamily: "'DM Sans', 'Inter', sans-serif",
+                      fontWeight: 400,
+                      lineHeight: "74px",
+                    }}
                   >
-                    AI Support for Your Business
+                    Transforming Informal Transactions into Africa&apos;s Most Valuable Credit Passport
+                  </h1>
+                  <p
+                    className="text-base max-w-[547px] text-black leading-[1.55]"
+                    style={{
+                      fontFamily: "'DM Sans', 'Inter', sans-serif",
+                      fontWeight: 400,
+                      fontSize: "16.3697px",
+                    }}
+                  >
+                    AI converts your mobile money and bank transactions into verified credit records. Get fair access to loans, insurance, and financial services.
                   </p>
                 </div>
 
-                {/* Main Headline */}
-                <div className="space-y-3">
-                  <h1 
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-[40px] text-white"
+                {/* Email form & CTA */}
+                <div className="flex flex-col gap-4 max-w-[547px]">
+                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                    <input
+                      type="email"
+                      placeholder="Enter email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-[#1C1E23] text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50"
+                      style={{
+                        fontFamily: "'Inter', sans-serif",
+                        fontWeight: 200,
+                        fontSize: "18.8555px",
+                      }}
+                    />
+                    <button
+                      className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity"
+                      style={{
+                        fontFamily: "'DM Sans', 'Inter', sans-serif",
+                        fontWeight: 500,
+                        fontSize: "20.88px",
+                        background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
+                      }}
+                    >
+                      Get Started
+                    </button>
+                  </div>
+                  <p
+                    className="text-black"
                     style={{
-                      fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
+                      fontFamily: "'DM Sans', 'Inter', sans-serif",
                       fontWeight: 400,
-                      lineHeight: 1.1,
-                      letterSpacing: '-0.02em'
+                      fontSize: "16.3697px",
+                      lineHeight: "155%",
                     }}
                   >
-                    <span className="block">Transforming Informal</span>
-                    <span className="block">Transactions into Africa&apos;s</span>
-                    <span className="block">Most Valuable Credit Passport</span>
-                  </h1>
-                </div>
+                    Enter your email to join our waiting list.
+                  </p>
 
-                {/* Description */}
-                <p 
-                  className="text-sm sm:text-base lg:text-lg font-normal text-white/90 max-w-xl leading-relaxed"
-                  style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
-                >
-                  AI converts your WhatsApp chats and mobile money transactions into verified credit records. Get fair access to loans, insurance, and financial services.
-                </p>
-
-                {/* CTA Section - Input and Button */}
-                <div className="flex flex-col sm:flex-row gap-3 max-w-lg">
-                  <input
-                    type="email"
-                    placeholder="Start with your phone number"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="flex-1 px-4 py-2.5 sm:py-3 rounded-lg bg-white text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm font-bold"
-                  />
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-[#3117ce] hover:bg-white/90 font-bold px-5 sm:px-6 py-2.5 sm:py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 whitespace-nowrap text-sm"
-                  >
-                    Get Started
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
+                  {/* App store badges */}
+                  <div className="mt-4">
+                    <img
+                      src={appStoreImage}
+                      alt="Download on Google Play and App Store"
+                      className="h-12 w-auto object-contain"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right Column - Phone Mockup (Light Background) */}
-            <div className="hidden lg:flex items-center justify-center py-12 lg:py-16 px-6 lg:px-12 xl:px-16 relative">
-              <div className={`relative w-full h-full flex items-center justify-center transition-all duration-1000 delay-400 ${animated ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                {/* Phone Mockup Image */}
-                <div className="relative z-10">
-                  <img 
-                    src={phoneMockupImage} 
-                    alt="Zacca.ai app interface showing transaction cards and AI processing"
-                    className="w-auto h-[450px] lg:h-[550px] xl:h-[600px] object-contain drop-shadow-2xl"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* Mobile - Show mockup below content */}
-            <div 
-              className="lg:hidden flex items-center justify-center py-8 px-6 relative overflow-hidden"
-              style={{
-                background: 'linear-gradient(90deg, #1a0d7a 0%, #2512a8 25%, #3117ce 50%, #4a2dd4 75%, #5c3fe0 100%)'
-              }}
-            >
-              <div className={`relative z-10 transition-all duration-1000 delay-400 ${animated ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                <img 
-                  src={phoneMockupImage} 
-                  alt="Zacca.ai app interface showing transaction cards and AI processing"
-                  className="w-auto h-[350px] object-contain drop-shadow-2xl"
+            {/* Right column - Phone mockup */}
+            <div className="flex items-center justify-center py-8 lg:py-16 px-6 order-1 lg:order-2">
+              <div className={`relative z-10 transition-all duration-1000 delay-300 ${animated ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+                <img
+                  src={heroMockupImage}
+                  alt="Zacca.ai app interface"
+                  className="w-auto h-[350px] sm:h-[450px] lg:h-[536px] object-contain drop-shadow-2xl"
                 />
               </div>
             </div>
