@@ -40,16 +40,16 @@ export const Header = () => {
   const navLinkStyle = {
     fontFamily: "'Noto Sans Hebrew', 'Inter', sans-serif",
     fontWeight: 400,
-    fontSize: "21.3833px",
-    lineHeight: "29px",
+    fontSize: "16px",
+    lineHeight: "22px",
     color: "#FFFFFF",
   };
 
   const buttonStyle = {
     fontFamily: "'DM Sans', 'Inter', sans-serif",
     fontWeight: 500,
-    fontSize: "21.3833px",
-    lineHeight: "28px",
+    fontSize: "16px",
+    lineHeight: "22px",
   };
 
   return (
@@ -71,8 +71,8 @@ export const Header = () => {
               style={{
                 fontFamily: "'Noto Sans Hebrew', 'Inter', sans-serif",
                 fontWeight: 400,
-                fontSize: "25.5487px",
-                lineHeight: "35px",
+                fontSize: "20px",
+                lineHeight: "28px",
               }}
             >
               Zacca.Ai

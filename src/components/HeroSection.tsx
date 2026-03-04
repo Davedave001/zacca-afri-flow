@@ -18,22 +18,47 @@ export const HeroSection = () => {
           className="relative rounded-[30px] overflow-hidden min-h-[700px] lg:min-h-[800px]"
           style={{ background: "#FFFDFA" }}
         >
-          {/* Blurred ellipses - Figma Ellipse 1249 & 1250 */}
+          {/* Blurred ellipses - Figma Ellipse 1249 (bottom-left) & 1250 (center-right) */}
           <div
-            className="absolute w-[2066px] h-[925px] -left-60 -bottom-40 pointer-events-none"
+            className="absolute pointer-events-none"
             style={{
+              width: "min(2067px, 150vw)",
+              height: "925px",
+              left: "-241px",
+              top: "60%",
               background: "rgba(44, 20, 221, 0.8)",
-              filter: "blur(65.5417px)",
+              filter: "blur(66px)",
               borderRadius: "50%",
             }}
           />
           <div
-            className="absolute w-[672px] h-[653px] right-0 top-1/2 -translate-y-1/2 pointer-events-none hidden lg:block"
+            className="absolute pointer-events-none hidden lg:block"
             style={{
+              width: "673px",
+              height: "653px",
+              left: "50%",
+              top: "45%",
+              transform: "translateY(-50%)",
+              marginLeft: "200px",
               background: "rgba(44, 20, 221, 0.8)",
-              filter: "blur(65.5417px)",
+              filter: "blur(66px)",
               borderRadius: "50%",
-              marginRight: "-200px",
+            }}
+          />
+
+          {/* Diagonal grid lines overlay - Figma Line 139-145 effect */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: `repeating-linear-gradient(
+                60deg,
+                transparent,
+                transparent 2px,
+                rgba(44, 20, 221, 0.06) 2px,
+                rgba(44, 20, 221, 0.06) 3px
+              )`,
+              maskImage: "linear-gradient(to bottom, transparent 40%, black 70%, black 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 40%, black 70%, black 100%)",
             }}
           />
 
@@ -44,11 +69,11 @@ export const HeroSection = () => {
                 {/* Headline & description */}
                 <div className="flex flex-col gap-4">
                   <h1
-                    className="text-3xl sm:text-4xl md:text-5xl lg:text-[57px] leading-tight text-black"
+                    className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] leading-tight text-black"
                     style={{
                       fontFamily: "'DM Sans', 'Inter', sans-serif",
                       fontWeight: 400,
-                      lineHeight: "74px",
+                      lineHeight: "1.25",
                     }}
                   >
                     Transforming Informal Transactions into Africa&apos;s Most Valuable Credit Passport
