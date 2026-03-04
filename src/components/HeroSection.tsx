@@ -30,7 +30,7 @@ export const HeroSection = () => {
                   <h1
                     className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] leading-tight text-black"
                     style={{
-                      fontFamily: "'DM Sans', 'Inter', sans-serif",
+                      fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                       fontWeight: 400,
                       lineHeight: "1.25",
                     }}
@@ -40,7 +40,7 @@ export const HeroSection = () => {
                   <p
                     className="text-base max-w-[547px] text-black leading-[1.55]"
                     style={{
-                      fontFamily: "'DM Sans', 'Inter', sans-serif",
+                      fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                       fontWeight: 400,
                       fontSize: "16.3697px",
                     }}
@@ -59,7 +59,7 @@ export const HeroSection = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-[#1C1E23] text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50"
                       style={{
-                        fontFamily: "'Inter', sans-serif",
+                        fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 200,
                         fontSize: "18.8555px",
                       }}
@@ -67,7 +67,7 @@ export const HeroSection = () => {
                     <button
                       className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity"
                       style={{
-                        fontFamily: "'DM Sans', 'Inter', sans-serif",
+                        fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 500,
                         fontSize: "20.88px",
                         background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
@@ -79,7 +79,7 @@ export const HeroSection = () => {
                   <p
                     className="text-black"
                     style={{
-                      fontFamily: "'DM Sans', 'Inter', sans-serif",
+                      fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                       fontWeight: 400,
                       fontSize: "16.3697px",
                       lineHeight: "155%",
