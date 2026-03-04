@@ -36,11 +36,15 @@ export const Header = () => {
   ];
 
   const fontStyle = {
-    fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif,
+    fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
+    <header
+      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-200"
+      style={{ backgroundColor: "#ffffff" }}
+      data-header-version="white-v2"
+    >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-18">
           {/* Logo - Left */}
