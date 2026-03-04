@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import zaccaLogo from "@/assets/Zacca new.png";
 
+/** Header - pre-Figma design: white bar, Euclid font */
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
