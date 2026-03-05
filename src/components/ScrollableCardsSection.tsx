@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import mockupCard1Image from "@/assets/New Mockup Card 1.png";
+import styles from "./ScrollableCardsSection.module.css";
 import mockupCard2Image from "@/assets/New Mockup Card 2.png";
 import mockupCard3Image from "@/assets/New Mockup Card 3 NEW.png";
 
@@ -259,11 +260,6 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
-/* Same fontStyle as AccordionSection (about section) */
-const cardFontStyle = {
-  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-};
-
 const Card = ({
   card,
   image,
@@ -283,18 +279,12 @@ const Card = ({
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
-          <h2
-            className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
-            style={cardFontStyle}
-          >
+          <h2 className={`${styles.cardTitle} mb-3`}>
             {card.title}
           </h2>
 
           {card.description ? (
-            <p
-              className="text-sm lg:text-base text-black leading-relaxed"
-              style={{ ...cardFontStyle, fontWeight: 400 }}
-            >
+            <p className={styles.cardText}>
               {card.description}
             </p>
           ) : null}
@@ -309,10 +299,7 @@ const Card = ({
                     className="w-4 h-4 text-[#3117ce]"
                   />
                 </div>
-                <span
-                  className="text-sm lg:text-base text-black leading-relaxed"
-                  style={{ ...cardFontStyle, fontWeight: 400 }}
-                >
+                <span className={styles.cardText}>
                   {f}
                 </span>
               </li>

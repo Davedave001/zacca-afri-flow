@@ -1,0 +1,28 @@
+/* Force typography to match About section - overrides all base styles */
+.cardTitle {
+  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  color: #2C14DD !important;
+  line-height: 1.25 !important;
+}
+
+@media (min-width: 1024px) {
+  .cardTitle {
+    font-size: 1.125rem !important;
+  }
+}
+
+.cardText {
+  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.875rem !important;
+  color: #000 !important;
+  line-height: 1.6 !important;
+}
+
+@media (min-width: 1024px) {
+  .cardText {
+    font-size: 1rem !important;
+  }
+}
