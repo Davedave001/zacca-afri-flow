@@ -22,13 +22,13 @@ export const AccordionSection = () => {
         aria-hidden
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-6 relative z-10">
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
           {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-8 items-start lg:min-h-[380px]">
-            {/* Left: Business Automation text only */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-6 items-start lg:min-h-[380px]">
+            {/* Left: Business Automation text only - wider for less squeeze */}
             <div className="flex flex-col items-center lg:items-start lg:order-1">
-              <div className="max-w-[309px]">
+              <div className="max-w-[380px] lg:max-w-[420px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
@@ -62,9 +62,9 @@ export const AccordionSection = () => {
               />
             </div>
 
-            {/* Right: Customer analytics text */}
+            {/* Right: Customer analytics text - wider for less squeeze */}
             <div className="flex flex-col items-center lg:items-start lg:order-3">
-              <div className="max-w-[309px]">
+              <div className="max-w-[380px] lg:max-w-[420px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
@@ -81,8 +81,8 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - minimal gap from images */}
-          <div className="-mt-24 lg:-mt-28 text-center">
+          {/* Bottom: Credit Approval and Automation - top padding to avoid overlap with images */}
+          <div className="mt-8 lg:mt-12 text-center">
             <div className="max-w-[500px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
