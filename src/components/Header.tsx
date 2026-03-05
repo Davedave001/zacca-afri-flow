@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import headerLogo from "@/assets/Logo New Header.png";
+import headerLogo from "@/assets/Header Logo NEWEST.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
