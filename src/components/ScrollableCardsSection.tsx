@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import mockupCard1Image from "@/assets/New Mockup Card 1.png";
-import styles from "./ScrollableCardsSection.module.css";
 import mockupCard2Image from "@/assets/New Mockup Card 2.png";
 import mockupCard3Image from "@/assets/New Mockup Card 3 NEW.png";
 
@@ -87,7 +86,34 @@ export const ScrollableCardsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
+    <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20 solutions-cards-section">
+      {/* Injected styles - load last to override all base/global styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .solutions-cards-section .solutions-card-title {
+          font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+          font-weight: 500 !important;
+          font-size: 16px !important;
+          color: #2C14DD !important;
+          line-height: 1.25 !important;
+        }
+        @media (min-width: 1024px) {
+          .solutions-cards-section .solutions-card-title {
+            font-size: 18px !important;
+          }
+        }
+        .solutions-cards-section .solutions-card-text {
+          font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+          font-weight: 400 !important;
+          font-size: 14px !important;
+          color: #000 !important;
+          line-height: 1.6 !important;
+        }
+        @media (min-width: 1024px) {
+          .solutions-cards-section .solutions-card-text {
+            font-size: 16px !important;
+          }
+        }
+      `}} />
       {/* Mobile: simple stacked cards - same typography as about section */}
       <div className="lg:hidden container mx-auto px-4 py-12 space-y-8">
         {cards.map((card, index) => (
@@ -279,12 +305,12 @@ const Card = ({
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
-          <h2 className={`${styles.cardTitle} mb-3`}>
+          <h2 className="solutions-card-title mb-3">
             {card.title}
           </h2>
 
           {card.description ? (
-            <p className={styles.cardText}>
+            <p className="solutions-card-text">
               {card.description}
             </p>
           ) : null}
@@ -299,7 +325,7 @@ const Card = ({
                     className="w-4 h-4 text-[#3117ce]"
                   />
                 </div>
-                <span className={styles.cardText}>
+                <span className="solutions-card-text">
                   {f}
                 </span>
               </li>

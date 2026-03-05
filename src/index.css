@@ -261,29 +261,3 @@
     animation-delay: 600ms;
   }
 }
-
-/* Scrollable cards - FORCE typography match to About section (loaded last, overrides everything) */
-#solutions .max-w-5xl h2 {
-  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-weight: 500 !important;
-  font-size: 1rem !important;
-  color: #2C14DD !important;
-}
-@media (min-width: 1024px) {
-  #solutions .max-w-5xl h2 {
-    font-size: 1.125rem !important;
-  }
-}
-#solutions .max-w-5xl .space-y-2 span,
-#solutions .max-w-5xl .space-y-4 p {
-  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-  font-weight: 400 !important;
-  font-size: 0.875rem !important;
-  color: #000 !important;
-}
-@media (min-width: 1024px) {
-  #solutions .max-w-5xl .space-y-2 span,
-  #solutions .max-w-5xl .space-y-4 p {
-    font-size: 1rem !important;
-  }
-}
