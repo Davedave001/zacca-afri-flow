@@ -24,13 +24,13 @@ export const AccordionSection = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
-          {/* Top row: Business Automation text | Overlapping center images | Customer Analytics text */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 items-start lg:min-h-[380px]">
+          {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 items-start lg:min-h-[380px]">
             {/* Left: Business Automation text only */}
             <div className="flex flex-col items-center lg:items-start lg:order-1">
               <div className="max-w-[309px]">
                 <h2
-                  className="text-xl lg:text-2xl font-medium text-[#2C14DD] leading-tight mb-3"
+                  className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
                 >
                   Business Automation on Zacca App
@@ -44,29 +44,27 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two overlapping images - Figma layout with cohesive overlap */}
-            <div className="relative flex justify-center items-center min-h-[320px] lg:min-h-[380px] order-first lg:order-2">
-              <div className="relative w-80 h-80 lg:w-[420px] lg:h-[420px]">
-                {/* service2 - plaid shirt woman (teal circle), behind and slightly left */}
-                <img
-                  src={service2Image}
-                  alt="Business automation"
-                  className="absolute left-0 bottom-0 w-44 h-56 lg:w-56 lg:h-72 object-contain object-bottom z-0"
-                />
-                {/* Group 3 - excited woman (purple circle), overlapping in front and right */}
-                <img
-                  src={group3Image}
-                  alt="Customer using Zacca App"
-                  className="absolute right-0 bottom-0 w-48 h-60 lg:w-60 lg:h-76 object-contain object-bottom z-10"
-                />
-              </div>
+            {/* Center: Two images side by side, spaced apart - between the two text columns */}
+            <div className="flex justify-center items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[380px] order-first lg:order-2">
+              {/* service2 - plaid shirt woman (teal circle) */}
+              <img
+                src={service2Image}
+                alt="Business automation"
+                className="w-36 h-44 lg:w-44 lg:h-56 object-contain"
+              />
+              {/* Group 3 - excited woman (purple circle) */}
+              <img
+                src={group3Image}
+                alt="Customer using Zacca App"
+                className="w-36 h-44 lg:w-44 lg:h-56 object-contain"
+              />
             </div>
 
             {/* Right: Customer analytics text */}
             <div className="flex flex-col items-center lg:items-start lg:order-3">
               <div className="max-w-[309px]">
                 <h2
-                  className="text-xl lg:text-2xl font-medium text-[#2C14DD] leading-tight mb-3"
+                  className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
                 >
                   Customer analytics tracking
@@ -85,7 +83,7 @@ export const AccordionSection = () => {
           <div className="mt-12 lg:mt-16 text-center">
             <div className="max-w-[500px] mx-auto">
               <h2
-                className="text-xl lg:text-2xl font-medium text-[#2C14DD] leading-tight mb-3"
+                className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                 style={fontStyle}
               >
                 Credit Approval and Automation
