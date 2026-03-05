@@ -274,16 +274,16 @@ const Card = ({
       }}
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="flex flex-col justify-center space-y-4">
+        <div className="flex flex-col justify-center space-y-4 scrollable-card-content">
           <h2
-            className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight"
-            style={fontStyle}
+            className="!text-base lg:!text-lg !font-medium text-[#2C14DD] leading-tight"
+            style={{ ...fontStyle, fontWeight: 500 }}
           >
             {card.title}
           </h2>
 
           {card.description ? (
-            <p className="text-sm lg:text-base text-black leading-relaxed" style={{ ...fontStyle, fontWeight: 400 }}>
+            <p className="!text-sm lg:!text-base text-black leading-relaxed" style={{ ...fontStyle, fontWeight: 400 }}>
               {card.description}
             </p>
           ) : null}
@@ -299,7 +299,7 @@ const Card = ({
                   />
                 </div>
                 <span
-                  className="text-sm lg:text-base text-black leading-relaxed"
+                  className="!text-sm lg:!text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
                   {f}
