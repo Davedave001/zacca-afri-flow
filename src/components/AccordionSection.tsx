@@ -44,8 +44,8 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two images side by side, pushed up - between the two text columns */}
-            <div className="flex justify-center items-start gap-4 lg:gap-6 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-4 lg:-mt-8">
+            {/* Center: Two images side by side, no gap, pushed up above titles */}
+            <div className="flex justify-center items-end gap-0 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-16 lg:-mt-24">
               {/* service2 - plaid shirt woman (teal circle) */}
               <img
                 src={service2Image}
@@ -80,7 +80,7 @@ export const AccordionSection = () => {
           </div>
 
           {/* Bottom: Credit Approval and Automation */}
-          <div className="mt-12 lg:mt-16 text-center">
+          <div className="mt-6 lg:mt-8 text-center">
             <div className="max-w-[500px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
