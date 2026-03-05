@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import headerLogo from "@/assets/Zacca New Logo.png";
+import headerLogo from "@/assets/Logo New Header.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
@@ -44,8 +44,8 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-col">
       {/* Main row: logo + nav - compact height */}
       <div className="flex h-14 relative">
-      {/* Left: White logo section (~347px) */}
-      <div className="flex-shrink-0 w-48 sm:w-64 lg:w-[347px] h-full bg-white flex items-center pl-6 lg:pl-10">
+      {/* Left: White logo section - narrower to extend blue nav further left */}
+      <div className="flex-shrink-0 w-36 sm:w-44 lg:w-[260px] h-full bg-white flex items-center pl-4 lg:pl-6">
         <Link to="/" className="flex items-center group">
           <img
             src={headerLogo}
@@ -100,16 +100,13 @@ export const Header = () => {
       </div>
       </div>
 
-      {/* White gap between menu and bottom line */}
-      <div className="h-2 bg-white" />
-
       {/* Thin blue bottom line */}
       <div className="h-px bg-[#2C14DD] flex-shrink-0" />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div
-          className="lg:hidden absolute top-[65px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
+          className="lg:hidden absolute top-[57px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
           style={{ backgroundColor: "#2C14DD" }}
         >
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">

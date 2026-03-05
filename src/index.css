@@ -261,3 +261,29 @@
     animation-delay: 600ms;
   }
 }
+
+/* ScrollableCardsSection - EXEMPT from base typography, force About-section match */
+#solutions .zacca-card-title {
+  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+  color: #2C14DD !important;
+  line-height: 1.25 !important;
+}
+@media (min-width: 1024px) {
+  #solutions .zacca-card-title {
+    font-size: 1.125rem !important;
+  }
+}
+#solutions .zacca-card-text {
+  font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 0.875rem !important;
+  color: #000 !important;
+  line-height: 1.6 !important;
+}
+@media (min-width: 1024px) {
+  #solutions .zacca-card-text {
+    font-size: 1rem !important;
+  }
+}

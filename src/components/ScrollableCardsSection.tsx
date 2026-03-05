@@ -301,12 +301,12 @@ const Card = ({
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
-          <div role="heading" aria-level={2} style={titleStyle}>
+          <div role="heading" aria-level={2} className="zacca-card-title" style={titleStyle}>
             {card.title}
           </div>
 
           {card.description ? (
-            <div style={bodyStyle}>{card.description}</div>
+            <div className="zacca-card-text" style={bodyStyle}>{card.description}</div>
           ) : null}
 
           <ul className="space-y-2" style={{ margin: 0, padding: 0, listStyle: "none" }}>
@@ -317,12 +317,12 @@ const Card = ({
                 >
                   <Check className="w-4 h-4 text-[#3117ce]" />
                 </div>
-                <div style={bodyStyle}>{f}</div>
+                <div className="zacca-card-text" style={bodyStyle}>{f}</div>
               </li>
             ))}
           </ul>
 
-          <button className="mt-2 px-6 py-2.5 rounded-full font-semibold w-fit bg-[#3117ce] text-white hover:bg-[#2512a8] transition-colors text-sm lg:text-base">
+          <button className="mt-2 px-6 py-2.5 rounded-full font-medium w-fit bg-[#3117ce] text-white hover:bg-[#2512a8] transition-colors text-sm lg:text-base">
             {card.cta}
           </button>
         </div>
