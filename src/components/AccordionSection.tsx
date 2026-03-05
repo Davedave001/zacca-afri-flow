@@ -25,7 +25,7 @@ export const AccordionSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
           {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-8 items-start lg:min-h-[380px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-8 items-start lg:min-h-[380px]">
             {/* Left: Business Automation text only */}
             <div className="flex flex-col items-center lg:items-start lg:order-1">
               <div className="max-w-[309px]">
@@ -44,8 +44,8 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two images side by side, same size, pushed up above titles */}
-            <div className="flex justify-center items-end gap-0 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-16 lg:-mt-24">
+            {/* Center: Two images side by side, centered with even gaps to left/right columns */}
+            <div className="flex justify-center items-end gap-0 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-16 lg:-mt-24 w-full">
               {/* service2 - plaid shirt woman (teal circle) */}
               <img
                 src={service2Image}
@@ -80,7 +80,7 @@ export const AccordionSection = () => {
           </div>
 
           {/* Bottom: Credit Approval and Automation */}
-          <div className="mt-2 lg:mt-4 text-center">
+          <div className="-mt-2 lg:mt-0 text-center">
             <div className="max-w-[500px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
