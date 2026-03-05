@@ -40,7 +40,9 @@ export const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 h-[94px] flex relative border-b border-[#2C14DD]/30">
+    <header className="fixed top-0 left-0 right-0 z-50 flex flex-col">
+      {/* Main row: logo + nav */}
+      <div className="flex h-[94px] relative">
       {/* Left: White logo section (~347px) */}
       <div className="flex-shrink-0 w-48 sm:w-64 lg:w-[347px] h-full bg-white flex items-center pl-6 lg:pl-10">
         <Link to="/" className="flex items-center group">
@@ -95,11 +97,18 @@ export const Header = () => {
           {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
         </button>
       </div>
+      </div>
+
+      {/* White gap between menu and bottom line */}
+      <div className="h-3 bg-white" />
+
+      {/* Thin blue bottom line */}
+      <div className="h-px bg-[#2C14DD] flex-shrink-0" />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div
-          className="lg:hidden absolute top-[94px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
+          className="lg:hidden absolute top-[107px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
           style={{ backgroundColor: "#2C14DD" }}
         >
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
