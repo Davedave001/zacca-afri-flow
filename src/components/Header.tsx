@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import headerLogo from "@/assets/Header Logo NEWEST.png";
+import logoIcon from "@/assets/zacca-logo-icon.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
@@ -46,12 +46,18 @@ export const Header = () => {
       <div className="flex h-14 relative">
       {/* Left: White logo section - narrower to extend blue nav further left */}
       <div className="flex-shrink-0 w-36 sm:w-44 lg:w-[260px] h-full bg-white flex items-center pl-4 lg:pl-6">
-        <Link to="/" className="flex items-center group">
+        <Link to="/" className="flex items-center gap-2 group">
           <img
-            src={headerLogo}
-            alt="Zacca.ai Logo"
+            src={logoIcon}
+            alt=""
             className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
+          <span
+            className="text-xl sm:text-2xl lg:text-[1.5rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
+            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD" }}
+          >
+            Zacca
+          </span>
         </Link>
       </div>
 
