@@ -44,19 +44,19 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two images side by side, spaced apart - between the two text columns */}
-            <div className="flex justify-center items-center gap-10 lg:gap-16 min-h-[320px] lg:min-h-[380px] order-first lg:order-2">
+            {/* Center: Two images side by side, pushed up - between the two text columns */}
+            <div className="flex justify-center items-start gap-4 lg:gap-6 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-4 lg:-mt-8">
               {/* service2 - plaid shirt woman (teal circle) */}
               <img
                 src={service2Image}
                 alt="Business automation"
-                className="w-36 h-44 lg:w-44 lg:h-56 object-contain"
+                className="w-44 h-52 lg:w-56 lg:h-72 object-contain"
               />
               {/* Group 3 - excited woman (purple circle) */}
               <img
                 src={group3Image}
                 alt="Customer using Zacca App"
-                className="w-36 h-44 lg:w-44 lg:h-56 object-contain"
+                className="w-44 h-52 lg:w-56 lg:h-72 object-contain"
               />
             </div>
 
