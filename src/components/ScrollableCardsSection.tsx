@@ -87,28 +87,6 @@ export const ScrollableCardsSection = () => {
 
   return (
     <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
-      <style>{`
-        #solutions .scrollable-card-content h2 {
-          font-size: 1rem !important;
-          font-weight: 500 !important;
-        }
-        @media (min-width: 1024px) {
-          #solutions .scrollable-card-content h2 {
-            font-size: 1.125rem !important;
-          }
-        }
-        #solutions .scrollable-card-content ul span,
-        #solutions .scrollable-card-content p {
-          font-size: 0.875rem !important;
-          font-weight: 400 !important;
-        }
-        @media (min-width: 1024px) {
-          #solutions .scrollable-card-content ul span,
-          #solutions .scrollable-card-content p {
-            font-size: 1rem !important;
-          }
-        }
-      `}</style>
       <div className="hidden lg:block">
         <div className="relative" style={{ minHeight: "300vh" }}>
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -274,23 +252,31 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
-const titleStyle = {
-  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-  fontWeight: 500,
-};
-const bodyStyle = {
-  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-  fontWeight: 400,
-};
-
 const Card = ({
   card,
   image,
+  primary: _primary,
 }: {
   card: (typeof cards)[number];
   image: string;
   primary: boolean;
 }) => {
+  /* Match AccordionSection: title lg(18px) font-medium, body base(16px) font-normal - cards only visible on lg */
+  const titleStyle: React.CSSProperties = {
+    fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+    fontWeight: 500,
+    fontSize: 18,
+    color: "#2C14DD",
+    lineHeight: 1.25,
+  };
+  const bodyStyle: React.CSSProperties = {
+    fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+    fontWeight: 400,
+    fontSize: 16,
+    color: "#000",
+    lineHeight: 1.6,
+  };
+
   return (
     <div
       className="relative w-full max-w-5xl h-[460px] rounded-3xl overflow-hidden shadow-2xl"
@@ -300,16 +286,13 @@ const Card = ({
       }}
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="flex flex-col justify-center space-y-4 scrollable-card-content">
-          <h2
-            className="text-[#2C14DD] leading-tight"
-            style={titleStyle}
-          >
+        <div className="flex flex-col justify-center space-y-4">
+          <h2 style={titleStyle}>
             {card.title}
           </h2>
 
           {card.description ? (
-            <p className="text-black leading-relaxed" style={bodyStyle}>
+            <p style={bodyStyle}>
               {card.description}
             </p>
           ) : null}
@@ -324,10 +307,7 @@ const Card = ({
                     className="w-4 h-4 text-[#3117ce]"
                   />
                 </div>
-                <span
-                  className="text-black leading-relaxed"
-                  style={bodyStyle}
-                >
+                <span style={bodyStyle}>
                   {f}
                 </span>
               </li>
