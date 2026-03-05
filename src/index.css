@@ -157,27 +157,6 @@
     font-weight: 500;
   }
 
-  /* Scrollable cards: match AccordionSection typography (text-base/lg, font-medium for titles, font-normal for body) */
-  #solutions .scrollable-card-content h2 {
-    font-size: 1rem !important;
-    font-weight: 500 !important;
-  }
-  @media (min-width: 1024px) {
-    #solutions .scrollable-card-content h2 {
-      font-size: 1.125rem !important;
-    }
-  }
-  #solutions .scrollable-card-content .space-y-2 span,
-  #solutions .scrollable-card-content p {
-    font-size: 0.875rem !important;
-    font-weight: 400 !important;
-  }
-  @media (min-width: 1024px) {
-    #solutions .scrollable-card-content .space-y-2 span,
-    #solutions .scrollable-card-content p {
-      font-size: 1rem !important;
-    }
-  }
 }
 
 @layer components {

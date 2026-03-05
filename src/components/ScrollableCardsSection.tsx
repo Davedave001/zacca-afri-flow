@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Check } from "lucide-react";
 import mockupCard1Image from "@/assets/New Mockup Card 1.png";
@@ -88,6 +87,28 @@ export const ScrollableCardsSection = () => {
 
   return (
     <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
+      <style>{`
+        #solutions .scrollable-card-content h2 {
+          font-size: 1rem !important;
+          font-weight: 500 !important;
+        }
+        @media (min-width: 1024px) {
+          #solutions .scrollable-card-content h2 {
+            font-size: 1.125rem !important;
+          }
+        }
+        #solutions .scrollable-card-content ul span,
+        #solutions .scrollable-card-content p {
+          font-size: 0.875rem !important;
+          font-weight: 400 !important;
+        }
+        @media (min-width: 1024px) {
+          #solutions .scrollable-card-content ul span,
+          #solutions .scrollable-card-content p {
+            font-size: 1rem !important;
+          }
+        }
+      `}</style>
       <div className="hidden lg:block">
         <div className="relative" style={{ minHeight: "300vh" }}>
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -253,8 +274,13 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
-const fontStyle = {
+const titleStyle = {
   fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+  fontWeight: 500,
+};
+const bodyStyle = {
+  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+  fontWeight: 400,
 };
 
 const Card = ({
@@ -276,14 +302,14 @@ const Card = ({
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4 scrollable-card-content">
           <h2
-            className="!text-base lg:!text-lg !font-medium text-[#2C14DD] leading-tight"
-            style={{ ...fontStyle, fontWeight: 500 }}
+            className="text-[#2C14DD] leading-tight"
+            style={titleStyle}
           >
             {card.title}
           </h2>
 
           {card.description ? (
-            <p className="!text-sm lg:!text-base text-black leading-relaxed" style={{ ...fontStyle, fontWeight: 400 }}>
+            <p className="text-black leading-relaxed" style={bodyStyle}>
               {card.description}
             </p>
           ) : null}
@@ -299,8 +325,8 @@ const Card = ({
                   />
                 </div>
                 <span
-                  className="!text-sm lg:!text-base text-black leading-relaxed"
-                  style={{ ...fontStyle, fontWeight: 400 }}
+                  className="text-black leading-relaxed"
+                  style={bodyStyle}
                 >
                   {f}
                 </span>
