@@ -87,6 +87,13 @@ export const ScrollableCardsSection = () => {
 
   return (
     <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
+      {/* Mobile: simple stacked cards - same typography as about section */}
+      <div className="lg:hidden container mx-auto px-4 py-12 space-y-8">
+        {cards.map((card, index) => (
+          <Card key={card.id} card={card} image={cardImages[index]} primary={index === 0} />
+        ))}
+      </div>
+      {/* Desktop: scroll animation */}
       <div className="hidden lg:block">
         <div className="relative" style={{ minHeight: "300vh" }}>
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
@@ -252,6 +259,11 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
+/* Same fontStyle as AccordionSection (about section) */
+const cardFontStyle = {
+  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+};
+
 const Card = ({
   card,
   image,
@@ -261,25 +273,9 @@ const Card = ({
   image: string;
   primary: boolean;
 }) => {
-  /* Match AccordionSection: title lg(18px) font-medium, body base(16px) font-normal - cards only visible on lg */
-  const titleStyle: React.CSSProperties = {
-    fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-    fontWeight: 500,
-    fontSize: 18,
-    color: "#2C14DD",
-    lineHeight: 1.25,
-  };
-  const bodyStyle: React.CSSProperties = {
-    fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-    fontWeight: 400,
-    fontSize: 16,
-    color: "#000",
-    lineHeight: 1.6,
-  };
-
   return (
     <div
-      className="relative w-full max-w-5xl h-[460px] rounded-3xl overflow-hidden shadow-2xl"
+      className="relative w-full max-w-5xl min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
       style={{
         background: 'linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)',
         padding: '2px'
@@ -287,12 +283,18 @@ const Card = ({
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
-          <h2 style={titleStyle}>
+          <h2
+            className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
+            style={cardFontStyle}
+          >
             {card.title}
           </h2>
 
           {card.description ? (
-            <p style={bodyStyle}>
+            <p
+              className="text-sm lg:text-base text-black leading-relaxed"
+              style={{ ...cardFontStyle, fontWeight: 400 }}
+            >
               {card.description}
             </p>
           ) : null}
@@ -307,7 +309,10 @@ const Card = ({
                     className="w-4 h-4 text-[#3117ce]"
                   />
                 </div>
-                <span style={bodyStyle}>
+                <span
+                  className="text-sm lg:text-base text-black leading-relaxed"
+                  style={{ ...cardFontStyle, fontWeight: 400 }}
+                >
                   {f}
                 </span>
               </li>
