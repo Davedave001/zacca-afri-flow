@@ -46,15 +46,15 @@ export const Header = () => {
       <div className="flex h-14 relative">
       {/* Left: White logo section - narrower to extend blue nav further left */}
       <div className="flex-shrink-0 w-36 sm:w-44 lg:w-[260px] h-full bg-white flex items-center pl-4 lg:pl-6">
-        <Link to="/" className="flex items-center gap-2 group">
+        <Link to="/" className="flex items-center gap-1 group">
           <img
             src={logoIcon}
             alt=""
             className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
           <span
-            className="text-lg sm:text-xl lg:text-[1.25rem] font-bold uppercase tracking-tight transition-opacity duration-300 group-hover:opacity-80"
-            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD", fontWeight: 700 }}
+            className="text-lg sm:text-xl lg:text-[1.25rem] font-extrabold uppercase tracking-tight transition-opacity duration-300 group-hover:opacity-80"
+            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD", fontWeight: 800 }}
           >
             Zacca
           </span>
