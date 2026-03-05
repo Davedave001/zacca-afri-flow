@@ -37,7 +37,7 @@ export const Header = () => {
 
   const fontStyle = {
     fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
-    fontWeight: 500,
+    fontWeight: 400,
   };
 
   return (
@@ -70,7 +70,7 @@ export const Header = () => {
                 item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
                 item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } : undefined
               }
-              className="text-sm lg:text-base font-medium text-white hover:text-white/90 transition-colors"
+              className="text-base lg:text-lg font-normal text-white hover:text-white/90 transition-colors"
               style={fontStyle}
             >
               {item.name}
@@ -83,7 +83,7 @@ export const Header = () => {
           <Link
             to="/#contact"
             onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } }}
-            className="text-sm font-medium text-white hover:text-white/90 transition-colors border-b-2 border-white pb-0.5"
+            className="text-sm font-normal text-white hover:text-white/90 transition-colors border-b-2 border-white pb-0.5"
             style={fontStyle}
           >
             Contact Us
@@ -118,7 +118,7 @@ export const Header = () => {
                   key={item.name}
                   to={item.href}
                   onClick={item.isSolutions ? scrollToSolutions : item.isAbout ? scrollToAbout : () => setIsMenuOpen(false)}
-                  className="block px-4 py-3 text-base font-medium text-white hover:text-white/90 hover:bg-white/10 rounded-lg transition-colors duration-200"
+                  className="block px-4 py-3 text-base font-normal text-white hover:text-white/90 hover:bg-white/10 rounded-lg transition-colors duration-200"
                   style={fontStyle}
                 >
                   {item.name}
@@ -128,7 +128,7 @@ export const Header = () => {
                 <Link
                   to="/#contact"
                   onClick={scrollToContact}
-                  className="block text-center text-sm sm:text-base font-medium text-white border-b-2 border-white pb-2"
+                  className="block text-center text-sm sm:text-base font-normal text-white border-b-2 border-white pb-2"
                   style={fontStyle}
                 >
                   Contact Us
