@@ -41,26 +41,26 @@ export const Header = () => {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-col">
-      {/* Main row: logo + nav */}
-      <div className="flex h-[94px] relative">
+      {/* Main row: logo + nav - compact height */}
+      <div className="flex h-14 relative">
       {/* Left: White logo section (~347px) */}
       <div className="flex-shrink-0 w-48 sm:w-64 lg:w-[347px] h-full bg-white flex items-center pl-6 lg:pl-10">
         <Link to="/" className="flex items-center group">
           <img
             src={headerLogo}
             alt="Zacca.ai Logo"
-            className="h-10 sm:h-12 lg:h-14 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
         </Link>
       </div>
 
       {/* Right: Blue nav section (#2C14DD) */}
       <div
-        className="flex-1 h-full flex items-center justify-between px-4 sm:px-6 lg:px-8"
+        className="flex-1 h-full flex items-center justify-between px-3 sm:px-4 lg:px-6 py-0"
         style={{ backgroundColor: "#2C14DD" }}
       >
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
           {navigationItems.map((item) => (
             <Link
               key={item.name}
@@ -69,7 +69,7 @@ export const Header = () => {
                 item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
                 item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } : undefined
               }
-              className="text-base lg:text-lg font-medium text-white hover:text-white/90 transition-colors"
+              className="text-sm lg:text-base font-medium text-white hover:text-white/90 transition-colors"
               style={fontStyle}
             >
               {item.name}
@@ -82,7 +82,7 @@ export const Header = () => {
           <Link
             to="/#contact"
             onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } }}
-            className="text-sm lg:text-base font-medium text-white hover:text-white/90 transition-colors border-b-2 border-white pb-1"
+            className="text-sm font-medium text-white hover:text-white/90 transition-colors border-b-2 border-white pb-0.5"
             style={fontStyle}
           >
             Contact Us
@@ -100,7 +100,7 @@ export const Header = () => {
       </div>
 
       {/* White gap between menu and bottom line */}
-      <div className="h-3 bg-white" />
+      <div className="h-2 bg-white" />
 
       {/* Thin blue bottom line */}
       <div className="h-px bg-[#2C14DD] flex-shrink-0" />
@@ -108,7 +108,7 @@ export const Header = () => {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div
-          className="lg:hidden absolute top-[107px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
+          className="lg:hidden absolute top-[65px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
           style={{ backgroundColor: "#2C14DD" }}
         >
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
