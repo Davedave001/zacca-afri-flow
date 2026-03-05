@@ -253,6 +253,10 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
+const fontStyle = {
+  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+};
+
 const Card = ({
   card,
   image,
@@ -272,13 +276,14 @@ const Card = ({
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
           <h2
-            className="text-base lg:text-lg font-semibold text-[#3117ce]"
+            className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight"
+            style={fontStyle}
           >
             {card.title}
           </h2>
 
           {card.description ? (
-            <p className="text-sm lg:text-base text-black leading-relaxed">
+            <p className="text-sm lg:text-base text-black leading-relaxed" style={{ ...fontStyle, fontWeight: 400 }}>
               {card.description}
             </p>
           ) : null}
@@ -294,7 +299,8 @@ const Card = ({
                   />
                 </div>
                 <span
-                  className="text-sm lg:text-base text-black"
+                  className="text-sm lg:text-base text-black leading-relaxed"
+                  style={{ ...fontStyle, fontWeight: 400 }}
                 >
                   {f}
                 </span>
