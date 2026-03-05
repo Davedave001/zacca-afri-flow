@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import heroMockupImage from "@/assets/New Hero Mockup.png";
-import appStoreImage from "@/assets/Google and Apple Store Image.png";
 import heroBackgroundImage from "@/assets/Background New Hero- Here.png";
 
 export const HeroSection = () => {
@@ -86,15 +85,6 @@ export const HeroSection = () => {
                   >
                     Enter your email to join our waiting list.
                   </p>
-
-                  {/* App store badges */}
-                  <div className="mt-4">
-                    <img
-                      src={appStoreImage}
-                      alt="Download on Google Play and App Store"
-                      className="h-12 w-auto object-contain"
-                    />
-                  </div>
                 </div>
               </div>
             </div>

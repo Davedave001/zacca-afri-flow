@@ -8,7 +8,7 @@ const fontStyle = {
 
 export const AccordionSection = () => {
   return (
-    <section id="about" className="relative py-16 lg:py-24 bg-white overflow-hidden scroll-mt-20">
+    <section id="about" className="relative pt-24 lg:pt-32 pb-16 lg:pb-24 bg-white overflow-hidden scroll-mt-20">
       {/* Background circle patterns - left */}
       <div
         className="absolute left-0 top-3 w-64 h-64 lg:w-[406px] lg:h-[406px] opacity-30 bg-cover bg-center bg-no-repeat -translate-x-1/2"
@@ -81,8 +81,8 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - reduced gap from images */}
-          <div className="mt-4 lg:mt-6 text-center">
+          {/* Bottom: Credit Approval and Automation - minimal gap from images */}
+          <div className="mt-0 lg:mt-1 text-center">
             <div className="max-w-[560px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
