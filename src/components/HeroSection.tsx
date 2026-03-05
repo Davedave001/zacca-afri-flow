@@ -60,7 +60,7 @@ export const HeroSection = () => {
                       style={{
                         fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 200,
-                        fontSize: "18.8555px",
+                        fontSize: "14px",
                       }}
                     />
                     <button
@@ -68,7 +68,7 @@ export const HeroSection = () => {
                       style={{
                         fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 500,
-                        fontSize: "20.88px",
+                        fontSize: "14px",
                         background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
                       }}
                     >
