@@ -57,37 +57,38 @@ export const Header = () => {
 
       {/* Right: Blue nav section (#2C14DD) */}
       <div
-        className="flex-1 h-full flex items-center justify-between px-3 sm:px-4 lg:px-6 py-0"
+        className="flex-1 h-full flex items-center px-3 sm:px-4 lg:px-6 py-0"
         style={{ backgroundColor: "#2C14DD" }}
       >
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
-          {navigationItems.map((item) => (
+        {/* Desktop: centered nav with Contact Us on right */}
+        <div className="hidden lg:flex flex-1 items-center">
+          <div className="flex-1" aria-hidden />
+          <nav className="flex items-center gap-4 xl:gap-6">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.href}
+                onClick={
+                  item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
+                  item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } : undefined
+                }
+                className="text-base lg:text-lg font-normal text-white hover:text-white/90 transition-colors"
+                style={fontStyle}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+          <div className="flex-1 flex justify-end items-center">
             <Link
-              key={item.name}
-              to={item.href}
-              onClick={
-                item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
-                item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } : undefined
-              }
-              className="text-base lg:text-lg font-normal text-white hover:text-white/90 transition-colors"
+              to="/#contact"
+              onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } }}
+              className="text-sm font-normal text-white hover:text-white/90 transition-colors border-b-2 border-white pb-0.5"
               style={fontStyle}
             >
-              {item.name}
+              Contact Us
             </Link>
-          ))}
-        </nav>
-
-        {/* Contact Us - right side */}
-        <div className="hidden lg:flex items-center">
-          <Link
-            to="/#contact"
-            onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } }}
-            className="text-sm font-normal text-white hover:text-white/90 transition-colors border-b-2 border-white pb-0.5"
-            style={fontStyle}
-          >
-            Contact Us
-          </Link>
+          </div>
         </div>
 
         {/* Mobile Menu Button */}
