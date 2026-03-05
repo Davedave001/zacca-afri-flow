@@ -14,7 +14,7 @@ export const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden pt-20 pb-16 w-full bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex items-center overflow-hidden pt-12 pb-16 w-full bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${heroBackgroundImage})`,
       }}
