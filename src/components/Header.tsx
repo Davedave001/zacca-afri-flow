@@ -100,13 +100,16 @@ export const Header = () => {
       </div>
       </div>
 
+      {/* White gap between menu and bottom line */}
+      <div className="h-2 bg-white" />
+
       {/* Thin blue bottom line */}
       <div className="h-px bg-[#2C14DD] flex-shrink-0" />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div
-          className="lg:hidden absolute top-[57px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
+          className="lg:hidden absolute top-[65px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
           style={{ backgroundColor: "#2C14DD" }}
         >
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
