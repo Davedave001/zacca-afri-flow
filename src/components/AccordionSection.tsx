@@ -1,151 +1,110 @@
-import { useState } from "react";
-import accordionImage1 from "@/assets/accordion image.png";
-import accordionImage2 from "@/assets/accordion image 3.png";
-import accordionImage3 from "@/assets/accordion image 5.png";
+import pngwingCircle from "@/assets/pngwing 4.png";
+import service2Image from "@/assets/service2 1.png";
+import group3Image from "@/assets/Group 3.png";
+import iphoneMockup from "@/assets/iMockup - iPhone 15 Pro Max (1).png";
+
+const fontStyle = {
+  fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+};
 
 export const AccordionSection = () => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const tabs = [
-    {
-      id: 0,
-      title: "SME Onboarding and Business Setup",
-      heading: "SME Onboarding and Business Setup",
-      image: accordionImage1,
-      steps: [
-        {
-          number: 1,
-          title: "Set up your business profile",
-          description: "Enter your current stock items or services, supplier names, and typical quantity and price ranges to establish your business baseline."
-        },
-        {
-          number: 2,
-          title: "Connect your mobile money",
-          description: "Link your M-Pesa account to enable automatic transaction processing. Every incoming message becomes machine-readable fuel for your business."
-        },
-        {
-          number: 3,
-          title: "Activate AI mapping",
-          description: "Our NLP/ML engine automatically parses transaction amounts and probabilistically maps them to stock items or services sold."
-        }
-      ]
-    },
-    {
-      id: 1,
-      title: "Business Automation on Zacca App",
-      heading: "Business Automation on Zacca App",
-      image: accordionImage2,
-      steps: [
-        {
-          number: 1,
-          title: "Automatic inventory updates",
-          description: "Every transaction automatically updates your inventory, recording sales in real-time with zero manual effort."
-        },
-        {
-          number: 2,
-          title: "Customer analytics tracking",
-          description: "Capture payer metadata to compute repeat customers, order frequency, and basket size—building comprehensive daily records."
-        },
-        {
-          number: 3,
-          title: "Continuous insights",
-          description: "Transform everyday mobile money transactions, inventory behavior, and service income into continuously updated business insights."
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: "Credit Approval and Automation",
-      heading: "Credit Approval and Automation",
-      image: accordionImage3,
-      steps: [
-        {
-          number: 1,
-          title: "Build your credit profile",
-          description: "Continuous transaction-driven data feeds your Dynamic Credit Score (DCS), creating a real-time credit profile based on actual business performance."
-        },
-        {
-          number: 2,
-          title: "Get dynamic credit limits",
-          description: "Credit limits are automatically adjusted to your transaction velocity and settlement behavior, aligned to your cash-flow realities."
-        },
-        {
-          number: 3,
-          title: "Access performance-linked credit",
-          description: "From daily turnover credit to inventory financing and seasonal credit lines—each product is dynamically sized, priced, and repaid based on your business performance."
-        }
-      ]
-    }
-  ];
-
-  const activeContent = tabs[activeTab];
-
   return (
-    <section id="about" className="py-16 lg:py-24 bg-white scroll-mt-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16">
-        <div className="max-w-6xl mx-auto">
-          {/* Top Navigation Tabs */}
-          <div className="flex flex-wrap gap-4 lg:gap-8 mb-12 border-b border-gray-200 pb-4">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`text-base lg:text-lg font-semibold transition-colors pb-2 border-b-2 ${
-                activeTab === tab.id
-                  ? "text-[#3117ce] border-[#3117ce]"
-                  : "text-black border-transparent hover:text-[#3117ce]"
-              }`}
-            >
-              {tab.title}
-            </button>
-          ))}
-        </div>
+    <section id="about" className="relative py-16 lg:py-24 bg-white overflow-hidden scroll-mt-20">
+      {/* Background circle patterns - left */}
+      <div
+        className="absolute left-0 top-3 w-64 h-64 lg:w-[406px] lg:h-[406px] opacity-30 bg-cover bg-center bg-no-repeat -translate-x-1/2"
+        style={{ backgroundImage: `url(${pngwingCircle})` }}
+        aria-hidden
+      />
+      {/* Background circle patterns - right */}
+      <div
+        className="absolute right-0 top-0 w-64 h-64 lg:w-[406px] lg:h-[406px] opacity-30 bg-cover bg-center bg-no-repeat translate-x-1/2"
+        style={{ backgroundImage: `url(${pngwingCircle})` }}
+        aria-hidden
+      />
 
-        {/* Main Content Area */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Section - Circular Image */}
-          <div className="flex justify-center lg:justify-start">
-            <div className="relative w-full max-w-md">
-              <div className="aspect-square rounded-full overflow-hidden shadow-2xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
+          {/* Top row: Business Automation | Center images | Customer Analytics */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-6 items-start lg:min-h-[380px]">
+            {/* Left: Business Automation + service2 */}
+            <div className="flex flex-col lg:flex-row items-center gap-6 lg:block lg:order-1">
+              <div className="flex-1 max-w-[309px] lg:max-w-none">
+                <h2
+                  className="text-xl lg:text-2xl font-semibold text-[#2C14DD] leading-tight mb-3"
+                  style={fontStyle}
+                >
+                  Business Automation on Zacca App
+                </h2>
+                <p
+                  className="text-sm lg:text-base text-black leading-relaxed"
+                  style={{ ...fontStyle, fontWeight: 400 }}
+                >
+                  Every transaction automatically updates your inventory, recording sales in real-time with zero manual effort.
+                </p>
+              </div>
+              <div className="flex-shrink-0 w-48 h-56 lg:w-72 lg:h-80 overflow-visible">
                 <img
-                  src={activeContent.image}
-                  alt={activeContent.heading}
-                  className="w-full h-full object-cover"
+                  src={service2Image}
+                  alt="Business automation"
+                  className="w-full h-full object-contain object-top"
                 />
+              </div>
+            </div>
+
+            {/* Center: Group 3 + iPhone mockup */}
+            <div className="relative flex justify-center items-center min-h-[320px] lg:min-h-[380px] order-first lg:order-2">
+              <div className="relative w-48 h-64 lg:w-56 lg:h-72">
+                <img
+                  src={group3Image}
+                  alt="Customer using Zacca App"
+                  className="absolute inset-0 w-full h-full object-contain object-center"
+                />
+                <img
+                  src={iphoneMockup}
+                  alt="Zacca App on iPhone"
+                  className="absolute left-1/2 top-1/2 w-24 lg:w-32 h-auto object-contain"
+                  style={{ transform: "translate(-50%, -50%) rotate(-18deg)" }}
+                />
+              </div>
+            </div>
+
+            {/* Right: Customer analytics */}
+            <div className="flex flex-col items-center lg:items-start gap-4 lg:order-3">
+              <div className="max-w-[309px]">
+                <h2
+                  className="text-xl lg:text-2xl font-semibold text-[#2C14DD] leading-tight mb-3"
+                  style={fontStyle}
+                >
+                  Customer analytics tracking
+                </h2>
+                <p
+                  className="text-sm lg:text-base text-black leading-relaxed"
+                  style={{ ...fontStyle, fontWeight: 400 }}
+                >
+                  Capture payer metadata to compute repeat customers, order frequency, and basket size—building comprehensive daily records.
+                </p>
               </div>
             </div>
           </div>
 
-          {/* Right Section - Steps */}
-          <div className="space-y-6">
-            {/* Main Heading */}
-            <h2 className="text-base lg:text-lg font-semibold text-[#3117ce] leading-tight mb-6">
-              {activeContent.heading}
-            </h2>
-
-            {/* Steps */}
-            <div className="space-y-6">
-              {activeContent.steps.map((step, index) => (
-                <div key={index} className="flex items-start gap-4">
-                  {/* Numbered Circle Icon */}
-                  <div className="flex-shrink-0 w-9 h-9 rounded-full bg-[#3117ce] flex items-center justify-center">
-                    <span className="text-white font-semibold text-sm">{step.number}</span>
-                  </div>
-                  
-                  {/* Step Content */}
-                  <div className="flex-1">
-                    <h3 className="text-sm lg:text-base font-semibold text-black mb-1">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm lg:text-base text-black leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
+          {/* Bottom: Credit Approval and Automation */}
+          <div className="mt-12 lg:mt-16 text-center">
+            <div className="max-w-[500px] mx-auto">
+              <h2
+                className="text-xl lg:text-2xl font-semibold text-[#2C14DD] leading-tight mb-3"
+                style={fontStyle}
+              >
+                Credit Approval and Automation
+              </h2>
+              <p
+                className="text-sm lg:text-base text-black leading-relaxed"
+                style={{ ...fontStyle, fontWeight: 400 }}
+              >
+                Credit limits are automatically adjusted to your transaction velocity and settlement behavior, aligned to your cash-flow realities.
+              </p>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </section>
