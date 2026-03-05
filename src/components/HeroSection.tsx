@@ -56,7 +56,7 @@ export const HeroSection = () => {
                       placeholder="Enter email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-[#1C1E23] text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50"
+                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-black text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50"
                       style={{
                         fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 200,
