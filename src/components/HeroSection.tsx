@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import heroMockupImage from "@/assets/New Hero Mockup.png";
 import appStoreImage from "@/assets/Google and Apple Store Image.png";
-import heroBackgroundImage from "@/assets/Background New Hero.png";
+import heroBackgroundImage from "@/assets/Background New Hero- Here.png";
 
 export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
