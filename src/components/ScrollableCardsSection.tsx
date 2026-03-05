@@ -86,35 +86,8 @@ export const ScrollableCardsSection = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20 solutions-cards-section">
-      {/* Injected styles - load last to override all base/global styles */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        .solutions-cards-section .solutions-card-title {
-          font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-          font-weight: 500 !important;
-          font-size: 16px !important;
-          color: #2C14DD !important;
-          line-height: 1.25 !important;
-        }
-        @media (min-width: 1024px) {
-          .solutions-cards-section .solutions-card-title {
-            font-size: 18px !important;
-          }
-        }
-        .solutions-cards-section .solutions-card-text {
-          font-family: 'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
-          font-weight: 400 !important;
-          font-size: 14px !important;
-          color: #000 !important;
-          line-height: 1.6 !important;
-        }
-        @media (min-width: 1024px) {
-          .solutions-cards-section .solutions-card-text {
-            font-size: 16px !important;
-          }
-        }
-      `}} />
-      {/* Mobile: simple stacked cards - same typography as about section */}
+    <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
+      {/* Mobile: simple stacked cards */}
       <div className="lg:hidden container mx-auto px-4 py-12 space-y-8">
         {cards.map((card, index) => (
           <Card key={card.id} card={card} image={cardImages[index]} primary={index === 0} />
@@ -286,6 +259,26 @@ const getCardStyle = (index: number, scroll: number) => {
 
 /* ------------------ CARD UI ------------------ */
 
+/** Typography: match About section - title 16/18px font-medium, body 14/16px font-normal */
+const CARD_TITLE_STYLE: React.CSSProperties = {
+  fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+  fontWeight: 500,
+  fontSize: "1rem",
+  color: "#2C14DD",
+  lineHeight: 1.25,
+  margin: 0,
+  marginBottom: "0.75rem",
+};
+
+const CARD_BODY_STYLE: React.CSSProperties = {
+  fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+  fontWeight: 400,
+  fontSize: "0.875rem",
+  color: "#000",
+  lineHeight: 1.6,
+  margin: 0,
+};
+
 const Card = ({
   card,
   image,
@@ -295,39 +288,36 @@ const Card = ({
   image: string;
   primary: boolean;
 }) => {
+  const titleStyle: React.CSSProperties = CARD_TITLE_STYLE;
+  const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
+
   return (
     <div
       className="relative w-full max-w-5xl min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
       style={{
-        background: 'linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)',
-        padding: '2px'
+        background: "linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)",
+        padding: "2px",
       }}
     >
       <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="flex flex-col justify-center space-y-4">
-          <h2 className="solutions-card-title mb-3">
+          <div role="heading" aria-level={2} style={titleStyle}>
             {card.title}
-          </h2>
+          </div>
 
           {card.description ? (
-            <p className="solutions-card-text">
-              {card.description}
-            </p>
+            <div style={bodyStyle}>{card.description}</div>
           ) : null}
 
-          <ul className="space-y-2">
+          <ul className="space-y-2" style={{ margin: 0, padding: 0, listStyle: "none" }}>
             {card.features.map((f, i) => (
-              <li key={i} className="flex gap-3 items-start">
+              <li key={i} className="flex gap-3 items-start" style={{ margin: 0 }}>
                 <div
-                  className="w-6 h-6 rounded-full flex items-center justify-center bg-[#3117ce]/10"
+                  className="w-6 h-6 rounded-full flex items-center justify-center bg-[#3117ce]/10 flex-shrink-0"
                 >
-                  <Check
-                    className="w-4 h-4 text-[#3117ce]"
-                  />
+                  <Check className="w-4 h-4 text-[#3117ce]" />
                 </div>
-                <span className="solutions-card-text">
-                  {f}
-                </span>
+                <div style={bodyStyle}>{f}</div>
               </li>
             ))}
           </ul>
@@ -336,13 +326,9 @@ const Card = ({
             {card.cta}
           </button>
         </div>
-        
+
         <div className="hidden lg:flex items-center justify-center overflow-hidden">
-          <img
-            src={image}
-            alt={card.title}
-            className="w-full h-full object-contain"
-          />
+          <img src={image} alt={card.title} className="w-full h-full object-contain" />
         </div>
       </div>
     </div>
