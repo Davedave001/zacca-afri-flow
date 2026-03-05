@@ -26,9 +26,9 @@ export const AccordionSection = () => {
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
           {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-6 items-start lg:min-h-[380px]">
-            {/* Left: Business Automation - stretched left for more room */}
-            <div className="flex flex-col items-center lg:items-start lg:order-1 lg:-ml-4 xl:-ml-8">
-              <div className="max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] w-full">
+            {/* Left: Business Automation - stretched further left */}
+            <div className="flex flex-col items-center lg:items-start lg:order-1 lg:-ml-6 xl:-ml-12">
+              <div className="max-w-[460px] lg:max-w-[520px] xl:max-w-[560px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
@@ -62,9 +62,9 @@ export const AccordionSection = () => {
               />
             </div>
 
-            {/* Right: Customer analytics - stretched right for more room */}
-            <div className="flex flex-col items-center lg:items-start lg:order-3 lg:-mr-4 xl:-mr-8">
-              <div className="max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] w-full">
+            {/* Right: Customer analytics - stretched further right */}
+            <div className="flex flex-col items-center lg:items-start lg:order-3 lg:-mr-6 xl:-mr-12">
+              <div className="max-w-[460px] lg:max-w-[520px] xl:max-w-[560px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
@@ -81,9 +81,9 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - top padding to avoid overlap with images */}
-          <div className="mt-8 lg:mt-12 text-center">
-            <div className="max-w-[500px] mx-auto">
+          {/* Bottom: Credit Approval and Automation - reduced gap from images */}
+          <div className="mt-4 lg:mt-6 text-center">
+            <div className="max-w-[560px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                 style={fontStyle}
