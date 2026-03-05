@@ -12,16 +12,15 @@ export const HeroSection = () => {
   }, []);
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 w-full bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url(${heroBackgroundImage})`,
+      }}
+    >
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
-        {/* Rounded container - Figma Frame 1000005101 */}
-        <div
-          className="relative rounded-[30px] overflow-hidden min-h-[700px] lg:min-h-[800px] bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: `url(${heroBackgroundImage})`,
-          }}
-        >
-          <div className="relative grid lg:grid-cols-2 gap-12 min-h-[600px] lg:min-h-[750px] items-center">
+        <div className="relative grid lg:grid-cols-2 gap-12 min-h-[600px] lg:min-h-[750px] items-center">
             {/* Left column - Hero content */}
             <div className="flex flex-col justify-center py-12 lg:py-16 px-6 lg:px-12 xl:px-16 order-2 lg:order-1">
               <div className={`flex flex-col gap-6 lg:gap-[60px] max-w-[795px] transition-all duration-1000 ${animated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
@@ -111,7 +110,6 @@ export const HeroSection = () => {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </section>
   );
