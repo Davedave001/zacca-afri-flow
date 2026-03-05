@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import logoIcon from "@/assets/zacca-logo-icon.png";
+import logoIcon from "@/assets/Logo Icon.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
