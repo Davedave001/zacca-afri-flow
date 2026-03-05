@@ -44,24 +44,22 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two images side by side, identical fixed size containers */}
-            <div className="flex justify-center items-end gap-0 min-h-[320px] lg:min-h-[380px] order-first lg:order-2 -mt-24 lg:-mt-36 w-full">
-              {/* service2 - plaid shirt woman (teal circle) */}
-              <div className="w-52 h-64 lg:w-64 lg:h-80 flex-shrink-0 -mr-2 lg:-mr-3 flex items-center justify-center bg-transparent">
-                <img
-                  src={service2Image}
-                  alt="Business automation"
-                  className="w-full h-full object-contain"
-                />
-              </div>
-              {/* Group 3 - excited woman (purple circle), same container size */}
-              <div className="w-52 h-64 lg:w-64 lg:h-80 flex-shrink-0 -ml-2 lg:-ml-3 flex items-center justify-center bg-transparent">
-                <img
-                  src={group3Image}
-                  alt="Customer using Zacca App"
-                  className="w-full h-full object-contain"
-                />
-              </div>
+            {/* Center: Two images at original asset dimensions (service2: 379x441, Group3: 453x441) */}
+            <div className="flex justify-center items-end gap-0 min-h-0 order-first lg:order-2 -mt-24 lg:-mt-36 w-full overflow-x-auto">
+              <img
+                src={service2Image}
+                alt="Business automation"
+                width={379}
+                height={441}
+                className="object-contain -mr-2 lg:-mr-3 w-auto h-auto max-w-full"
+              />
+              <img
+                src={group3Image}
+                alt="Customer using Zacca App"
+                width={453}
+                height={441}
+                className="object-contain -ml-2 lg:-ml-3 w-auto h-auto max-w-full"
+              />
             </div>
 
             {/* Right: Customer analytics text */}
@@ -83,8 +81,8 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - reduced gap from images */}
-          <div className="-mt-12 lg:-mt-16 text-center">
+          {/* Bottom: Credit Approval and Automation - minimal gap from images */}
+          <div className="-mt-24 lg:-mt-28 text-center">
             <div className="max-w-[500px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
