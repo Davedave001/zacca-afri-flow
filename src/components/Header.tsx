@@ -53,8 +53,8 @@ export const Header = () => {
             className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
           <span
-            className="text-xl sm:text-2xl lg:text-[1.5rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
-            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD" }}
+            className="text-2xl sm:text-3xl lg:text-[2rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
+            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD", fontWeight: 500 }}
           >
             Zacca
           </span>
