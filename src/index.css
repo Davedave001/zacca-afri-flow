@@ -117,11 +117,35 @@
     @apply border-border;
   }
 
-  /* Remove line before hero section */
+  /* Remove line before hero section - override global border on layout elements */
   header,
   main,
-  #hero {
+  #hero,
+  #hero > .container,
+  #hero > div {
     border: none !important;
+    border-top: none !important;
+  }
+
+  header {
+    box-shadow: none !important;
+  }
+
+  /* Cover any stray line between header and hero (header is ~4.5rem tall) */
+  main {
+    position: relative;
+  }
+
+  main::before {
+    content: "";
+    position: fixed;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #FFFDFA;
+    z-index: 45;
+    pointer-events: none;
   }
 
   body {
