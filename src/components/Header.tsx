@@ -50,7 +50,7 @@ export const Header = () => {
           <img
             src={headerLogo}
             alt="Zacca.ai Logo"
-            className="h-9 sm:h-10 lg:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
         </Link>
       </div>
