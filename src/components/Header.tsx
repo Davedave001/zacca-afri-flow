@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
-import zaccaLogo from "@/assets/Zacca new.png";
+import headerLogo from "@/assets/Logo New Header.png";
 
-/** Header - pre-Figma design: white bar, Euclid font */
+/** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -41,9 +41,8 @@ export const Header = () => {
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50"
-      style={{ backgroundColor: "#ffffff" }}
-      data-header-version="white-v2"
+      className="fixed top-0 left-0 right-0 z-50 border-b border-gray-300"
+      style={{ backgroundColor: "#1A1AEC" }}
     >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-18">
@@ -51,7 +50,7 @@ export const Header = () => {
           <div className="flex items-center flex-shrink-0 pl-6 lg:pl-8">
             <Link to="/" className="flex items-center group">
               <img
-                src={zaccaLogo}
+                src={headerLogo}
                 alt="Zacca.ai Logo"
                 className="h-12 sm:h-14 lg:h-16 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
               />
@@ -69,9 +68,7 @@ export const Header = () => {
                       item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
                       item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } : undefined
                     }
-                    className={`text-base lg:text-lg font-medium transition-colors ${
-                      item.isHome ? "text-[#3117ce]" : "text-black hover:text-[#3117ce]"
-                    }`}
+                    className="text-base lg:text-lg font-medium text-white hover:text-white/90 transition-colors"
                     style={fontStyle}
                   >
                     {item.name}
@@ -86,7 +83,7 @@ export const Header = () => {
             <Link
               to="/#contact"
               onClick={(e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } }}
-              className="text-sm lg:text-base font-medium text-[#3117ce] hover:text-[#3117ce]/80 transition-colors border-b-2 border-[#3117ce] pb-1"
+              className="text-sm lg:text-base font-medium text-white hover:text-white/90 transition-colors border-b-2 border-white pb-1"
               style={fontStyle}
             >
               Contact Us
@@ -95,7 +92,7 @@ export const Header = () => {
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-lg text-black hover:text-[#3117ce] hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-white hover:text-white/90 hover:bg-white/10 transition-colors"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -104,16 +101,14 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
+          <div className="lg:hidden border-t border-gray-400 bg-[#1A1AEC]">
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
               {navigationItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   onClick={item.isSolutions ? scrollToSolutions : item.isAbout ? scrollToAbout : () => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200 ${
-                    item.isHome ? "text-[#3117ce]" : "text-black hover:text-[#3117ce] hover:bg-gray-50"
-                  }`}
+                  className="block px-4 py-3 text-base font-medium text-white hover:text-white/90 hover:bg-white/10 rounded-lg transition-colors duration-200"
                   style={fontStyle}
                 >
                   {item.name}
@@ -123,7 +118,7 @@ export const Header = () => {
                 <Link
                   to="/#contact"
                   onClick={scrollToContact}
-                  className="block text-center text-sm sm:text-base font-medium text-[#3117ce] border-b-2 border-[#3117ce] pb-2"
+                  className="block text-center text-sm sm:text-base font-medium text-white border-b-2 border-white pb-2"
                   style={fontStyle}
                 >
                   Contact Us

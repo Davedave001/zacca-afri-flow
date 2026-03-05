@@ -117,8 +117,7 @@
     @apply border-border;
   }
 
-  /* Remove line before hero section - override global border on layout elements */
-  header,
+  /* Remove line before hero section - override global border on layout elements (header keeps its border) */
   main,
   #hero,
   #hero > .container,
