@@ -22,13 +22,13 @@ export const AccordionSection = () => {
         aria-hidden
       />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 relative z-10">
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
           {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-6 items-start lg:min-h-[380px]">
-            {/* Left: Business Automation text only - wider for less squeeze */}
-            <div className="flex flex-col items-center lg:items-start lg:order-1">
-              <div className="max-w-[380px] lg:max-w-[420px] w-full">
+            {/* Left: Business Automation - stretched left for more room */}
+            <div className="flex flex-col items-center lg:items-start lg:order-1 lg:-ml-4 xl:-ml-8">
+              <div className="max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
@@ -62,9 +62,9 @@ export const AccordionSection = () => {
               />
             </div>
 
-            {/* Right: Customer analytics text - wider for less squeeze */}
-            <div className="flex flex-col items-center lg:items-start lg:order-3">
-              <div className="max-w-[380px] lg:max-w-[420px] w-full">
+            {/* Right: Customer analytics - stretched right for more room */}
+            <div className="flex flex-col items-center lg:items-start lg:order-3 lg:-mr-4 xl:-mr-8">
+              <div className="max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] w-full">
                 <h2
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
