@@ -8,7 +8,7 @@ const fontStyle = {
 
 export const AccordionSection = () => {
   return (
-    <section id="about" className="relative pt-24 lg:pt-32 pb-16 lg:pb-24 bg-white overflow-hidden scroll-mt-20">
+    <section id="about" className="relative pt-48 lg:pt-64 pb-16 lg:pb-24 bg-white overflow-hidden scroll-mt-20">
       {/* Background circle patterns - left */}
       <div
         className="absolute left-0 top-3 w-64 h-64 lg:w-[406px] lg:h-[406px] opacity-30 bg-cover bg-center bg-no-repeat -translate-x-1/2"
