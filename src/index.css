@@ -269,6 +269,8 @@
   font-size: 1rem !important;
   color: #2C14DD !important;
   line-height: 1.25 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 @media (min-width: 1024px) {
   #solutions .zacca-card-title {
@@ -281,6 +283,8 @@
   font-size: 0.875rem !important;
   color: #000 !important;
   line-height: 1.6 !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 @media (min-width: 1024px) {
   #solutions .zacca-card-text {

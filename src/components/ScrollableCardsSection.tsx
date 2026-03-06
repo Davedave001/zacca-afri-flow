@@ -56,8 +56,9 @@ const segmentProgress = (scroll: number, start: number, end: number) =>
 
 // Standard card size (use Card 1 as the standard “base frame” size)
 const BASE_CARD_HEIGHT = 460;
-// No scale during animation - keeps text crisp (no blur from transform scaling)
-const FRAME_HEIGHT = BASE_CARD_HEIGHT;
+// Cards 2/3 scale up during climb, then collapse back to base
+const SCALE_LARGE = 1.12;
+const FRAME_HEIGHT = BASE_CARD_HEIGHT * SCALE_LARGE;
 const ENTRY_OFFSET = FRAME_HEIGHT * 1.2;
 
 /* ------------------ MAIN COMPONENT ------------------ */
@@ -143,12 +144,12 @@ const getCardStyle = (index: number, scroll: number): CardStyleResult => {
   // PRE - Before entering
   if (s.enter && scroll < s.enter[0]) {
     return {
-      transform: `translateY(${ENTRY_OFFSET}px)`,
+      transform: `translateY(${ENTRY_OFFSET}px) scale(${SCALE_LARGE})`,
       clipPath: `inset(0% 0% 100% 0%)`,
       opacity: 0,
       zIndex: 1,
       visibility: 'hidden' as const,
-      contentScale: 1,
+      contentScale: SCALE_LARGE,
     };
   }
 
@@ -176,21 +177,24 @@ const getCardStyle = (index: number, scroll: number): CardStyleResult => {
       // The card slides up and naturally covers Card 2 from bottom to top
       
       return {
-        transform: `translateY(${translateY}px)`,
+        transform: `translateY(${translateY}px) scale(${SCALE_LARGE})`,
         clipPath: `inset(0% 0% 0% 0%)`, // Fully visible - no clipping
         opacity: 1,
         zIndex: 25, // Must be above Card 2 (zIndex 15 when active, zIndex 5 when exiting)
-        contentScale: 1,
+        contentScale: SCALE_LARGE,
       };
     }
 
-    // COLLAPSE PHASE: 0.75 → 1.0 (Card fully in place - no scale, no blur)
+    // COLLAPSE PHASE: 0.75 → 1.0 (Card collapses to exact dimensions)
+    const collapseProgress = (p - 0.75) / 0.25; // 0 to 1
+    const scale = SCALE_LARGE - collapseProgress * (SCALE_LARGE - 1); // SCALE_LARGE → 1
+
     return {
-      transform: `translateY(0)`,
+      transform: `translateY(0) scale(${scale})`,
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
       zIndex: 20, // Highest when active
-      contentScale: 1,
+      contentScale: scale,
     };
   }
 
@@ -304,7 +308,8 @@ const Card = ({
   const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
 
   // When parent scales the card during enter/collapse animation, counter-scale the content
-  // so title and text remain at constant visual size
+  // so title and text remain at constant visual size (avoids blur from scaling text)
+  const inv = 1 / contentScale;
   const contentWrapperStyle: React.CSSProperties =
     contentScale !== 1
       ? {
@@ -313,8 +318,9 @@ const Card = ({
           height: `${contentScale * 100}%`,
           left: "50%",
           top: "50%",
-          transform: `translate(-50%, -50%) scale(${1 / contentScale})`,
+          transform: `translate(-50%, -50%) scale3d(${inv}, ${inv}, 1)`,
           transformOrigin: "center center",
+          backfaceVisibility: "hidden" as const,
         }
       : {};
 
