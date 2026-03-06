@@ -1,13 +1,49 @@
 import { useState, useEffect } from "react";
+import emailjs from "@emailjs/browser";
 import heroMockupImage from "@/assets/New Hero Mockup.png";
 import heroBackgroundImage from "@/assets/Background New Hero- Here.png";
 import { toast } from "sonner";
 
-// Formspree form ID - from env or fallback (Vite inlines at build time; ensure Coolify passes env to build)
+// Formspree - notifies you of signups
 const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mvzwogop";
+
+// EmailJS - sends welcome email to visitors (programmatic auto-responder)
+// Fallbacks for production when env vars aren't available during Vite build
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "service_8go3ghl";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "template_seck45m";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "pxPiYrAqL4OYPm2BE";
+
+const WELCOME_EMAIL_SUBJECT = "Welcome to Zacca - You're on the list!";
+const WELCOME_EMAIL_BODY = `Welcome to the Zacca community!
+
+Thank you for joining our waiting list. As you wait for our product release, you'll receive updates frequently and will be among the first users to test the product.
+
+We're excited to have you on board!
+
+— The Zacca Team`;
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 const isValidPhone = (value: string) => /^[\d\s\-\+\(\)]{8,20}$/.test(value.replace(/\s/g, ""));
+
+async function sendWelcomeEmail(toEmail: string): Promise<boolean> {
+  if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) return false;
+  try {
+    await emailjs.send(
+      EMAILJS_SERVICE_ID,
+      EMAILJS_TEMPLATE_ID,
+      {
+        to_email: toEmail,
+        subject: WELCOME_EMAIL_SUBJECT,
+        message: WELCOME_EMAIL_BODY,
+      },
+      { publicKey: EMAILJS_PUBLIC_KEY }
+    );
+    return true;
+  } catch (err) {
+    console.warn("[EmailJS] Welcome email failed:", err);
+    return false;
+  }
+}
 
 export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
@@ -32,7 +68,7 @@ export const HeroSection = () => {
 
     setStatus("loading");
     try {
-      // Formspree accepts JSON with Accept header (see help.formspree.io)
+      // 1. Notify you via Formspree
       const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
         method: "POST",
         headers: {
@@ -49,15 +85,21 @@ export const HeroSection = () => {
 
       const data = await res.json().catch(() => ({}));
 
-      if (res.ok) {
-        setStatus("success");
-        setContact("");
-        toast.success("You're on the list! Check your inbox for a welcome message.");
-      } else {
+      if (!res.ok) {
         setStatus("error");
         const errMsg = data?.errors?.map((e: { message: string }) => e.message).join(", ") || "Something went wrong. Please try again.";
         toast.error(errMsg);
+        return;
       }
+
+      // 2. Send welcome email to visitor (if they gave an email)
+      if (trimmed.includes("@")) {
+        await sendWelcomeEmail(trimmed);
+      }
+
+      setStatus("success");
+      setContact("");
+      toast.success("You're on the list! Check your inbox for a welcome message.");
     } catch {
       setStatus("error");
       toast.error("Something went wrong. Please try again.");
