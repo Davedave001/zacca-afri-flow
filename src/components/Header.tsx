@@ -49,7 +49,7 @@ export const Header = () => {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex flex-col bg-white">
       {/* Main row: logo | blue nav | social icons */}
-      <div className="flex h-14 relative items-stretch">
+      <div className="flex h-16 relative items-stretch">
       {/* Left: Logo section */}
       <div className="flex-shrink-0 w-36 sm:w-44 lg:w-[260px] h-full flex items-center pl-4 lg:pl-6">
         <Link to="/" className="flex items-center gap-1 group">
@@ -67,10 +67,10 @@ export const Header = () => {
         </Link>
       </div>
 
-      {/* Center: Blue nav section (#2C14DD) - contained with gaps */}
+      {/* Center: Black nav section - contained with gaps */}
       <div
         className="flex-1 min-w-0 flex items-center justify-center px-4 lg:px-8 py-2 my-2 mr-6 lg:mr-10 rounded-sm"
-        style={{ backgroundColor: "#2C14DD" }}
+        style={{ backgroundColor: "#000000" }}
       >
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {navigationItems.map((item) => (
@@ -92,7 +92,7 @@ export const Header = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 rounded-lg text-white hover:text-white/90 hover:bg-white/10 transition-colors"
+          className="lg:hidden p-2 rounded-lg text-white hover:text-white/90 hover:bg-white/20 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -118,14 +118,14 @@ export const Header = () => {
       {/* White gap between menu and bottom line */}
       <div className="h-2 bg-white" />
 
-      {/* Thin blue bottom line */}
-      <div className="h-px bg-[#2C14DD] flex-shrink-0" />
+      {/* Thin bottom line */}
+      <div className="h-px bg-black flex-shrink-0" />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div
-          className="lg:hidden absolute top-[65px] left-0 right-0 border-t border-[#2C14DD]/30 py-4"
-          style={{ backgroundColor: "#2C14DD" }}
+          className="lg:hidden absolute top-[73px] left-0 right-0 border-t border-black/30 py-4"
+          style={{ backgroundColor: "#000000" }}
         >
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
               {navigationItems.map((item) => (
