@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Linkedin, Facebook } from "lucide-react";
 import logoIcon from "@/assets/Copy of Footer Logo.png";
@@ -6,12 +6,26 @@ import logoIcon from "@/assets/Copy of Footer Logo.png";
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentHash, setCurrentHash] = useState(location.hash);
   const location = useLocation();
+
+  useEffect(() => {
+    setCurrentHash(location.hash || window.location.hash);
+  }, [location.hash]);
+
+  useEffect(() => {
+    const onHashChange = () => setCurrentHash(window.location.hash);
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
+
+  const hash = currentHash || location.hash;
 
   const scrollToSolutions = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("solutions")?.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", "/#solutions");
     }
   };
 
@@ -19,6 +33,7 @@ export const Header = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", "/#about");
     }
   };
 
@@ -26,6 +41,7 @@ export const Header = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", "/#contact");
     }
   };
 
@@ -67,32 +83,38 @@ export const Header = () => {
         </Link>
       </div>
 
-      {/* Center: Black nav section - contained with gaps */}
-      <div
-        className="flex-1 min-w-0 flex items-center justify-center px-4 lg:px-8 py-2 my-2 mr-6 lg:mr-10 rounded-sm"
-        style={{ backgroundColor: "#000000" }}
-      >
+      {/* Center: Nav section - no background, black text, blue when active */}
+      <div className="flex-1 min-w-0 flex items-center justify-center px-4 lg:px-8 py-2 my-2 mr-6 lg:mr-10 rounded-sm">
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
-          {navigationItems.map((item) => (
-            <Link
-              key={item.name}
-              to={item.href}
-              onClick={
-                item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
-                item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } :
-                item.isContact ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } } : undefined
-              }
-              className={`text-base lg:text-lg font-normal text-white hover:text-white/90 transition-colors ${item.isContact ? "border-b-2 border-white pb-0.5" : ""}`}
-              style={fontStyle}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigationItems.map((item) => {
+            const isActive =
+              (item.isHome && location.pathname === "/" && !hash) ||
+              (item.isAbout && hash === "#about") ||
+              (item.isSolutions && hash === "#solutions") ||
+              (item.isContact && hash === "#contact");
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                onClick={
+                  item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
+                  item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } :
+                  item.isContact ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } } : undefined
+                }
+                className={`text-base lg:text-lg font-normal transition-colors pb-0.5 ${
+                  isActive ? "text-[#2c14dd] border-b-2 border-[#2c14dd]" : "text-black hover:text-black/80"
+                }`}
+                style={fontStyle}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 rounded-lg text-white hover:text-white/90 hover:bg-white/20 transition-colors"
+          className="lg:hidden p-2 rounded-lg text-black hover:text-black/80 hover:bg-black/5 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
@@ -115,7 +137,7 @@ export const Header = () => {
       </div>
       </div>
 
-      {/* White gap between menu and bottom line */}
+      {/* Gap between menu and bottom line */}
       <div className="h-2 bg-white" />
 
       {/* Thin bottom line */}
@@ -123,22 +145,28 @@ export const Header = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div
-          className="lg:hidden absolute top-[73px] left-0 right-0 border-t border-black/30 py-4"
-          style={{ backgroundColor: "#000000" }}
-        >
+        <div className="lg:hidden absolute top-[73px] left-0 right-0 border-t border-black/10 py-4 bg-white shadow-lg">
             <div className="py-3 sm:py-4 space-y-2 sm:space-y-3">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={item.isSolutions ? scrollToSolutions : item.isAbout ? scrollToAbout : item.isContact ? scrollToContact : () => setIsMenuOpen(false)}
-                  className={`block px-4 py-3 text-base font-normal text-white hover:text-white/90 hover:bg-white/10 rounded-lg transition-colors duration-200 ${item.isContact ? "border-b-2 border-white w-fit" : ""}`}
-                  style={fontStyle}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navigationItems.map((item) => {
+                const isActive =
+                  (item.isHome && location.pathname === "/" && !hash) ||
+                  (item.isAbout && hash === "#about") ||
+                  (item.isSolutions && hash === "#solutions") ||
+                  (item.isContact && hash === "#contact");
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={item.isSolutions ? scrollToSolutions : item.isAbout ? scrollToAbout : item.isContact ? scrollToContact : () => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 text-base font-normal rounded-lg transition-colors duration-200 w-fit ${
+                      isActive ? "text-[#2c14dd] border-b-2 border-[#2c14dd]" : "text-black hover:text-[#2c14dd] hover:bg-black/5"
+                    }`}
+                    style={fontStyle}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </div>
         </div>
         )}
