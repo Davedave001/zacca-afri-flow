@@ -81,9 +81,9 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - proper spacing, no overlap */}
-          <div className="mt-8 lg:mt-0 lg:-mt-10 text-center">
-            <div className="max-w-[560px] mx-auto">
+          {/* Bottom: Credit Approval and Automation - left-aligned like preceding text */}
+          <div className="mt-8 lg:mt-0 lg:-mt-10 text-left">
+            <div className="max-w-[560px]">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                 style={fontStyle}

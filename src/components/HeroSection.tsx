@@ -13,7 +13,7 @@ export const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden pt-10 lg:pt-14 pb-8 w-full bg-cover bg-center bg-no-repeat"
+      className="relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 lg:pt-20 pb-8 w-full bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${heroBackgroundImage})`,
       }}
