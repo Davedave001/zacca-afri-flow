@@ -51,14 +51,14 @@ export const AccordionSection = () => {
                 alt="Business automation"
                 width={379}
                 height={441}
-                className="object-contain object-bottom -mr-2 lg:-mr-3 w-auto max-w-[45vw] sm:max-w-[180px] lg:max-w-none h-[200px] sm:h-[260px] lg:h-auto"
+                className="object-contain object-bottom -mr-2 lg:-mr-3 w-auto max-w-[48vw] sm:max-w-[220px] lg:max-w-none h-[260px] sm:h-[320px] lg:h-auto"
               />
               <img
                 src={group3Image}
                 alt="Customer using Zacca App"
                 width={453}
                 height={441}
-                className="object-contain object-bottom -ml-2 lg:-ml-3 w-auto max-w-[45vw] sm:max-w-[220px] lg:max-w-none h-[200px] sm:h-[260px] lg:h-auto"
+                className="object-contain object-bottom -ml-2 lg:-ml-3 w-auto max-w-[48vw] sm:max-w-[260px] lg:max-w-none h-[260px] sm:h-[320px] lg:h-auto"
               />
             </div>
 

@@ -6,7 +6,7 @@ import {
   Instagram,
   Youtube
 } from "lucide-react";
-import footerLogo from "@/assets/Footer Logo.png";
+import footerLogo from "@/assets/Copy of Footer Logo (1).png";
 
 export const Footer = () => {
   return (
@@ -16,13 +16,21 @@ export const Footer = () => {
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* Left Side - Logo and Address */}
           <div className="space-y-6">
-            {/* Logo */}
+            {/* Logo - same as header with white text */}
             <div>
-              <img 
-                src={footerLogo} 
-                alt="Zacca.ai Logo" 
-                className="h-10 lg:h-12 w-auto object-contain"
-              />
+              <Link to="/" className="flex items-center gap-1 group">
+                <img
+                  src={footerLogo}
+                  alt=""
+                  className="h-5 sm:h-6 lg:h-6 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+                />
+                <span
+                  className="text-2xl sm:text-[1.75rem] lg:text-[1.5rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80 text-white"
+                  style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", fontWeight: 500 }}
+                >
+                  Zacca
+                </span>
+              </Link>
             </div>
             
             {/* Address */}
