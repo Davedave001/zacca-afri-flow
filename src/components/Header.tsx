@@ -56,7 +56,7 @@ export const Header = () => {
           <img
             src={logoIcon}
             alt=""
-            className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            className="h-5 sm:h-6 lg:h-6 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
           <span
             className="text-lg sm:text-xl lg:text-[1.25rem] font-extrabold uppercase tracking-tight transition-opacity duration-300 group-hover:opacity-80"
