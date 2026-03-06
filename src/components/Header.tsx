@@ -67,9 +67,9 @@ export const Header = () => {
         </Link>
       </div>
 
-      {/* Center: Blue nav section (#2C14DD) */}
+      {/* Center: Blue nav section (#2C14DD) - contained with gaps */}
       <div
-        className="flex-1 h-full flex items-center justify-center px-4 lg:px-8"
+        className="flex-1 min-w-0 flex items-center justify-center px-4 lg:px-8 py-2 my-2 mr-6 lg:mr-10 rounded-sm"
         style={{ backgroundColor: "#2C14DD" }}
       >
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
@@ -106,8 +106,8 @@ export const Header = () => {
             key={label}
             href={href}
             aria-label={label}
-            className="w-9 h-9 flex items-center justify-center text-white hover:opacity-90 transition-opacity"
-            style={{ backgroundColor: "#2512a8" }}
+            className="w-9 h-9 flex items-center justify-center hover:opacity-90 transition-opacity"
+            style={{ color: "#2c14dd" }}
           >
             <Icon className="w-4 h-4" />
           </a>
