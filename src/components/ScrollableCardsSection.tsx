@@ -10,12 +10,12 @@ const cardImages = [mockupCard1Image, mockupCard2Image, mockupCard3Image] as con
 const cards = [
   {
     id: 1,
-    title: "Zwallet",
+    title: "Business Finance Engine",
     description: "",
     features: [
-      "Automated loan disbursement",
-      "Automated repayment deductions",
-      "Quick transfers to mobile money and bank",
+      "Instantly releases approved credit to MSMEs through the Zacca Wallet, mobile money, or linked bank accounts.",
+      "Intelligently deducts repayments from incoming transactions based on agreed cash-flow schedules.",
+      "Enables fast transfers between the Zacca Wallet, mobile money platforms, and bank accounts for smooth daily operations.",
     ],
     cta: "Learn More",
     gradient: "from-[#3117ce] to-[#2512a8]",
@@ -25,9 +25,9 @@ const cards = [
     title: "Intelligent Credit Infrastructure",
     description: "",
     features: [
-      "Embedded Lending connects banks, SACCOs, microlenders, digital lenders, and mobile money.",
-      "Self-Learning Credit Intelligence uses AI models to learn MSME behavior from transaction data.",
-      "End-to-End Loan Lifecycle covers underwriting through disbursement, repayments, monitoring, and credit limits.",
+      "Embedded lending connects banks, SACCOs, microlenders, digital lenders, and mobile money.",
+      "Self-learning credit Intelligence that uses AI models to learn MSME behavior from transaction data.",
+      "End-to-end loan lifecycle management that covers underwriting through disbursement, repayments, monitoring, and credit limits.",
     ],
     cta: "Explore",
     gradient: "from-[#4a2dd4] to-[#3117ce]",
@@ -37,9 +37,9 @@ const cards = [
     title: "Data Interoperability",
     description: "",
     features: [
-      "SME activity tracking tokenizes formal transactions to chama-level financial behavior.",
-      "Consent-based interoperability across lenders enables coordinated credit assessments.",
-      "Privacy-preserving architecture keeps sensitive data protected through secure storage and cryptographic verification.",
+      "SME activity tracking by tokenizing formal transactions to chama-level financial behavior.",
+      "Consent-based interoperability across lenders that enables coordinated credit assessments.",
+      "Privacy-preserving architecture that keeps sensitive data protected through secure storage and cryptographic verification.",
     ],
     cta: "Discover",
     gradient: "from-[#5c3fe0] to-[#4a2dd4]",
@@ -56,10 +56,8 @@ const segmentProgress = (scroll: number, start: number, end: number) =>
 
 // Standard card size (use Card 1 as the standard “base frame” size)
 const BASE_CARD_HEIGHT = 460;
-// Cards 2/3 should be taller/larger while climbing, then collapse back to base
-const SCALE_LARGE = 1.12;
-// Sticky frame must fit the scaled card so the bottom isn't chopped while climbing
-const FRAME_HEIGHT = BASE_CARD_HEIGHT * SCALE_LARGE;
+// No scale during animation - keeps text crisp (no blur from transform scaling)
+const FRAME_HEIGHT = BASE_CARD_HEIGHT;
 const ENTRY_OFFSET = FRAME_HEIGHT * 1.2;
 
 /* ------------------ MAIN COMPONENT ------------------ */
@@ -145,12 +143,12 @@ const getCardStyle = (index: number, scroll: number): CardStyleResult => {
   // PRE - Before entering
   if (s.enter && scroll < s.enter[0]) {
     return {
-      transform: `translateY(${ENTRY_OFFSET}px) scale(${SCALE_LARGE})`,
+      transform: `translateY(${ENTRY_OFFSET}px)`,
       clipPath: `inset(0% 0% 100% 0%)`,
       opacity: 0,
       zIndex: 1,
       visibility: 'hidden' as const,
-      contentScale: SCALE_LARGE,
+      contentScale: 1,
     };
   }
 
@@ -178,24 +176,21 @@ const getCardStyle = (index: number, scroll: number): CardStyleResult => {
       // The card slides up and naturally covers Card 2 from bottom to top
       
       return {
-        transform: `translateY(${translateY}px) scale(${SCALE_LARGE})`,
+        transform: `translateY(${translateY}px)`,
         clipPath: `inset(0% 0% 0% 0%)`, // Fully visible - no clipping
         opacity: 1,
         zIndex: 25, // Must be above Card 2 (zIndex 15 when active, zIndex 5 when exiting)
-        contentScale: SCALE_LARGE,
+        contentScale: 1,
       };
     }
 
-    // COLLAPSE PHASE: 0.75 → 1.0 (Card collapses to exact dimensions)
-    const collapseProgress = (p - 0.75) / 0.25; // 0 to 1
-    const scale = SCALE_LARGE - collapseProgress * (SCALE_LARGE - 1); // SCALE_LARGE → 1
-    
+    // COLLAPSE PHASE: 0.75 → 1.0 (Card fully in place - no scale, no blur)
     return {
-      transform: `translateY(0) scale(${scale})`,
+      transform: `translateY(0)`,
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
       zIndex: 20, // Highest when active
-      contentScale: scale,
+      contentScale: 1,
     };
   }
 
