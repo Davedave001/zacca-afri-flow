@@ -9,24 +9,11 @@ export const Header = () => {
   const location = useLocation();
   const hash = location.hash || "";
 
-  const scrollToSolutions = () => {
+  const scrollToSection = (sectionId: string) => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
-      document.getElementById("solutions")?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToAbout = () => {
-    setIsMenuOpen(false);
-    if (location.pathname === "/") {
-      document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
-  const scrollToContact = () => {
-    setIsMenuOpen(false);
-    if (location.pathname === "/") {
-      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+      window.history.replaceState(null, "", `/#${sectionId}`);
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -82,12 +69,12 @@ export const Header = () => {
                 key={item.name}
                 to={item.href}
                 onClick={
-                  item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSolutions(); } } :
-                  item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToAbout(); } } :
-                  item.isContact ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToContact(); } } : undefined
+                  item.isSolutions ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSection("solutions"); } } :
+                  item.isAbout ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSection("about"); } } :
+                  item.isContact ? (e) => { if (location.pathname === "/") { e.preventDefault(); scrollToSection("contact"); } } : undefined
                 }
-                className={`text-base lg:text-lg font-normal transition-colors pb-0.5 ${
-                  isActive ? "text-[#2c14dd] border-b-2 border-[#2c14dd]" : "text-black hover:text-black/80"
+                className={`text-base lg:text-lg font-normal transition-all duration-200 pb-0.5 border-b-2 ${
+                  isActive ? "text-[#2c14dd] border-[#2c14dd]" : "text-black border-transparent hover:text-black/80"
                 }`}
                 style={fontStyle}
               >
@@ -142,9 +129,9 @@ export const Header = () => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    onClick={item.isSolutions ? scrollToSolutions : item.isAbout ? scrollToAbout : item.isContact ? scrollToContact : () => setIsMenuOpen(false)}
-                    className={`block px-4 py-3 text-base font-normal rounded-lg transition-colors duration-200 w-fit ${
-                      isActive ? "text-[#2c14dd] border-b-2 border-[#2c14dd]" : "text-black hover:text-[#2c14dd] hover:bg-black/5"
+                    onClick={item.isSolutions ? () => scrollToSection("solutions") : item.isAbout ? () => scrollToSection("about") : item.isContact ? () => scrollToSection("contact") : () => setIsMenuOpen(false)}
+                    className={`block px-4 py-3 text-base font-normal rounded-lg transition-colors duration-200 w-fit border-b-2 ${
+                      isActive ? "text-[#2c14dd] border-[#2c14dd]" : "text-black border-transparent hover:text-[#2c14dd] hover:bg-black/5"
                     }`}
                     style={fontStyle}
                   >

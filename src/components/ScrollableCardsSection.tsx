@@ -308,6 +308,22 @@ const Card = ({
   primary: boolean;
   contentScale?: number;
 }) => {
+  const featuresRef = useRef<HTMLUListElement>(null);
+  const [textAnimated, setTextAnimated] = useState(false);
+
+  useEffect(() => {
+    const el = featuresRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting && !textAnimated) setTextAnimated(true);
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -20% 0px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [textAnimated]);
+
   const titleStyle: React.CSSProperties = CARD_TITLE_STYLE;
   const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
 
@@ -330,14 +346,14 @@ const Card = ({
 
   return (
     <div
-      className="relative w-full max-w-5xl min-h-[320px] lg:min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
+      className="relative w-full max-w-5xl min-h-[320px] lg:min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden zacca-solution-card"
       style={{
         background: "linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)",
-        padding: "2px",
+        padding: "1px",
       }}
     >
       <div
-        className={`rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 ${contentScale !== 1 ? "" : "w-full h-full"}`}
+        className={`rounded-[23px] bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 ${contentScale !== 1 ? "" : "w-full h-full"}`}
         style={contentWrapperStyle}
       >
         <div className="flex flex-col justify-center space-y-4">
@@ -349,7 +365,11 @@ const Card = ({
             <div className="zacca-card-text" style={bodyStyle}>{card.description}</div>
           ) : null}
 
-          <ul className="space-y-2" style={{ margin: 0, padding: 0, listStyle: "none" }}>
+          <ul
+            ref={featuresRef}
+            className={`zacca-card-features space-y-2 ${textAnimated ? "zacca-card-text-animate" : ""}`}
+            style={{ margin: 0, padding: 0, listStyle: "none" }}
+          >
             {card.features.map((f, i) => (
               <li key={i} className="flex gap-3 items-start" style={{ margin: 0 }}>
                 <div

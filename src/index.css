@@ -292,6 +292,42 @@
   }
 }
 
+/* Solution cards - thin border, attractive shadow */
+.zacca-solution-card {
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 12px rgba(49, 23, 206, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+}
+.zacca-solution-card:hover {
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.06),
+    0 8px 24px rgba(49, 23, 206, 0.12),
+    0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Card text entry animation - hide until animated */
+.zacca-card-features:not(.zacca-card-text-animate) li {
+  opacity: 0;
+}
+@keyframes card-text-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.zacca-card-text-animate li {
+  animation: card-text-fade-up 0.5s ease-out forwards;
+}
+.zacca-card-text-animate li:nth-child(1) { animation-delay: 0.1s; }
+.zacca-card-text-animate li:nth-child(2) { animation-delay: 0.2s; }
+.zacca-card-text-animate li:nth-child(3) { animation-delay: 0.3s; }
+
 /* Mobile cards horizontal scroll - hide scrollbar */
 .mobile-cards-scroll {
   -ms-overflow-style: none;
