@@ -59,7 +59,7 @@ export const Header = () => {
             className="h-5 sm:h-6 lg:h-6 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
           <span
-            className="text-xl sm:text-2xl lg:text-[1.375rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
+            className="text-2xl sm:text-[1.75rem] lg:text-[1.5rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
             style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD", fontWeight: 500 }}
           >
             Zacca
@@ -119,7 +119,7 @@ export const Header = () => {
       <div className="h-2 bg-white" />
 
       {/* Thin bottom line */}
-      <div className="h-px bg-black flex-shrink-0" />
+      <div className="h-px flex-shrink-0" style={{ backgroundColor: "#2c14dd" }} />
 
       {/* Mobile Navigation */}
       {isMenuOpen && (

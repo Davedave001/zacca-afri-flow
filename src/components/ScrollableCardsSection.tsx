@@ -101,20 +101,24 @@ export const ScrollableCardsSection = () => {
               className="relative w-full max-w-6xl mx-auto"
               style={{ height: FRAME_HEIGHT }}
             >
-              {cards.map((card, index) => (
-                <div
-                  key={card.id}
-                  // Anchor cards to the bottom of the frame so the entering card starts
-                  // climbing immediately without leaving a visible gap.
-                  className="absolute inset-0 flex items-end justify-center"
-                  style={{
-                    ...getCardStyle(index, scrollProgress),
-                    willChange: "transform, clip-path, opacity",
-                  } as React.CSSProperties}
-                >
-                  <Card card={card} image={cardImages[index]} primary={index === 0} />
-                </div>
-              ))}
+              {cards.map((card, index) => {
+                const cardStyleResult = getCardStyle(index, scrollProgress);
+                const { contentScale = 1, ...cardStyle } = cardStyleResult;
+                return (
+                  <div
+                    key={card.id}
+                    // Anchor cards to the bottom of the frame so the entering card starts
+                    // climbing immediately without leaving a visible gap.
+                    className="absolute inset-0 flex items-end justify-center"
+                    style={{
+                      ...cardStyle,
+                      willChange: "transform, clip-path, opacity",
+                    } as React.CSSProperties}
+                  >
+                    <Card card={card} image={cardImages[index]} primary={index === 0} contentScale={contentScale} />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -125,7 +129,9 @@ export const ScrollableCardsSection = () => {
 
 /* ------------------ CARD STYLE LOGIC ------------------ */
 
-const getCardStyle = (index: number, scroll: number) => {
+type CardStyleResult = React.CSSProperties & { contentScale?: number };
+
+const getCardStyle = (index: number, scroll: number): CardStyleResult => {
   const segments = [
     { active: [0.0, 0.25] },
     { enter: [0.25, 0.5], active: [0.5, 0.75] },
@@ -144,6 +150,7 @@ const getCardStyle = (index: number, scroll: number) => {
       opacity: 0,
       zIndex: 1,
       visibility: 'hidden' as const,
+      contentScale: SCALE_LARGE,
     };
   }
 
@@ -156,6 +163,7 @@ const getCardStyle = (index: number, scroll: number) => {
         clipPath: `inset(0% 0% 0% 0%)`,
         opacity: 1,
         zIndex: 20, // Highest when active
+        contentScale: 1,
       };
     }
     
@@ -174,6 +182,7 @@ const getCardStyle = (index: number, scroll: number) => {
         clipPath: `inset(0% 0% 0% 0%)`, // Fully visible - no clipping
         opacity: 1,
         zIndex: 25, // Must be above Card 2 (zIndex 15 when active, zIndex 5 when exiting)
+        contentScale: SCALE_LARGE,
       };
     }
 
@@ -186,6 +195,7 @@ const getCardStyle = (index: number, scroll: number) => {
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
       zIndex: 20, // Highest when active
+      contentScale: scale,
     };
   }
 
@@ -196,6 +206,7 @@ const getCardStyle = (index: number, scroll: number) => {
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
       zIndex: 15,
+      contentScale: 1,
     };
   }
 
@@ -215,6 +226,7 @@ const getCardStyle = (index: number, scroll: number) => {
             clipPath: `inset(0% 0% 0% 0%)`,
             opacity: 1,
             zIndex: 15, // Same as active, but below Card 3 (zIndex 25)
+            contentScale: 1,
           };
         }
 
@@ -225,6 +237,7 @@ const getCardStyle = (index: number, scroll: number) => {
           opacity: 0,
           zIndex: 1,
           pointerEvents: "none",
+          contentScale: 1,
         };
       }
 
@@ -239,6 +252,7 @@ const getCardStyle = (index: number, scroll: number) => {
           clipPath: `inset(0% 0% 0% 0%)`, // keep fully visible
           opacity: 1,
           zIndex: 5, // below the entering card (zIndex 25)
+          contentScale: 1,
         };
       }
 
@@ -250,6 +264,7 @@ const getCardStyle = (index: number, scroll: number) => {
         opacity: 1 - collapseProgress,
         zIndex: 1,
         pointerEvents: collapseProgress >= 1 ? "none" : "auto",
+        contentScale: 1,
       };
     }
   }
@@ -283,13 +298,30 @@ const Card = ({
   card,
   image,
   primary: _primary,
+  contentScale = 1,
 }: {
   card: (typeof cards)[number];
   image: string;
   primary: boolean;
+  contentScale?: number;
 }) => {
   const titleStyle: React.CSSProperties = CARD_TITLE_STYLE;
   const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
+
+  // When parent scales the card during enter/collapse animation, counter-scale the content
+  // so title and text remain at constant visual size
+  const contentWrapperStyle: React.CSSProperties =
+    contentScale !== 1
+      ? {
+          position: "absolute",
+          width: `${contentScale * 100}%`,
+          height: `${contentScale * 100}%`,
+          left: "50%",
+          top: "50%",
+          transform: `translate(-50%, -50%) scale(${1 / contentScale})`,
+          transformOrigin: "center center",
+        }
+      : {};
 
   return (
     <div
@@ -299,7 +331,10 @@ const Card = ({
         padding: "2px",
       }}
     >
-      <div className="w-full h-full rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div
+        className={`rounded-3xl bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 ${contentScale !== 1 ? "" : "w-full h-full"}`}
+        style={contentWrapperStyle}
+      >
         <div className="flex flex-col justify-center space-y-4">
           <div role="heading" aria-level={2} className="zacca-card-title" style={titleStyle}>
             {card.title}
