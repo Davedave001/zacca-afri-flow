@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Linkedin, Facebook } from "lucide-react";
 import logoIcon from "@/assets/Copy of Footer Logo.png";
@@ -6,26 +6,13 @@ import logoIcon from "@/assets/Copy of Footer Logo.png";
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [currentHash, setCurrentHash] = useState(location.hash);
   const location = useLocation();
-
-  useEffect(() => {
-    setCurrentHash(location.hash || window.location.hash);
-  }, [location.hash]);
-
-  useEffect(() => {
-    const onHashChange = () => setCurrentHash(window.location.hash);
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
-
-  const hash = currentHash || location.hash;
+  const hash = location.hash || "";
 
   const scrollToSolutions = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("solutions")?.scrollIntoView({ behavior: "smooth" });
-      window.history.replaceState(null, "", "/#solutions");
     }
   };
 
@@ -33,7 +20,6 @@ export const Header = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
-      window.history.replaceState(null, "", "/#about");
     }
   };
 
@@ -41,7 +27,6 @@ export const Header = () => {
     setIsMenuOpen(false);
     if (location.pathname === "/") {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
-      window.history.replaceState(null, "", "/#contact");
     }
   };
 
