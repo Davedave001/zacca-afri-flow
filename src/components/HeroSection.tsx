@@ -1,14 +1,68 @@
 import { useState, useEffect } from "react";
 import heroMockupImage from "@/assets/New Hero Mockup.png";
 import heroBackgroundImage from "@/assets/Background New Hero- Here.png";
+import { toast } from "sonner";
+
+// Formspree form ID - from env or fallback (Vite inlines at build time; ensure Coolify passes env to build)
+const FORMSPREE_FORM_ID = import.meta.env.VITE_FORMSPREE_FORM_ID || "mvzwogop";
+
+const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+const isValidPhone = (value: string) => /^[\d\s\-\+\(\)]{8,20}$/.test(value.replace(/\s/g, ""));
 
 export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
-  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   useEffect(() => {
     setAnimated(true);
   }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = contact.trim();
+    if (!trimmed) {
+      toast.error("Please enter your email or phone number");
+      return;
+    }
+    if (!isValidEmail(trimmed) && !isValidPhone(trimmed)) {
+      toast.error("Please enter a valid email or phone number");
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      // Formspree accepts JSON with Accept header (see help.formspree.io)
+      const res = await fetch(`https://formspree.io/f/${FORMSPREE_FORM_ID}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          contact: trimmed,
+          email: trimmed.includes("@") ? trimmed : undefined,
+          _replyto: trimmed.includes("@") ? trimmed : undefined,
+          _subject: `New Zacca waiting list signup: ${trimmed}`,
+        }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        setStatus("success");
+        setContact("");
+        toast.success("You're on the list! Check your inbox for a welcome message.");
+      } else {
+        setStatus("error");
+        const errMsg = data?.errors?.map((e: { message: string }) => e.message).join(", ") || "Something went wrong. Please try again.";
+        toast.error(errMsg);
+      }
+    } catch {
+      setStatus("error");
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
 
   return (
     <section
@@ -47,15 +101,16 @@ export const HeroSection = () => {
                   </p>
                 </div>
 
-                {/* Email form & CTA */}
-                <div className="flex flex-col gap-4 max-w-[547px]">
+                {/* Contact form & CTA */}
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-[547px]">
                   <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                     <input
-                      type="email"
-                      placeholder="Enter email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-black text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50"
+                      type="text"
+                      placeholder="Enter email or phone number"
+                      value={contact}
+                      onChange={(e) => setContact(e.target.value)}
+                      disabled={status === "loading"}
+                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-black text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50 disabled:opacity-70"
                       style={{
                         fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 200,
@@ -63,7 +118,9 @@ export const HeroSection = () => {
                       }}
                     />
                     <button
-                      className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity"
+                      type="submit"
+                      disabled={status === "loading"}
+                      className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity disabled:opacity-70 disabled:cursor-not-allowed"
                       style={{
                         fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
                         fontWeight: 500,
@@ -71,7 +128,7 @@ export const HeroSection = () => {
                         background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
                       }}
                     >
-                      Get Started
+                      {status === "loading" ? "Submitting..." : "Get Started"}
                     </button>
                   </div>
                   <p
@@ -83,9 +140,9 @@ export const HeroSection = () => {
                       lineHeight: "155%",
                     }}
                   >
-                    Enter your email to join our waiting list.
+                    Enter your email or phone number to join our waiting list.
                   </p>
-                </div>
+                </form>
               </div>
             </div>
 
