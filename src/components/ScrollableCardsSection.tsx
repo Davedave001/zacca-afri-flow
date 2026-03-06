@@ -86,11 +86,15 @@ export const ScrollableCardsSection = () => {
 
   return (
     <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
-      {/* Mobile: simple stacked cards */}
-      <div className="lg:hidden container mx-auto px-4 py-12 space-y-8">
-        {cards.map((card, index) => (
-          <Card key={card.id} card={card} image={cardImages[index]} primary={index === 0} />
-        ))}
+      {/* Mobile: horizontally scrollable cards with snap */}
+      <div className="lg:hidden overflow-x-auto overflow-y-visible py-12 pb-6 -mx-4 px-4 snap-x snap-mandatory scroll-smooth mobile-cards-scroll">
+        <div className="flex gap-4 min-w-min">
+          {cards.map((card, index) => (
+            <div key={card.id} className="flex-shrink-0 w-[85vw] max-w-[380px] snap-center snap-always">
+              <Card card={card} image={cardImages[index]} primary={index === 0} />
+            </div>
+          ))}
+        </div>
       </div>
       {/* Desktop: scroll animation */}
       <div className="hidden lg:block">
@@ -326,7 +330,7 @@ const Card = ({
 
   return (
     <div
-      className="relative w-full max-w-5xl min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
+      className="relative w-full max-w-5xl min-h-[320px] lg:min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden shadow-2xl"
       style={{
         background: "linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)",
         padding: "2px",

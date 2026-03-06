@@ -291,3 +291,12 @@
     font-size: 1rem !important;
   }
 }
+
+/* Mobile cards horizontal scroll - hide scrollbar */
+.mobile-cards-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.mobile-cards-scroll::-webkit-scrollbar {
+  display: none;
+}

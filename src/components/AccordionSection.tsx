@@ -8,7 +8,7 @@ const fontStyle = {
 
 export const AccordionSection = () => {
   return (
-    <section id="about" className="relative pt-48 lg:pt-64 pb-16 lg:pb-24 bg-white overflow-hidden scroll-mt-20">
+    <section id="about" className="relative pt-16 sm:pt-24 lg:pt-64 pb-16 lg:pb-24 bg-white overflow-hidden scroll-mt-20">
       {/* Background circle patterns - left */}
       <div
         className="absolute left-0 top-3 w-64 h-64 lg:w-[406px] lg:h-[406px] opacity-30 bg-cover bg-center bg-no-repeat -translate-x-1/2"
@@ -25,7 +25,7 @@ export const AccordionSection = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 relative z-10">
         <div className="relative bg-white rounded-2xl max-w-6xl mx-auto">
           {/* Top row: Business Automation text | Side-by-side center images | Customer Analytics text */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-6 lg:gap-6 items-start lg:min-h-[380px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-6 items-start lg:min-h-[380px]">
             {/* Left: Business Automation - stretched further left */}
             <div className="flex flex-col items-center lg:items-start lg:order-1 lg:-ml-6 xl:-ml-12">
               <div className="max-w-[460px] lg:max-w-[520px] xl:max-w-[560px] w-full">
@@ -44,21 +44,21 @@ export const AccordionSection = () => {
               </div>
             </div>
 
-            {/* Center: Two images at original asset dimensions (service2: 379x441, Group3: 453x441) */}
-            <div className="flex justify-center items-end gap-0 min-h-0 order-first lg:order-2 -mt-24 lg:-mt-36 w-full overflow-x-auto">
+            {/* Center: Two images - responsive sizing, no overlap on mobile */}
+            <div className="flex justify-center items-end gap-0 min-h-0 order-first lg:order-2 w-full overflow-x-auto overflow-y-visible lg:overflow-visible">
               <img
                 src={service2Image}
                 alt="Business automation"
                 width={379}
                 height={441}
-                className="object-contain -mr-2 lg:-mr-3 w-auto h-auto max-w-full"
+                className="object-contain object-bottom -mr-2 lg:-mr-3 w-auto max-w-[45vw] sm:max-w-[180px] lg:max-w-none h-[200px] sm:h-[260px] lg:h-auto"
               />
               <img
                 src={group3Image}
                 alt="Customer using Zacca App"
                 width={453}
                 height={441}
-                className="object-contain -ml-2 lg:-ml-3 w-auto h-auto max-w-full"
+                className="object-contain object-bottom -ml-2 lg:-ml-3 w-auto max-w-[45vw] sm:max-w-[220px] lg:max-w-none h-[200px] sm:h-[260px] lg:h-auto"
               />
             </div>
 
@@ -81,8 +81,8 @@ export const AccordionSection = () => {
             </div>
           </div>
 
-          {/* Bottom: Credit Approval and Automation - tight gap from images */}
-          <div className="-mt-6 lg:-mt-10 text-center">
+          {/* Bottom: Credit Approval and Automation - proper spacing, no overlap */}
+          <div className="mt-8 lg:mt-0 lg:-mt-10 text-center">
             <div className="max-w-[560px] mx-auto">
               <h2
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"

@@ -19,9 +19,9 @@ export const HeroSection = () => {
       }}
     >
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
-        <div className="relative grid lg:grid-cols-2 gap-12 min-h-[600px] lg:min-h-[750px] items-center">
+        <div className="relative grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 min-h-0 lg:min-h-[750px] items-center">
             {/* Left column - Hero content */}
-            <div className="flex flex-col justify-center py-12 lg:py-16 px-6 lg:px-12 xl:px-16 order-2 lg:order-1">
+            <div className="flex flex-col justify-center py-4 sm:py-6 lg:py-16 px-4 sm:px-6 lg:px-12 xl:px-16 order-2 lg:order-1">
               <div className={`flex flex-col gap-6 lg:gap-[60px] max-w-[795px] transition-all duration-1000 ${animated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
                 {/* Headline & description */}
                 <div className="flex flex-col gap-4">
@@ -90,12 +90,12 @@ export const HeroSection = () => {
             </div>
 
             {/* Right column - Phone mockup */}
-            <div className="flex items-center justify-center py-8 lg:py-16 px-6 order-1 lg:order-2">
+            <div className="flex items-center justify-center py-4 sm:py-6 lg:py-16 px-4 sm:px-6 order-1 lg:order-2">
               <div className={`relative z-10 transition-all duration-1000 delay-300 ${animated ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
                 <img
                   src={heroMockupImage}
                   alt="Zacca.ai app interface"
-                  className="w-auto h-[350px] sm:h-[450px] lg:h-[536px] object-contain drop-shadow-2xl"
+                  className="w-auto h-[280px] sm:h-[350px] md:h-[420px] lg:h-[536px] object-contain drop-shadow-2xl"
                 />
               </div>
             </div>
