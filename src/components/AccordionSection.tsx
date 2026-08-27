@@ -33,13 +33,13 @@ export const AccordionSection = () => {
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
                 >
-                  Business Automation on Zacca App
+                  The Data Gap
                 </h2>
                 <p
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  Every transaction automatically updates your inventory, recording sales in real-time with zero manual effort.
+                  A CRB record usually reflects one income stream — not the several a real MSME household typically runs at once.
                 </p>
               </div>
             </div>
@@ -69,13 +69,13 @@ export const AccordionSection = () => {
                   className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                   style={fontStyle}
                 >
-                  Customer analytics tracking
+                  Data ≈ Collateral
                 </h2>
                 <p
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  Capture payer metadata to compute repeat customers, order frequency, and basket size—building comprehensive daily records your lender can actually trust.
+                  Consistent, corroborated behaviour across income streams can substitute for physical collateral an informal borrower doesn't have.
                 </p>
               </div>
             </div>
@@ -88,13 +88,13 @@ export const AccordionSection = () => {
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                 style={fontStyle}
               >
-                Credit-Ready Records, Automatically
+                Signal ≠ Score
               </h2>
               <p
                 className="text-sm lg:text-base text-black leading-relaxed"
                 style={{ ...fontStyle, fontWeight: 400 }}
               >
-                Your transaction velocity and settlement behavior are continuously turned into the evidence your lender needs — so credit decisions reflect your real cash-flow, not a stale bank statement.
+                More visibility should mean a better-informed human decision — not a new black-box number replacing the old one.
               </p>
             </div>
           </div>

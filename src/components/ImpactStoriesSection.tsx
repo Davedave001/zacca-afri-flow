@@ -15,7 +15,7 @@ export const ImpactStoriesSection = () => {
       story: "Zacca saw my business before I even knew I had one. Through my WhatsApp orders and M-Pesa transactions, they gave me my first loan.",
       impact: "300% revenue growth",
       loan: "KSh 150,000",
-      details: "Grace's daily WhatsApp vegetable orders and consistent M-Pesa transactions were analyzed by our AI, recognizing her as a creditworthy entrepreneur. Within 24 hours, she received funding to expand her stall and serve 3x more customers.",
+      details: "Grace's daily WhatsApp vegetable orders and consistent M-Pesa transactions gave her lender the evidence to see her as creditworthy. Within days, she was approved to expand her stall and serve 3x more customers.",
       badge: "Real Impact",
       quote: "Now I can buy vegetables in bulk and my customers trust me more. My children are going to better schools."
     },
@@ -26,7 +26,7 @@ export const ImpactStoriesSection = () => {
       story: "I never thought my phone could help me get a loan. Zacca understood my business better than any bank ever did.",
       impact: "Doubled daily income",
       loan: "KSh 200,000",
-      details: "Michael's ride-hailing app data and customer payment patterns showed consistent income. Our AI recognized his reliability and approved funding for a second motorbike, doubling his earning capacity.",
+      details: "Michael's ride-hailing app data and customer payment patterns showed consistent income. His lender saw the evidence and approved funding for a second motorbike, doubling his earning capacity.",
       badge: "Growth Story",
       quote: "With two bikes, I can now support my family and save for my children's future. Zacca believed in me when banks wouldn't."
     },
@@ -37,7 +37,7 @@ export const ImpactStoriesSection = () => {
       story: "From Instagram DMs to a real business loan - Zacca made my dreams possible.",
       impact: "5x inventory growth",
       loan: "KSh 500,000",
-      details: "Sarah's Instagram sales records and customer testimonials were converted into verifiable business metrics. Our AI recognized her social media success as legitimate business activity, unlocking significant working capital.",
+      details: "Sarah's Instagram sales records and customer testimonials were converted into verifiable business metrics her lender could review, unlocking significant working capital.",
       badge: "Digital Success",
       quote: "I went from selling clothes from my bedroom to having a proper inventory. My customers are happier and I'm building something real."
     },
@@ -48,7 +48,7 @@ export const ImpactStoriesSection = () => {
       story: "At 45, I thought I was too old for technology. Zacca showed me that my WhatsApp supplier chats were worth more than I knew.",
       impact: "40% profit increase", 
       loan: "KSh 800,000",
-      details: "David's WhatsApp supplier communications and daily sales records enabled dynamic credit scoring. Our AI recognized his established business relationships and approved inventory financing, leading to better supplier terms and increased profits.",
+      details: "David's WhatsApp supplier communications and daily sales records gave his lender clear evidence of his established business relationships, and he was approved for inventory financing, leading to better supplier terms and increased profits.",
       badge: "Innovation",
       quote: "My suppliers now trust me more because they know I can pay upfront. Business is better than ever."
     }

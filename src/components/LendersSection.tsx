@@ -19,45 +19,45 @@ export const LendersSection = () => {
   const benefits = [
     {
       icon: Shield,
-      title: "Advanced Risk Management",
-      description: "AI-powered credit assessment reduces default rates by 65% through comprehensive business analysis",
-      metric: "65% lower defaults",
+      title: "Explainable Risk Evidence",
+      description: "Deterministic wedges surface contradictions, linkage graphs, and cascade risk — reviewed and reconstructable, never a black-box score",
+      metric: "Threshold-based & reconstructable",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: BarChart3,
-      title: "Real-time Portfolio Analytics", 
-      description: "Live business performance tracking and predictive risk modeling for informed lending decisions",
-      metric: "24/7 monitoring",
+      title: "Real-time Portfolio Analytics",
+      description: "Macro-adjusted Monte Carlo loss simulation layered with live event shocks — weather, elections, market news — for the whole book",
+      metric: "Aggregate-only, real-time",
       color: "text-accent",
       bgColor: "bg-accent/10"
     },
     {
       icon: TrendingDown,
-      title: "Automated Collections",
-      description: "Smart contract-based payment scheduling and automated recovery processes", 
-      metric: "98% collection rate",
+      title: "Bounded Learned Layer",
+      description: "A trained confidence estimator and a segment-level PD model — scoped to calibration and portfolio segments, never an individual credit score",
+      metric: "Segment-level, never individual",
       color: "text-terracotta",
       bgColor: "bg-terracotta/10"
     },
     {
       icon: Users,
-      title: "Verified Business Profiles",
-      description: "Blockchain-secured transaction histories and community trust verification",
-      metric: "100% verified data",
+      title: "Governance & Audit",
+      description: "Consent-gated at every read, PII-redacted, and logged to a W3C PROV-O decision graph — the same enforced path for every case",
+      metric: "PROV-O audited",
       color: "text-gold",
       bgColor: "bg-gold/10"
     }
   ];
 
   const dashboardFeatures = [
-    "Live portfolio performance tracking",
-    "Automated risk scoring updates", 
-    "Smart contract management",
-    "Regulatory compliance reporting",
-    "Cross-platform integration APIs",
-    "Custom lending criteria setup"
+    "Live Queue of flagged cases",
+    "Cluster, Cascade, Contradiction & Portfolio views",
+    "Automated flag & graph generation",
+    "Regulatory compliance & PROV-O audit export",
+    "Consent-gated retrieval APIs",
+    "Custom wedge threshold configuration"
   ];
 
   const partners = [
@@ -85,8 +85,8 @@ export const LendersSection = () => {
             <span className="text-muted-foreground">Across Kenya</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Join Kenya's most trusted financial institutions in revolutionizing lending through AI-powered risk assessment, 
-            real-time analytics, and blockchain security. Reduce defaults, increase profits, and serve more Kenyans.
+            Give SACCOs, digital lenders, and MFIs richer, explainable evidence — faster and cheaper than manual
+            investigation — without asking them to trust a black box.
           </p>
         </div>
 
@@ -230,8 +230,8 @@ export const LendersSection = () => {
             Ready to <span className="text-primary">Transform</span> Your Lending?
           </h3>
           <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join Kenya's leading financial institutions already using Zacca.ai to reduce risks, 
-            increase profits, and serve more Kenyans with fair, accessible credit.
+            Join Kenya's SACCOs, digital lenders, and MFIs already using Zacca Aetherius to see the fuller picture —
+            evidence a human underwriter can trust, on every case.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

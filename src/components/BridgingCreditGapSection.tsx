@@ -5,29 +5,29 @@ export const BridgingCreditGapSection = () => {
   const perks = [
     {
       icon: Brain,
-      title: "AI-Powered Intelligence",
-      description: "Advanced machine learning algorithms analyze your business patterns and create fair credit scores.",
+      title: "Deterministic Wedges",
+      description: "Fraud-ring linkage graphs, SACCO/chama guarantor cascade-risk, and stated-vs-observed contradiction detection — transparent, threshold-based, and reconstructable by a reviewer line by line.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Shield,
-      title: "Bank-Grade Security",
-      description: "Blockchain-secured transactions and data protection ensure your information stays safe.",
+      title: "Governance & Audit",
+      description: "Consent-gated at every read, PII-redacted, and logged to a W3C PROV-O decision graph — the same enforced path for a human upload, an automated file drop, or an agent tool call.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: TrendingUp,
-      title: "Real-Time Analytics",
-      description: "Monitor your credit score and business performance in real-time with actionable insights.",
+      title: "Portfolio & Real-Time Risk",
+      description: "Macro-adjusted Monte Carlo loss simulation for a whole book, layered with live event shocks — aggregate-only, never an individual borrower's number.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Zap,
-      title: "Instant Access",
-      description: "Get approved and funded in minutes, not months. Opportunity waits for no one.",
+      title: "Bounded Learned Layer",
+      description: "A trained confidence estimator and a segment-level PD model — scoped to calibration and portfolio segments, never an individual credit score, by design and by test.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     }
@@ -38,18 +38,18 @@ export const BridgingCreditGapSection = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="mb-6 border-[#3117ce] text-[#3117ce] hover:bg-[#3117ce]/10 rounded-full px-6"
           >
-            Our Perks
+            Signal, Not Verdict
           </Button>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
-            Bridging <span className="text-[#3117ce]">The Credit Gap</span>
+            Four Layers, <span className="text-[#3117ce]">One Boundary</span>
           </h2>
           <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Zacca.ai leverages cutting-edge AI and blockchain to create fair financial access for every African business, 
-            turning everyday transactions into powerful credit opportunities.
+            Each layer is independently tested, and each one stops short of a decision — deterministic wedges,
+            portfolio-level risk, a bounded learned layer, and full governance, all reviewed by a human underwriter.
           </p>
         </div>
 
@@ -80,7 +80,7 @@ export const BridgingCreditGapSection = () => {
         <div className="text-center mt-16">
           <div className="inline-flex items-center gap-2 bg-[#3117ce]/10 rounded-full px-6 py-3 border border-[#3117ce]/20">
             <CheckCircle className="w-5 h-5 text-[#3117ce]" />
-            <span className="text-gray-900 font-semibold">No Collateral Needed • No Bias • Just Opportunity</span>
+            <span className="text-gray-900 font-semibold">A Flag, a Graph, or a Risk Map — Never a Score</span>
           </div>
         </div>
       </div>

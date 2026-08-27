@@ -13,8 +13,8 @@ export const CTASection = () => {
     },
     {
       icon: Clock,
-      title: "Instant Approval",
-      description: "Get credit decisions in minutes, not months. Because opportunity waits for no one",
+      title: "Fast, Evidence-Backed Decisions",
+      description: "Your lender gets the evidence fast — not a stale bank statement. Because opportunity waits for no one",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },

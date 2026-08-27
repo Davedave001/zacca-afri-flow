@@ -6,33 +6,33 @@ export const HowItWorksSection = () => {
   const steps = [
     {
       icon: MessageSquare,
-      title: "Sync Your Chats",
-      description: "Connect your WhatsApp, M-Pesa, and business communications",
-      details: "Our AI securely analyzes your business conversations, transactions, and payment patterns to understand your real business activity.",
+      title: "Case Enters the Queue",
+      description: "A live Queue surfaces flagged cases as they come in — nothing pre-selected or hidden",
+      details: "Consent-gated retrieval pulls the case's transaction and relationship data, PII-redacted, ready for the wedges to run.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Brain,
-      title: "AI Creates Records",
-      description: "Advanced AI verifies and transforms chats into business data",
-      details: "Machine learning algorithms identify genuine business transactions, calculate cash flows, and assess creditworthiness from real activity.",
+      title: "Wedges Run Against the Case",
+      description: "Deterministic wedges check for contradictions, linkage, and cascade risk — not a canned demo",
+      details: "Fraud-ring linkage graphs, SACCO/chama cascade-risk, and stated-vs-observed contradiction detection all run in real time against the live case.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Wallet,
-      title: "Unlock Liquidity",
-      description: "Get your dynamic credit score and smart wallet access",
-      details: "Access fair credit scores based on actual business performance, plus an AI wallet that automatically optimizes your financial opportunities.",
+      title: "Underwriter Reviews the Evidence",
+      description: "Cluster, Cascade, Contradiction, and Portfolio views lay out every flag, graph, and risk map",
+      details: "Every output is reconstructable line by line — the underwriter can trace exactly how a flag or graph was produced.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Users,
-      title: "Connect & Grow",
-      description: "Join the LiquiChain DAO marketplace ecosystem",
-      details: "Connect with smart lenders, insurers, and business partners. Auto-deductions, transparent profiles, and blockchain security included.",
+      title: "Human Decides, Always",
+      description: "The underwriter makes the call — Zacca never returns an approve/deny decision or a score",
+      details: "Every decision is logged to a W3C PROV-O audit trail — reviewable by regulators and funders independently.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     }
@@ -43,17 +43,18 @@ export const HowItWorksSection = () => {
       <div className="container mx-auto px-6">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             className="mb-6 border-[#3117ce] text-[#3117ce] hover:bg-[#3117ce]/10 rounded-full px-6"
           >
-            Productivity
+            The Console
           </Button>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
             How It <span className="text-[#3117ce]">Works</span>
           </h2>
           <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            Transform your business conversations into verifiable credit history in four simple steps.
+            One console for underwriters — a live Queue of flagged cases, full Cluster/Cascade/Contradiction/Portfolio
+            views, and a chat agent, backed by wedges that run against the case in front of them.
                     </p>
                   </div>
                   

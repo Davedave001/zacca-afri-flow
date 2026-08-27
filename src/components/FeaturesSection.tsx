@@ -19,55 +19,55 @@ export const FeaturesSection = () => {
   const features = [
     {
       icon: MessageCircle,
-      title: "WhatsApp to Credit",
-      description: "Transform your business conversations into verifiable credit history. Our AI reads between the lines.",
-      benefits: ["Chat analysis", "Business pattern recognition", "Social proof scoring"],
-      badge: "Revolutionary",
+      title: "Contradiction Detection",
+      description: "Flags where what a borrower stated doesn't match what the transaction data shows.",
+      benefits: ["Stated vs. observed", "Threshold-based", "Reconstructable"],
+      badge: "Deterministic",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: Brain,
-      title: "AI Credit Scoring",
-      description: "Fair, transparent scoring that sees your real business potential, not just traditional metrics.",
-      benefits: ["Real-time updates", "No bias", "Context-aware"],
-      badge: "AI-Powered",
+      title: "Fraud-Ring Linkage Graphs",
+      description: "Shows who's linked to whom, and how tightly, across a lender's book.",
+      benefits: ["Relationship mapping", "Coordinated-fraud detection", "Transparent graph logic"],
+      badge: "Graph-Based",
       color: "text-accent",
       bgColor: "bg-accent/10"
     },
     {
       icon: Smartphone,
-      title: "M-Pesa Integration",
-      description: "Your mobile money transactions tell a story. We help lenders understand it.",
-      benefits: ["Cash flow analysis", "Transaction patterns", "Payment history"],
-      badge: "Smart",
+      title: "Guarantor Cascade-Risk",
+      description: "Traces SACCO and chama guarantor chains to model what one default could cascade into.",
+      benefits: ["Chain-of-guarantor tracing", "Threshold alerts", "Reviewer-reconstructable"],
+      badge: "Threshold-Based",
       color: "text-terracotta",
       bgColor: "bg-terracotta/10"
     },
     {
       icon: Wallet,
-      title: "Instant Access",
-      description: "Get approved and funded in minutes, not months. Because opportunity waits for no one.",
-      benefits: ["24/7 availability", "Instant decisions", "Same-day funding"],
-      badge: "Fast",
+      title: "Portfolio & Real-Time Risk",
+      description: "Macro-adjusted Monte Carlo loss simulation for a whole book, layered with live event shocks.",
+      benefits: ["Weather, election & market shocks", "Whole-book stress testing", "Aggregate-only output"],
+      badge: "Aggregate-Only",
       color: "text-gold",
       bgColor: "bg-gold/10"
     },
     {
       icon: Shield,
-      title: "Bank-Grade Security",
-      description: "Your data is protected with military-grade encryption and full regulatory compliance.",
-      benefits: ["End-to-end encryption", "CBK licensed", "Data privacy"],
-      badge: "Secure",
+      title: "Governance & Audit",
+      description: "Consent-gated at every read, PII-redacted, and logged to a W3C PROV-O decision graph.",
+      benefits: ["Consent-gated access", "PII redaction", "PROV-O audit trail"],
+      badge: "Audited",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: Users,
-      title: "Community Network",
-      description: "Leverage your social capital and community trust as part of your credit profile.",
-      benefits: ["Social scoring", "Community validation", "Network effects"],
-      badge: "Social",
+      title: "Bounded Learned Layer",
+      description: "A trained confidence estimator and a segment-level PD model — scoped to calibration and portfolio segments, never an individual score.",
+      benefits: ["Confidence estimation", "Segment-level PD", "Never an individual score"],
+      badge: "Bounded",
       color: "text-accent",
       bgColor: "bg-accent/10"
     }
@@ -99,11 +99,11 @@ export const FeaturesSection = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Technology That <span className="text-gradient-primary">Understands</span> Africa
+            Signal, <span className="text-gradient-primary">Not Verdict</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Built specifically for Kenyan entrepreneurs, our AI recognizes the unique patterns of informal business, 
-            community trust, and mobile-first commerce that traditional banks miss.
+            Zacca Aetherius runs deterministic wedges against the case in front of an underwriter — a flag, a graph,
+            or a risk map. Never a score.
           </p>
         </div>
 
@@ -157,36 +157,36 @@ export const FeaturesSection = () => {
         <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-3xl p-12">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-foreground mb-4">
-              Real Impact, <span className="text-primary">Real Numbers</span>
+              Enforced, <span className="text-primary">Not Promised</span>
             </h3>
             <p className="text-lg text-muted-foreground">
-              The proof is in the results we're delivering for Kenyan entrepreneurs
+              The boundary between signal and verdict is enforced in code review, not just the pitch
             </p>
           </div>
-          
+
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <BarChart3 className="w-10 h-10 text-primary mx-auto mb-4" />
-              <div className="text-4xl font-bold text-primary mb-2">98.5%</div>
-              <p className="text-muted-foreground font-medium">Credit Accuracy Rate</p>
+              <div className="text-4xl font-bold text-primary mb-2">3</div>
+              <p className="text-muted-foreground font-medium">Deterministic Wedges Shipped</p>
             </div>
-            
+
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <Clock className="w-10 h-10 text-accent mx-auto mb-4" />
-              <div className="text-4xl font-bold text-accent mb-2">2min</div>
-              <p className="text-muted-foreground font-medium">Average Approval Time</p>
+              <div className="text-4xl font-bold text-accent mb-2">100%</div>
+              <p className="text-muted-foreground font-medium">Cases Reviewed by a Human</p>
             </div>
-            
+
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <Globe className="w-10 h-10 text-terracotta mx-auto mb-4" />
-              <div className="text-4xl font-bold text-terracotta mb-2">47</div>
-              <p className="text-muted-foreground font-medium">Counties Served</p>
+              <div className="text-4xl font-bold text-terracotta mb-2">0</div>
+              <p className="text-muted-foreground font-medium">Individual Credit Scores Produced</p>
             </div>
-            
+
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <Users className="w-10 h-10 text-gold mx-auto mb-4" />
-              <div className="text-4xl font-bold text-gold mb-2">250K+</div>
-              <p className="text-muted-foreground font-medium">Lives Transformed</p>
+              <div className="text-4xl font-bold text-gold mb-2">PROV-O</div>
+              <p className="text-muted-foreground font-medium">Audit Standard, Every Decision</p>
             </div>
           </div>
         </div>
