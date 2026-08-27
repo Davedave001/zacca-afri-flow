@@ -4,6 +4,9 @@ import { Header } from "@/components/Header";
 import { HeroSection } from "@/components/HeroSection";
 import { AccordionSection } from "@/components/AccordionSection";
 import { ScrollableCardsSection } from "@/components/ScrollableCardsSection";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
+import { FeaturesSection } from "@/components/FeaturesSection";
+import { LendersSection } from "@/components/LendersSection";
 import { CTADownloadSection } from "@/components/CTADownloadSection";
 import { Footer } from "@/components/Footer";
 
@@ -33,6 +36,9 @@ const Index = () => {
       <HeroSection />
       <AccordionSection />
       <ScrollableCardsSection />
+      <HowItWorksSection />
+      <FeaturesSection />
+      <LendersSection />
       <CTADownloadSection />
       <Footer />
     </main>

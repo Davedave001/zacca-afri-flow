@@ -19,45 +19,45 @@ export const LendersSection = () => {
   const benefits = [
     {
       icon: Shield,
-      title: "Explainable Risk Evidence",
-      description: "Deterministic wedges surface contradictions, linkage graphs, and cascade risk — reviewed and reconstructable, never a black-box score",
-      metric: "Threshold-based & reconstructable",
+      title: "Clear Evidence You Can Trust",
+      description: "We surface mismatches, unusual connections, and guarantor risks in a way your team can review and understand — never a black-box score",
+      metric: "Clear rules, easy to check",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: BarChart3,
       title: "Real-time Portfolio Analytics",
-      description: "Macro-adjusted Monte Carlo loss simulation layered with live event shocks — weather, elections, market news — for the whole book",
-      metric: "Aggregate-only, real-time",
+      description: "See what your whole loan book could lose under real-world conditions like weather, elections, or market shifts — updated as they happen",
+      metric: "Whole-book view, live",
       color: "text-accent",
       bgColor: "bg-accent/10"
     },
     {
       icon: TrendingDown,
-      title: "Bounded Learned Layer",
-      description: "A trained confidence estimator and a segment-level PD model — scoped to calibration and portfolio segments, never an individual credit score",
-      metric: "Segment-level, never individual",
+      title: "Careful Machine Learning",
+      description: "Our machine learning only looks at broad patterns across groups of borrowers — never an individual credit score",
+      metric: "Group-level only",
       color: "text-terracotta",
       bgColor: "bg-terracotta/10"
     },
     {
       icon: Users,
-      title: "Governance & Audit",
-      description: "Consent-gated at every read, PII-redacted, and logged to a W3C PROV-O decision graph — the same enforced path for every case",
-      metric: "PROV-O audited",
+      title: "Privacy & Accountability",
+      description: "Every case is only accessed with permission, personal details are protected, and every step is logged so it can be reviewed later",
+      metric: "Fully logged",
       color: "text-gold",
       bgColor: "bg-gold/10"
     }
   ];
 
   const dashboardFeatures = [
-    "Live Queue of flagged cases",
-    "Cluster, Cascade, Contradiction & Portfolio views",
-    "Automated flag & graph generation",
-    "Regulatory compliance & PROV-O audit export",
-    "Consent-gated retrieval APIs",
-    "Custom wedge threshold configuration"
+    "A live list of flagged cases",
+    "Clear views of every flag, connection & risk summary",
+    "Automatic flags & connection maps",
+    "Compliance-ready audit trail export",
+    "Permission-based data access",
+    "Adjustable check settings"
   ];
 
   const partners = [
@@ -85,8 +85,8 @@ export const LendersSection = () => {
             <span className="text-muted-foreground">Across Kenya</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Give SACCOs, digital lenders, and MFIs richer, explainable evidence — faster and cheaper than manual
-            investigation — without asking them to trust a black box.
+            Give SACCOs, digital lenders, and microfinance institutions clearer evidence about a borrower — faster
+            and cheaper than manual investigation, and without asking you to trust a black box.
           </p>
         </div>
 
@@ -230,8 +230,8 @@ export const LendersSection = () => {
             Ready to <span className="text-primary">Transform</span> Your Lending?
           </h3>
           <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-            Join Kenya's SACCOs, digital lenders, and MFIs already using Zacca Aetherius to see the fuller picture —
-            evidence a human underwriter can trust, on every case.
+            Join Kenya's SACCOs, digital lenders, and microfinance institutions already using Zacca to see the
+            fuller picture — clear evidence your underwriters can trust, on every case.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 

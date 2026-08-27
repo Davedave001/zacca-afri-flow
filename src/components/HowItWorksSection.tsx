@@ -6,33 +6,33 @@ export const HowItWorksSection = () => {
   const steps = [
     {
       icon: MessageSquare,
-      title: "Case Enters the Queue",
-      description: "A live Queue surfaces flagged cases as they come in — nothing pre-selected or hidden",
-      details: "Consent-gated retrieval pulls the case's transaction and relationship data, PII-redacted, ready for the wedges to run.",
+      title: "A Case Comes In",
+      description: "A flagged case shows up on the underwriter's list — nothing hidden or pre-selected",
+      details: "The system pulls in the borrower's transaction and relationship data — with permission, and with personal details kept private.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Brain,
-      title: "Wedges Run Against the Case",
-      description: "Deterministic wedges check for contradictions, linkage, and cascade risk — not a canned demo",
-      details: "Fraud-ring linkage graphs, SACCO/chama cascade-risk, and stated-vs-observed contradiction detection all run in real time against the live case.",
+      title: "The Checks Run",
+      description: "We check for mismatched information, unusual connections, and risky guarantor chains — on this specific case, not a demo",
+      details: "The system looks for suspicious connections between people, risky guarantor chains, and mismatches between what was said and what actually happened — all in real time.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Wallet,
-      title: "Underwriter Reviews the Evidence",
-      description: "Cluster, Cascade, Contradiction, and Portfolio views lay out every flag, graph, and risk map",
-      details: "Every output is reconstructable line by line — the underwriter can trace exactly how a flag or graph was produced.",
+      title: "The Underwriter Reviews Everything",
+      description: "Every flag, connection, and risk summary is laid out clearly for the underwriter to review",
+      details: "The underwriter can trace exactly how each flag or connection was found, step by step.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     },
     {
       icon: Users,
-      title: "Human Decides, Always",
-      description: "The underwriter makes the call — Zacca never returns an approve/deny decision or a score",
-      details: "Every decision is logged to a W3C PROV-O audit trail — reviewable by regulators and funders independently.",
+      title: "A Person Decides, Always",
+      description: "The underwriter makes the final call — Zacca never approves, denies, or scores a loan on its own",
+      details: "Every decision is logged, so it can be reviewed later by regulators or funders.",
       color: "text-[#3117ce]",
       bgColor: "bg-[#3117ce]/10"
     }
@@ -47,14 +47,14 @@ export const HowItWorksSection = () => {
             variant="outline"
             className="mb-6 border-[#3117ce] text-[#3117ce] hover:bg-[#3117ce]/10 rounded-full px-6"
           >
-            The Console
+            How It Works
           </Button>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-gray-900 mb-6">
             How It <span className="text-[#3117ce]">Works</span>
           </h2>
           <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-            One console for underwriters — a live Queue of flagged cases, full Cluster/Cascade/Contradiction/Portfolio
-            views, and a chat agent, backed by wedges that run against the case in front of them.
+            One simple screen for underwriters to review flagged cases, see the full picture, and get help from an
+            assistant — all backed by checks that run on the real case in front of them.
                     </p>
                   </div>
                   

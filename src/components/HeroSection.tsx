@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
-import heroMockupImage from "@/assets/New Hero Mockup.png";
-import heroBackgroundImage from "@/assets/Background New Hero- Here.png";
+import heroVideo from "@/assets/hero-video.mp4";
 import { toast } from "sonner";
 
 // Formspree - notifies you of signups
@@ -109,96 +108,94 @@ export const HeroSection = () => {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 lg:pt-20 pb-8 w-full bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: `url(${heroBackgroundImage})`,
-      }}
+      className="relative min-h-screen flex items-center overflow-hidden pt-24 sm:pt-28 lg:pt-20 pb-8 w-full"
     >
+      {/* Background video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      {/* Overlay for text readability */}
+      <div className="absolute inset-0 bg-black/50" />
+
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
-        <div className="relative grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-12 min-h-0 lg:min-h-[750px] items-center">
-            {/* Left column - Hero content */}
-            <div className="flex flex-col justify-center py-4 sm:py-6 lg:py-16 px-4 sm:px-6 lg:px-12 xl:px-16 order-2 lg:order-1">
-              <div className={`flex flex-col gap-6 lg:gap-[60px] max-w-[795px] transition-all duration-1000 ${animated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-                {/* Headline & description */}
-                <div className="flex flex-col gap-4">
-                  <h1
-                    className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] leading-tight text-black"
+        <div className="relative min-h-0 lg:min-h-[750px] flex items-center">
+          {/* Hero content */}
+          <div className="flex flex-col justify-center py-4 sm:py-6 lg:py-16 px-4 sm:px-6 lg:px-12 xl:px-16">
+            <div className={`flex flex-col gap-6 lg:gap-[60px] max-w-[795px] transition-all duration-1000 ${animated ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              {/* Headline & description */}
+              <div className="flex flex-col gap-4">
+                <h1
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] leading-tight text-white"
+                  style={{
+                    fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
+                    fontWeight: 400,
+                    lineHeight: "1.25",
+                  }}
+                >
+                  Transforming Informal Transactions into Africa&apos;s Most Trusted Credit Passport
+                </h1>
+                <p
+                  className="text-base max-w-[547px] text-white leading-[1.55]"
+                  style={{
+                    fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "16.3697px",
+                  }}
+                >
+                  Zacca turns your mobile money and bank transactions into structured, lender-ready records — so banks, SACCOs, and digital lenders can see the full picture and get you fair access to loans, insurance, and financial services faster.
+                </p>
+              </div>
+
+              {/* Contact form & CTA */}
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-[547px]">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
+                  <input
+                    type="text"
+                    placeholder="Enter email or phone number"
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
+                    disabled={status === "loading"}
+                    className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-black text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50 disabled:opacity-70"
                     style={{
                       fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-                      fontWeight: 400,
-                      lineHeight: "1.25",
+                      fontWeight: 200,
+                      fontSize: "14px",
                     }}
-                  >
-                    Transforming Informal Transactions into Africa&apos;s Most Trusted Credit Passport
-                  </h1>
-                  <p
-                    className="text-base max-w-[547px] text-black leading-[1.55]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={status === "loading"}
+                    className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity disabled:opacity-70 disabled:cursor-not-allowed"
                     style={{
                       fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-                      fontWeight: 400,
-                      fontSize: "16.3697px",
+                      fontWeight: 500,
+                      fontSize: "14px",
+                      background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
                     }}
                   >
-                    Zacca turns your mobile money and bank transactions into structured, lender-ready records — so banks, SACCOs, and digital lenders can see the full picture and get you fair access to loans, insurance, and financial services faster.
-                  </p>
+                    {status === "loading" ? "Submitting..." : "Get Started"}
+                  </button>
                 </div>
-
-                {/* Contact form & CTA */}
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4 max-w-[547px]">
-                  <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
-                    <input
-                      type="text"
-                      placeholder="Enter email or phone number"
-                      value={contact}
-                      onChange={(e) => setContact(e.target.value)}
-                      disabled={status === "loading"}
-                      className="flex-1 min-w-0 px-6 py-3 rounded-[10px] bg-black text-white placeholder:text-white/70 focus:outline-none focus:ring-2 focus:ring-[#2C14DD]/50 disabled:opacity-70"
-                      style={{
-                        fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-                        fontWeight: 200,
-                        fontSize: "14px",
-                      }}
-                    />
-                    <button
-                      type="submit"
-                      disabled={status === "loading"}
-                      className="px-8 py-3 rounded-[15px] text-white font-medium whitespace-nowrap hover:opacity-90 transition-opacity disabled:opacity-70 disabled:cursor-not-allowed"
-                      style={{
-                        fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-                        fontWeight: 500,
-                        fontSize: "14px",
-                        background: "linear-gradient(0deg, #2C14DD, #2C14DD)",
-                      }}
-                    >
-                      {status === "loading" ? "Submitting..." : "Get Started"}
-                    </button>
-                  </div>
-                  <p
-                    className="text-black"
-                    style={{
-                      fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
-                      fontWeight: 400,
-                      fontSize: "16.3697px",
-                      lineHeight: "155%",
-                    }}
-                  >
-                    Enter your email or phone number to join our waiting list.
-                  </p>
-                </form>
-              </div>
-            </div>
-
-            {/* Right column - Phone mockup */}
-            <div className="flex items-center justify-center py-4 sm:py-6 lg:py-16 px-4 sm:px-6 order-1 lg:order-2">
-              <div className={`relative z-10 transition-all duration-1000 delay-300 ${animated ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
-                <img
-                  src={heroMockupImage}
-                  alt="Zacca.ai app interface"
-                  className="w-auto h-[280px] sm:h-[350px] md:h-[420px] lg:h-[536px] object-contain drop-shadow-2xl"
-                />
-              </div>
+                <p
+                  className="text-white"
+                  style={{
+                    fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif",
+                    fontWeight: 400,
+                    fontSize: "16.3697px",
+                    lineHeight: "155%",
+                  }}
+                >
+                  Enter your email or phone number to join our waiting list.
+                </p>
+              </form>
             </div>
           </div>
+        </div>
       </div>
     </section>
   );

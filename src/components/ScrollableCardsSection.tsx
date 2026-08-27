@@ -10,36 +10,36 @@ const cardImages = [mockupCard1Image, mockupCard2Image, mockupCard3Image] as con
 const cards = [
   {
     id: 1,
-    title: "Flags: Stated vs. Observed",
+    title: "Flags: What You Said vs. What Happened",
     description: "",
     features: [
-      "Stated-vs-observed contradiction detection flags where what a borrower said doesn't match what the transaction data shows.",
-      "Every flag is threshold-based and transparent — reconstructable by a reviewer line by line, not a hidden score.",
-      "Flags surface to a live Queue where an underwriter reviews the case — never an automated system.",
+      "We check if what a borrower told us matches what their transactions actually show.",
+      "Every flag is based on clear, simple rules — a reviewer can see exactly why it was raised.",
+      "Flagged cases go to a real person to review — never decided automatically.",
     ],
     cta: "Learn More",
     gradient: "from-[#3117ce] to-[#2512a8]",
   },
   {
     id: 2,
-    title: "Graphs: Linkage & Cascade Risk",
+    title: "Graphs: Who's Connected to Whom",
     description: "",
     features: [
-      "Fraud-ring linkage graphs show who's linked to whom, and how tightly, across a lender's book.",
-      "SACCO/chama guarantor cascade-risk traces what happens if one guarantor in a chain defaults.",
-      "Every graph is built from deterministic wedges — transparent and reconstructable, never a black-box score.",
+      "We map out who a borrower is connected to — family, business partners, and loan guarantors.",
+      "This shows what could happen if one person in a chain of guarantors falls behind on payments.",
+      "These maps are built from clear, traceable rules — never a hidden score.",
     ],
     cta: "Explore",
     gradient: "from-[#4a2dd4] to-[#3117ce]",
   },
   {
     id: 3,
-    title: "Risk Maps: Portfolio Stress",
+    title: "Risk Maps: What Could Go Wrong",
     description: "",
     features: [
-      "Macro-adjusted Monte Carlo loss simulation shows what a whole book of loans could lose under stress.",
-      "Layered with live event shocks — weather, elections, market news — updated in real time.",
-      "Aggregate-only: a risk map speaks to portfolio exposure, never an individual borrower's score.",
+      "We model what a lender's whole loan book could lose if conditions get tough.",
+      "This includes real-world events like bad weather, elections, or market shifts, updated as they happen.",
+      "These maps only ever describe the whole portfolio — never a single borrower's score.",
     ],
     cta: "Discover",
     gradient: "from-[#5c3fe0] to-[#4a2dd4]",
@@ -327,22 +327,10 @@ const Card = ({
   const titleStyle: React.CSSProperties = CARD_TITLE_STYLE;
   const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
 
-  // When parent scales the card during enter/collapse animation, counter-scale the content
-  // so title and text remain at constant visual size (avoids blur from scaling text)
-  const inv = 1 / contentScale;
-  const contentWrapperStyle: React.CSSProperties =
-    contentScale !== 1
-      ? {
-          position: "absolute",
-          width: `${contentScale * 100}%`,
-          height: `${contentScale * 100}%`,
-          left: "50%",
-          top: "50%",
-          transform: `translate(-50%, -50%) scale3d(${inv}, ${inv}, 1)`,
-          transformOrigin: "center center",
-          backfaceVisibility: "hidden" as const,
-        }
-      : {};
+  // Content scales together with the card's own transform instead of being
+  // counter-scaled against it — a constantly-changing inverse scale forced the
+  // browser to re-rasterize the text every frame, which is what caused the blur.
+  const contentWrapperStyle: React.CSSProperties = {};
 
   return (
     <div
@@ -353,7 +341,7 @@ const Card = ({
       }}
     >
       <div
-        className={`rounded-[23px] bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 ${contentScale !== 1 ? "" : "w-full h-full"}`}
+        className="rounded-[23px] bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full h-full"
         style={contentWrapperStyle}
       >
         <div className="flex flex-col justify-center space-y-4">

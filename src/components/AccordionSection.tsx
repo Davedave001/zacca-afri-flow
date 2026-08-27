@@ -39,7 +39,7 @@ export const AccordionSection = () => {
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  A CRB record usually reflects one income stream — not the several a real MSME household typically runs at once.
+                  A credit report usually shows just one income source — not the several a real small-business household often has.
                 </p>
               </div>
             </div>
@@ -75,7 +75,7 @@ export const AccordionSection = () => {
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  Consistent, corroborated behaviour across income streams can substitute for physical collateral an informal borrower doesn't have.
+                  Steady, verifiable activity across all your income streams can stand in for the collateral you don't have.
                 </p>
               </div>
             </div>
@@ -94,7 +94,7 @@ export const AccordionSection = () => {
                 className="text-sm lg:text-base text-black leading-relaxed"
                 style={{ ...fontStyle, fontWeight: 400 }}
               >
-                More visibility should mean a better-informed human decision — not a new black-box number replacing the old one.
+                Seeing more about your business should help a real person make a better decision — not turn into another hidden number you can't question.
               </p>
             </div>
           </div>

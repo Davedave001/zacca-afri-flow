@@ -19,55 +19,55 @@ export const FeaturesSection = () => {
   const features = [
     {
       icon: MessageCircle,
-      title: "Contradiction Detection",
-      description: "Flags where what a borrower stated doesn't match what the transaction data shows.",
-      benefits: ["Stated vs. observed", "Threshold-based", "Reconstructable"],
-      badge: "Deterministic",
+      title: "Spotting Mismatches",
+      description: "Flags cases where what a borrower said doesn't match what their transactions actually show.",
+      benefits: ["Compares claims to real data", "Clear, simple rules", "Easy for a reviewer to check"],
+      badge: "Rule-Based",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: Brain,
-      title: "Fraud-Ring Linkage Graphs",
-      description: "Shows who's linked to whom, and how tightly, across a lender's book.",
-      benefits: ["Relationship mapping", "Coordinated-fraud detection", "Transparent graph logic"],
-      badge: "Graph-Based",
+      title: "Connection Mapping",
+      description: "Shows how people in a lender's book are connected to each other, and how closely.",
+      benefits: ["Maps relationships", "Spots coordinated fraud rings", "Easy to follow, not a black box"],
+      badge: "Connection-Based",
       color: "text-accent",
       bgColor: "bg-accent/10"
     },
     {
       icon: Smartphone,
-      title: "Guarantor Cascade-Risk",
-      description: "Traces SACCO and chama guarantor chains to model what one default could cascade into.",
-      benefits: ["Chain-of-guarantor tracing", "Threshold alerts", "Reviewer-reconstructable"],
-      badge: "Threshold-Based",
+      title: "Guarantor Chain Risk",
+      description: "Traces chains of loan guarantors to show what could happen if one person falls behind.",
+      benefits: ["Follows guarantor chains", "Flags risky chains early", "Easy for a reviewer to check"],
+      badge: "Early Warning",
       color: "text-terracotta",
       bgColor: "bg-terracotta/10"
     },
     {
       icon: Wallet,
-      title: "Portfolio & Real-Time Risk",
-      description: "Macro-adjusted Monte Carlo loss simulation for a whole book, layered with live event shocks.",
-      benefits: ["Weather, election & market shocks", "Whole-book stress testing", "Aggregate-only output"],
-      badge: "Aggregate-Only",
+      title: "Whole-Book Risk Modeling",
+      description: "Models what a lender's whole loan book could lose, factoring in real-world events as they happen.",
+      benefits: ["Accounts for weather, elections & markets", "Tests the whole loan book", "Never about a single borrower"],
+      badge: "Whole-Book View",
       color: "text-gold",
       bgColor: "bg-gold/10"
     },
     {
       icon: Shield,
-      title: "Governance & Audit",
-      description: "Consent-gated at every read, PII-redacted, and logged to a W3C PROV-O decision graph.",
-      benefits: ["Consent-gated access", "PII redaction", "PROV-O audit trail"],
-      badge: "Audited",
+      title: "Privacy & Accountability",
+      description: "Data is only accessed with permission, personal details are protected, and every step is logged for review.",
+      benefits: ["Access needs permission", "Personal details protected", "Every step is logged"],
+      badge: "Logged & Reviewable",
       color: "text-primary",
       bgColor: "bg-primary/10"
     },
     {
       icon: Users,
-      title: "Bounded Learned Layer",
-      description: "A trained confidence estimator and a segment-level PD model — scoped to calibration and portfolio segments, never an individual score.",
-      benefits: ["Confidence estimation", "Segment-level PD", "Never an individual score"],
-      badge: "Bounded",
+      title: "Careful Machine Learning",
+      description: "Machine learning here only looks at broad group-level patterns — never an individual borrower's score.",
+      benefits: ["Looks at group-level patterns", "Kept within tested limits", "Never scores one person"],
+      badge: "Kept in Check",
       color: "text-accent",
       bgColor: "bg-accent/10"
     }
@@ -99,11 +99,11 @@ export const FeaturesSection = () => {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Signal, <span className="text-gradient-primary">Not Verdict</span>
+            We Point It Out. <span className="text-gradient-primary">You Decide.</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Zacca Aetherius runs deterministic wedges against the case in front of an underwriter — a flag, a graph,
-            or a risk map. Never a score.
+            Zacca looks at the real case in front of an underwriter and shows a flag, a connection, or a risk
+            summary — never a score.
           </p>
         </div>
 
@@ -157,10 +157,10 @@ export const FeaturesSection = () => {
         <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-3xl p-12">
           <div className="text-center mb-12">
             <h3 className="text-3xl font-bold text-foreground mb-4">
-              Enforced, <span className="text-primary">Not Promised</span>
+              Not Just a <span className="text-primary">Promise</span>
             </h3>
             <p className="text-lg text-muted-foreground">
-              The boundary between signal and verdict is enforced in code review, not just the pitch
+              We never score or decide for you — and that rule is checked every time our code changes, not just talked about
             </p>
           </div>
 
@@ -168,7 +168,7 @@ export const FeaturesSection = () => {
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <BarChart3 className="w-10 h-10 text-primary mx-auto mb-4" />
               <div className="text-4xl font-bold text-primary mb-2">3</div>
-              <p className="text-muted-foreground font-medium">Deterministic Wedges Shipped</p>
+              <p className="text-muted-foreground font-medium">Types of Checks Live Today</p>
             </div>
 
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
@@ -185,8 +185,8 @@ export const FeaturesSection = () => {
 
             <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
               <Users className="w-10 h-10 text-gold mx-auto mb-4" />
-              <div className="text-4xl font-bold text-gold mb-2">PROV-O</div>
-              <p className="text-muted-foreground font-medium">Audit Standard, Every Decision</p>
+              <div className="text-4xl font-bold text-gold mb-2">Every Case</div>
+              <p className="text-muted-foreground font-medium">Logged for Independent Review</p>
             </div>
           </div>
         </div>
