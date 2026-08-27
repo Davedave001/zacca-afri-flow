@@ -75,7 +75,7 @@ export const AccordionSection = () => {
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  Capture payer metadata to compute repeat customers, order frequency, and basket size—building comprehensive daily records.
+                  Capture payer metadata to compute repeat customers, order frequency, and basket size—building comprehensive daily records your lender can actually trust.
                 </p>
               </div>
             </div>
@@ -88,13 +88,13 @@ export const AccordionSection = () => {
                 className="text-base lg:text-lg font-medium text-[#2C14DD] leading-tight mb-3"
                 style={fontStyle}
               >
-                Credit Approval and Automation
+                Credit-Ready Records, Automatically
               </h2>
               <p
                 className="text-sm lg:text-base text-black leading-relaxed"
                 style={{ ...fontStyle, fontWeight: 400 }}
               >
-                Credit limits are automatically adjusted to your transaction velocity and settlement behavior, aligned to your cash-flow realities.
+                Your transaction velocity and settlement behavior are continuously turned into the evidence your lender needs — so credit decisions reflect your real cash-flow, not a stale bank statement.
               </p>
             </div>
           </div>

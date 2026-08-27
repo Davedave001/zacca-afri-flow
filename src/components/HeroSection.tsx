@@ -129,7 +129,7 @@ export const HeroSection = () => {
                       lineHeight: "1.25",
                     }}
                   >
-                    Transforming Informal Transactions into Africa&apos;s Most Valuable Credit Passport
+                    Transforming Informal Transactions into Africa&apos;s Most Trusted Credit Passport
                   </h1>
                   <p
                     className="text-base max-w-[547px] text-black leading-[1.55]"
@@ -139,7 +139,7 @@ export const HeroSection = () => {
                       fontSize: "16.3697px",
                     }}
                   >
-                    AI converts your mobile money and bank transactions into verified credit records. Get fair access to loans, insurance, and financial services.
+                    Zacca turns your mobile money and bank transactions into structured, lender-ready records — so banks, SACCOs, and digital lenders can see the full picture and get you fair access to loans, insurance, and financial services faster.
                   </p>
                 </div>
 
