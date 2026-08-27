@@ -1,18 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  TrendingUp, 
-  Brain, 
-  Wallet, 
-  Users, 
-  Coins, 
+import {
+  Brain,
+  Wallet,
+  Users,
   Shield,
-  BarChart3,
-  Zap,
-  Globe,
   MessageCircle,
-  Smartphone,
-  Clock
+  Smartphone
 } from "lucide-react";
 
 export const FeaturesSection = () => {
@@ -151,44 +145,6 @@ export const FeaturesSection = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/2 to-accent/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
             </Card>
           ))}
-        </div>
-
-        {/* Impact Stats */}
-        <div className="bg-gradient-to-r from-primary/5 to-accent/5 rounded-3xl p-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-foreground mb-4">
-              Not Just a <span className="text-primary">Promise</span>
-            </h3>
-            <p className="text-lg text-muted-foreground">
-              We never score or decide for you — and that rule is checked every time our code changes, not just talked about
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
-              <BarChart3 className="w-10 h-10 text-primary mx-auto mb-4" />
-              <div className="text-4xl font-bold text-primary mb-2">3</div>
-              <p className="text-muted-foreground font-medium">Types of Checks Live Today</p>
-            </div>
-
-            <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
-              <Clock className="w-10 h-10 text-accent mx-auto mb-4" />
-              <div className="text-4xl font-bold text-accent mb-2">100%</div>
-              <p className="text-muted-foreground font-medium">Cases Reviewed by a Human</p>
-            </div>
-
-            <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
-              <Globe className="w-10 h-10 text-terracotta mx-auto mb-4" />
-              <div className="text-4xl font-bold text-terracotta mb-2">0</div>
-              <p className="text-muted-foreground font-medium">Individual Credit Scores Produced</p>
-            </div>
-
-            <div className="text-center p-6 bg-white/80 rounded-2xl shadow-sm">
-              <Users className="w-10 h-10 text-gold mx-auto mb-4" />
-              <div className="text-4xl font-bold text-gold mb-2">Every Case</div>
-              <p className="text-muted-foreground font-medium">Logged for Independent Review</p>
-            </div>
-          </div>
         </div>
       </div>
     </section>
