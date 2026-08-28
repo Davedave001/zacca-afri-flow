@@ -5,7 +5,6 @@ import { HeroSection } from "@/components/HeroSection";
 import { AccordionSection } from "@/components/AccordionSection";
 import { ScrollableCardsSection } from "@/components/ScrollableCardsSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
-import { FeaturesSection } from "@/components/FeaturesSection";
 import { CTADownloadSection } from "@/components/CTADownloadSection";
 import { Footer } from "@/components/Footer";
 
@@ -36,7 +35,6 @@ const Index = () => {
       <AccordionSection />
       <ScrollableCardsSection />
       <HowItWorksSection />
-      <FeaturesSection />
       <CTADownloadSection />
       <Footer />
     </main>

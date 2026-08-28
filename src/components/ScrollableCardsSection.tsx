@@ -92,6 +92,19 @@ export const ScrollableCardsSection = () => {
 
   return (
     <section ref={sectionRef} id="solutions" className="relative bg-white scroll-mt-20">
+      {/* Section Header */}
+      <div className="container mx-auto px-6 pt-16 lg:pt-24">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            We Point It Out. <span className="text-gradient-primary">You Decide.</span>
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            Zacca looks at the real case in front of an underwriter and shows a flag, a connection, or a risk
+            summary — never a score.
+          </p>
+        </div>
+      </div>
+
       {/* Mobile: horizontally scrollable cards with snap */}
       <div className="lg:hidden overflow-x-auto overflow-y-visible py-12 pb-6 -mx-4 px-4 snap-x snap-mandatory scroll-smooth mobile-cards-scroll">
         <div className="flex gap-4 min-w-min">

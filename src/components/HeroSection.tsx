@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 import heroVideo from "@/assets/hero-video.mp4";
 import { toast } from "sonner";
@@ -48,9 +48,28 @@ export const HeroSection = () => {
   const [animated, setAnimated] = useState(false);
   const [contact, setContact] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     setAnimated(true);
+  }, []);
+
+  useEffect(() => {
+    // Belt-and-suspenders autoplay: the autoPlay attribute can silently fail to
+    // start (or get paused by the browser) in some contexts, so force it and
+    // resume on visibility change too.
+    const video = videoRef.current;
+    if (!video) return;
+
+    const play = () => {
+      video.play().catch(() => {
+        // Autoplay was blocked; nothing more we can do without user interaction.
+      });
+    };
+
+    play();
+    document.addEventListener("visibilitychange", play);
+    return () => document.removeEventListener("visibilitychange", play);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -112,6 +131,7 @@ export const HeroSection = () => {
     >
       {/* Background video */}
       <video
+        ref={videoRef}
         className="absolute inset-0 w-full h-full object-cover"
         src={heroVideo}
         autoPlay
@@ -119,8 +139,8 @@ export const HeroSection = () => {
         muted
         playsInline
       />
-      {/* Overlay for text readability */}
-      <div className="absolute inset-0 bg-black/50" />
+      {/* Blue theme overlay for text readability */}
+      <div className="absolute inset-0 bg-[#3117ce]/65" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10 w-full">
         <div className="relative min-h-0 lg:min-h-[750px] flex items-center">

@@ -35,6 +35,12 @@ export const CTADownloadSection = () => {
                   >
                     Get Started
                   </h2>
+                  <p
+                    className="text-white/90 text-base sm:text-lg leading-relaxed max-w-lg"
+                    style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
+                  >
+                    See the full picture on every borrower, not just what a credit report shows. Join the banks, SACCOs, MFIs, and digital lenders already using Zacca to make faster, evidence-backed lending decisions.
+                  </p>
                 </div>
 
                 {/* Email Input Section */}
