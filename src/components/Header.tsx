@@ -44,7 +44,7 @@ export const Header = () => {
           <img
             src={logoNew}
             alt="Zacca"
-            className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            className="h-10 sm:h-11 lg:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
         </Link>
       </div>
