@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import logoNew from "@/assets/logo-newa.png";
+import footerLogoNew from "@/assets/footer-newa.png";
 
 export const Footer = () => {
   return (
@@ -14,7 +14,7 @@ export const Footer = () => {
             <div>
               <Link to="/" className="flex items-center group">
                 <img
-                  src={logoNew}
+                  src={footerLogoNew}
                   alt="Zacca"
                   className="h-10 sm:h-11 lg:h-12 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
                 />
