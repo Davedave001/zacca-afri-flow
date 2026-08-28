@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import logoIcon from "@/assets/Copy of Footer Logo.png";
+import logoNew from "@/assets/logo-newa.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
 export const Header = () => {
@@ -40,18 +40,12 @@ export const Header = () => {
       <div className="flex h-16 relative items-stretch">
       {/* Left: Logo section */}
       <div className="flex-shrink-0 w-36 sm:w-44 lg:w-[260px] h-full flex items-center pl-4 lg:pl-6">
-        <Link to="/" className="flex items-center gap-1 group">
+        <Link to="/" className="flex items-center group">
           <img
-            src={logoIcon}
-            alt=""
-            className="h-5 sm:h-6 lg:h-6 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
+            src={logoNew}
+            alt="Zacca"
+            className="h-8 sm:h-9 lg:h-10 w-auto object-contain transition-all duration-300 group-hover:opacity-80"
           />
-          <span
-            className="text-2xl sm:text-[1.75rem] lg:text-[1.5rem] font-medium tracking-tight transition-opacity duration-300 group-hover:opacity-80"
-            style={{ fontFamily: "Euclid Circular B, Inter, -apple-system, BlinkMacSystemFont, sans-serif", color: "#2C14DD", fontWeight: 500 }}
-          >
-            Zacca
-          </span>
         </Link>
       </div>
 
