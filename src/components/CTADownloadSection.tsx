@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react";
 import ctaMockupImage from "@/assets/CTA IMAGE 2.png";
-import ctaBackgroundImage from "@/assets/CTA IMAGE.png";
+import ctaBackgroundImage from "@/assets/cta-new.jpg";
 
 export const CTADownloadSection = () => {
   const [email, setEmail] = useState("");

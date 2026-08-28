@@ -96,7 +96,7 @@ export const ScrollableCardsSection = () => {
       <div className="container mx-auto px-6 pt-16 lg:pt-24">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-            We Point It Out. <span className="text-gradient-primary">You Decide.</span>
+            We Point It Out. <span className="text-[#3117ce]">You Decide.</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
             Zacca looks at the real case in front of an underwriter and shows a flag, a connection, or a risk
