@@ -39,7 +39,7 @@ export const AccordionSection = () => {
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  A credit report usually shows just one income source — not the several a real small-business household often has.
+                  A credit report usually shows just one income source, not the several a real small-business household often has. Zacca fills in that picture by comparing what's claimed against real transaction data and mapping how income sources connect.
                 </p>
               </div>
             </div>
@@ -75,7 +75,7 @@ export const AccordionSection = () => {
                   className="text-sm lg:text-base text-black leading-relaxed"
                   style={{ ...fontStyle, fontWeight: 400 }}
                 >
-                  Steady, verifiable activity across all your income streams can stand in for the collateral you don't have.
+                  Steady, verifiable activity across all your income streams can stand in for the collateral you don't have. We model that activity against real-world conditions like weather, elections, and market shifts, so a lender sees resilience, not just a snapshot.
                 </p>
               </div>
             </div>
@@ -94,7 +94,7 @@ export const AccordionSection = () => {
                 className="text-sm lg:text-base text-black leading-relaxed"
                 style={{ ...fontStyle, fontWeight: 400 }}
               >
-                Seeing more about your business should help a real person make a better decision — not turn into another hidden number you can't question.
+                Seeing more about your business should help a real person make a better decision, not turn into another hidden number you can't question. Your data is only accessed with permission, personal details stay protected, and any machine learning we use looks at broad patterns only, never producing an individual score.
               </p>
             </div>
           </div>

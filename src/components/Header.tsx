@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Linkedin, Facebook } from "lucide-react";
+import { Icon } from "@iconify/react";
 import logoIcon from "@/assets/Copy of Footer Logo.png";
 
 /** Header - Figma design: dark blue bar, Euclid font */
@@ -25,8 +25,8 @@ export const Header = () => {
   ];
 
   const socialLinks = [
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: "lucide:linkedin", href: "#", label: "LinkedIn" },
+    { icon: "lucide:facebook", href: "#", label: "Facebook" },
   ];
 
   const fontStyle = {
@@ -89,13 +89,13 @@ export const Header = () => {
           className="lg:hidden p-2 rounded-lg text-black hover:text-black/80 hover:bg-black/5 transition-colors"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
-          {isMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
+          {isMenuOpen ? <Icon icon="lucide:x" className="w-5 h-5 sm:w-6 sm:h-6" /> : <Icon icon="lucide:menu" className="w-5 h-5 sm:w-6 sm:h-6" />}
         </button>
       </div>
 
       {/* Right: Social icons */}
       <div className="hidden lg:flex flex-shrink-0 items-center gap-2 pr-4 lg:pr-6">
-        {socialLinks.map(({ icon: Icon, href, label }) => (
+        {socialLinks.map(({ icon, href, label }) => (
           <a
             key={label}
             href={href}
@@ -103,7 +103,7 @@ export const Header = () => {
             className="w-9 h-9 flex items-center justify-center hover:opacity-90 transition-opacity"
             style={{ color: "#2c14dd" }}
           >
-            <Icon className="w-4 h-4" />
+            <Icon icon={icon} className="w-4 h-4" />
           </a>
         ))}
       </div>

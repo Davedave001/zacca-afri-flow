@@ -1,18 +1,11 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Brain,
-  Wallet,
-  Users,
-  Shield,
-  MessageCircle,
-  Smartphone
-} from "lucide-react";
+import { Icon } from "@iconify/react";
 
 export const FeaturesSection = () => {
   const features = [
     {
-      icon: MessageCircle,
+      icon: "lucide:message-circle",
       title: "Spotting Mismatches",
       description: "Flags cases where what a borrower said doesn't match what their transactions actually show.",
       benefits: ["Compares claims to real data", "Clear, simple rules", "Easy for a reviewer to check"],
@@ -21,7 +14,7 @@ export const FeaturesSection = () => {
       bgColor: "bg-primary/10"
     },
     {
-      icon: Brain,
+      icon: "lucide:brain",
       title: "Connection Mapping",
       description: "Shows how people in a lender's book are connected to each other, and how closely.",
       benefits: ["Maps relationships", "Spots coordinated fraud rings", "Easy to follow, not a black box"],
@@ -30,7 +23,7 @@ export const FeaturesSection = () => {
       bgColor: "bg-accent/10"
     },
     {
-      icon: Smartphone,
+      icon: "lucide:smartphone",
       title: "Guarantor Chain Risk",
       description: "Traces chains of loan guarantors to show what could happen if one person falls behind.",
       benefits: ["Follows guarantor chains", "Flags risky chains early", "Easy for a reviewer to check"],
@@ -39,7 +32,7 @@ export const FeaturesSection = () => {
       bgColor: "bg-terracotta/10"
     },
     {
-      icon: Wallet,
+      icon: "lucide:wallet",
       title: "Whole-Book Risk Modeling",
       description: "Models what a lender's whole loan book could lose, factoring in real-world events as they happen.",
       benefits: ["Accounts for weather, elections & markets", "Tests the whole loan book", "Never about a single borrower"],
@@ -48,7 +41,7 @@ export const FeaturesSection = () => {
       bgColor: "bg-gold/10"
     },
     {
-      icon: Shield,
+      icon: "lucide:shield",
       title: "Privacy & Accountability",
       description: "Data is only accessed with permission, personal details are protected, and every step is logged for review.",
       benefits: ["Access needs permission", "Personal details protected", "Every step is logged"],
@@ -57,9 +50,9 @@ export const FeaturesSection = () => {
       bgColor: "bg-primary/10"
     },
     {
-      icon: Users,
+      icon: "lucide:users",
       title: "Careful Machine Learning",
-      description: "Machine learning here only looks at broad group-level patterns — never an individual borrower's score.",
+      description: "Machine learning here only looks at broad group-level patterns, never an individual borrower's score.",
       benefits: ["Looks at group-level patterns", "Kept within tested limits", "Never scores one person"],
       badge: "Kept in Check",
       color: "text-accent",
@@ -119,7 +112,7 @@ export const FeaturesSection = () => {
 
               {/* Icon with animated background */}
               <div className={`w-16 h-16 rounded-2xl ${feature.bgColor} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                <feature.icon className={`w-8 h-8 ${feature.color}`} />
+                <Icon icon={feature.icon} className={`w-8 h-8 ${feature.color}`} />
               </div>
 
               {/* Content */}
@@ -135,7 +128,7 @@ export const FeaturesSection = () => {
               <div className="space-y-3">
                 {feature.benefits.map((benefit, benefitIndex) => (
                   <div key={benefitIndex} className="flex items-center gap-3 text-sm">
-                    <div className="w-2 h-2 bg-primary rounded-full animate-pulse" style={{ animationDelay: `${benefitIndex * 0.2}s` }} />
+                    <Icon icon="lucide:check-circle" className="w-5 h-5 text-primary flex-shrink-0" />
                     <span className="text-foreground/80 font-medium">{benefit}</span>
                   </div>
                 ))}

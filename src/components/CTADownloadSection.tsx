@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { Icon } from "@iconify/react";
 import ctaMockupImage from "@/assets/CTA IMAGE 2.png";
 import ctaBackgroundImage from "@/assets/CTA IMAGE.png";
 
@@ -60,7 +60,7 @@ export const CTADownloadSection = () => {
                       style={{ fontFamily: "'Euclid Circular B', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif" }}
                     >
                       Join Today
-                      <ArrowRight className="w-4 h-4 ml-2" />
+                      <Icon icon="lucide:arrow-right" className="w-4 h-4 ml-2" />
                     </Button>
                   </div>
                 </div>

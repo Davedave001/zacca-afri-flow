@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Check } from "lucide-react";
+import { Icon } from "@iconify/react";
 import mockupCard1Image from "@/assets/New Mockup Card 1.png";
 import mockupCard2Image from "@/assets/New Mockup Card 2.png";
 import mockupCard3Image from "@/assets/New Mockup Card 3 NEW.png";
@@ -14,8 +14,9 @@ const cards = [
     description: "",
     features: [
       "We check if what a borrower told us matches what their transactions actually show.",
-      "Every flag is based on clear, simple rules — a reviewer can see exactly why it was raised.",
-      "Flagged cases go to a real person to review — never decided automatically.",
+      "It compares claims directly against real transaction data, so nothing slips through unnoticed.",
+      "Every flag is based on clear, simple rules, so a reviewer can see exactly why it was raised.",
+      "Flagged cases go to a real person to review, never decided automatically.",
     ],
     cta: "Learn More",
     gradient: "from-[#3117ce] to-[#2512a8]",
@@ -25,9 +26,10 @@ const cards = [
     title: "Graphs: Who's Connected to Whom",
     description: "",
     features: [
-      "We map out who a borrower is connected to — family, business partners, and loan guarantors.",
+      "We map out who a borrower is connected to: family, business partners, and loan guarantors.",
       "This shows what could happen if one person in a chain of guarantors falls behind on payments.",
-      "These maps are built from clear, traceable rules — never a hidden score.",
+      "It also spots coordinated patterns that could point to fraud rings, not just individual risk.",
+      "These maps are built from clear, traceable rules, never a hidden score.",
     ],
     cta: "Explore",
     gradient: "from-[#4a2dd4] to-[#3117ce]",
@@ -39,7 +41,8 @@ const cards = [
     features: [
       "We model what a lender's whole loan book could lose if conditions get tough.",
       "This includes real-world events like bad weather, elections, or market shifts, updated as they happen.",
-      "These maps only ever describe the whole portfolio — never a single borrower's score.",
+      "It tests the whole loan book at once, not just one borrower at a time.",
+      "These maps only ever describe the whole portfolio, never a single borrower's score.",
     ],
     cta: "Discover",
     gradient: "from-[#5c3fe0] to-[#4a2dd4]",
@@ -54,11 +57,10 @@ const segmentProgress = (scroll: number, start: number, end: number) =>
 
 /* ------------------ CONSTANTS ------------------ */
 
-// Standard card size (use Card 1 as the standard “base frame” size)
+// Fixed card size — cards never scale, so text stays exactly the same size
+// whether the page is stationary or mid-scroll.
 const BASE_CARD_HEIGHT = 460;
-// Cards 2/3 scale up during climb, then collapse back to base
-const SCALE_LARGE = 1.12;
-const FRAME_HEIGHT = BASE_CARD_HEIGHT * SCALE_LARGE;
+const FRAME_HEIGHT = BASE_CARD_HEIGHT;
 const ENTRY_OFFSET = FRAME_HEIGHT * 1.2;
 
 /* ------------------ MAIN COMPONENT ------------------ */
@@ -73,10 +75,14 @@ export const ScrollableCardsSection = () => {
 
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
-      const total = rect.height + windowHeight;
-      const scrolled = windowHeight - rect.top;
+      // position: sticky only stays pinned while rect.top is between 0 (pin
+      // engages) and -(rect.height - windowHeight) (pin releases). Map the
+      // 0-1 progress scale to exactly that window, so the card choreography
+      // finishes precisely when the section unpins, not after.
+      const pinnedRange = rect.height - windowHeight;
+      const scrolledIntoPin = -rect.top;
 
-      setScrollProgress(clamp(scrolled / total));
+      setScrollProgress(pinnedRange > 0 ? clamp(scrolledIntoPin / pinnedRange) : 0);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -91,22 +97,21 @@ export const ScrollableCardsSection = () => {
         <div className="flex gap-4 min-w-min">
           {cards.map((card, index) => (
             <div key={card.id} className="flex-shrink-0 w-[85vw] max-w-[380px] snap-center snap-always">
-              <Card card={card} image={cardImages[index]} primary={index === 0} />
+              <Card card={card} image={cardImages[index]} />
             </div>
           ))}
         </div>
       </div>
       {/* Desktop: scroll animation */}
       <div className="hidden lg:block">
-        <div className="relative" style={{ minHeight: "300vh" }}>
+        <div className="relative" style={{ minHeight: "340vh" }}>
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
             <div
               className="relative w-full max-w-6xl mx-auto"
               style={{ height: FRAME_HEIGHT }}
             >
               {cards.map((card, index) => {
-                const cardStyleResult = getCardStyle(index, scrollProgress);
-                const { contentScale = 1, ...cardStyle } = cardStyleResult;
+                const cardStyle = getCardStyle(index, scrollProgress);
                 return (
                   <div
                     key={card.id}
@@ -118,7 +123,7 @@ export const ScrollableCardsSection = () => {
                       willChange: "transform, clip-path, opacity",
                     } as React.CSSProperties}
                   >
-                    <Card card={card} image={cardImages[index]} primary={index === 0} contentScale={contentScale} />
+                    <Card card={card} image={cardImages[index]} />
                   </div>
                 );
               })}
@@ -131,143 +136,90 @@ export const ScrollableCardsSection = () => {
 };
 
 /* ------------------ CARD STYLE LOGIC ------------------ */
+//
+// Each card gets an equal-sized "enter" window (sliding up into place) and
+// "active" window (holding still, fully in view) across the scroll range,
+// including the last card — so every card gets to rest on screen before the
+// section unpins, instead of popping into place right as scrolling hands off.
+// Cards never scale: only translateY, opacity, and clip-path change, which
+// keeps card text exactly the same size whether scrolling or stationary.
 
-type CardStyleResult = React.CSSProperties & { contentScale?: number };
+const segments = [
+  { active: [0.0, 0.2] },
+  { enter: [0.2, 0.4], active: [0.4, 0.6] },
+  { enter: [0.6, 0.8], active: [0.8, 1.0] },
+];
 
-const getCardStyle = (index: number, scroll: number): CardStyleResult => {
-  const segments = [
-    { active: [0.0, 0.25] },
-    { enter: [0.25, 0.5], active: [0.5, 0.75] },
-    // Card 3: start entering when we're roughly 1/4 of the way into Card 2's active range.
-    // Card 2 active: 0.5 → 0.75, so 0.5 + 0.25 * 0.25 ≈ 0.5625.
-    { enter: [0.56, 1.0] },
-  ];
-
+const getCardStyle = (index: number, scroll: number): React.CSSProperties => {
   const s = segments[index];
 
   // PRE - Before entering
   if (s.enter && scroll < s.enter[0]) {
     return {
-      transform: `translateY(${ENTRY_OFFSET}px) scale(${SCALE_LARGE})`,
+      transform: `translateY(${ENTRY_OFFSET}px)`,
       clipPath: `inset(0% 0% 100% 0%)`,
       opacity: 0,
       zIndex: 1,
-      visibility: 'hidden' as const,
-      contentScale: SCALE_LARGE,
+      visibility: "hidden" as const,
     };
   }
 
-  // ENTER
+  // ENTER - slides up continuously from offset to its resting position
   if (s.enter && scroll >= s.enter[0]) {
-    // If scroll exceeds enter end, treat as fully entered (active state)
     if (scroll >= s.enter[1]) {
       return {
-        transform: `translateY(0) scale(1)`,
+        transform: `translateY(0)`,
         clipPath: `inset(0% 0% 0% 0%)`,
         opacity: 1,
-        zIndex: 20, // Highest when active
-        contentScale: 1,
+        zIndex: 20,
       };
     }
-    
+
     const p = segmentProgress(scroll, s.enter[0], s.enter[1]);
-
-    // CLIMB PHASE: 0 → 0.75 (Card climbs from bottom, reaches 75% coverage)
-    if (p < 0.75) {
-      const climbProgress = p / 0.75; // 0 to 1
-      // Card slides up from ENTRY_OFFSET to 0
-      const translateY = ENTRY_OFFSET * (1 - climbProgress);
-      // Card 3 should be FULLY VISIBLE as it climbs - no clipping needed
-      // The card slides up and naturally covers Card 2 from bottom to top
-      
-      return {
-        transform: `translateY(${translateY}px) scale(${SCALE_LARGE})`,
-        clipPath: `inset(0% 0% 0% 0%)`, // Fully visible - no clipping
-        opacity: 1,
-        zIndex: 25, // Must be above Card 2 (zIndex 15 when active, zIndex 5 when exiting)
-        contentScale: SCALE_LARGE,
-      };
-    }
-
-    // COLLAPSE PHASE: 0.75 → 1.0 (Card collapses to exact dimensions)
-    const collapseProgress = (p - 0.75) / 0.25; // 0 to 1
-    const scale = SCALE_LARGE - collapseProgress * (SCALE_LARGE - 1); // SCALE_LARGE → 1
+    const translateY = ENTRY_OFFSET * (1 - p);
 
     return {
-      transform: `translateY(0) scale(${scale})`,
+      transform: `translateY(${translateY}px)`,
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
-      zIndex: 20, // Highest when active
-      contentScale: scale,
+      zIndex: 25, // Above the card it's covering
     };
   }
 
-  // ACTIVE
+  // ACTIVE - resting in place, fully visible
   if (s.active && scroll >= s.active[0] && scroll < s.active[1]) {
     return {
-      transform: `translateY(0) scale(1)`,
+      transform: `translateY(0)`,
       clipPath: `inset(0% 0% 0% 0%)`,
       opacity: 1,
       zIndex: 15,
-      contentScale: 1,
     };
   }
 
-  // EXIT - Card being masked by next card
+  // EXIT - card being covered by the next card
   if (index < segments.length - 1) {
     const next = segments[index + 1];
     if (next.enter && scroll >= next.enter[0]) {
-      // SPECIAL CASE: Card 2 while Card 3 climbs & collapses
-      // Card 2 should remain completely static (no clipping) while Card 3
-      // climbs and collapses into the frame. Only after Card 3 has fully
-      // taken over do we hide Card 2.
-      if (index === 1) {
-        // While Card 3 is in its entire enter phase, keep Card 2 static underneath
-        if (scroll < next.enter[1]) {
-          return {
-            transform: `translateY(0) scale(1)`,
-            clipPath: `inset(0% 0% 0% 0%)`,
-            opacity: 1,
-            zIndex: 15, // Same as active, but below Card 3 (zIndex 25)
-            contentScale: 1,
-          };
-        }
-
-        // Once Card 3 has fully entered/collapsed, hide Card 2
-        return {
-          transform: `translateY(0) scale(1)`,
-          clipPath: `inset(100% 0% 0% 0%)`,
-          opacity: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          contentScale: 1,
-        };
-      }
-
-      // Generic masking logic (Card 1 when Card 2 enters)
       const p = segmentProgress(scroll, next.enter[0], next.enter[1]);
 
-      // While the next card (Card 2) is CLIMBING to 75% coverage, the previous card (Card 1)
-      // must remain fully visible above it (no clipping), otherwise the section background shows.
-      if (p < 0.75) {
+      // Stay fully visible while the next card climbs most of the way up,
+      // then fade/clip out over the final stretch as it settles into place.
+      if (p < 0.7) {
         return {
-          transform: `translateY(0) scale(1)`,
-          clipPath: `inset(0% 0% 0% 0%)`, // keep fully visible
+          transform: `translateY(0)`,
+          clipPath: `inset(0% 0% 0% 0%)`,
           opacity: 1,
-          zIndex: 5, // below the entering card (zIndex 25)
-          contentScale: 1,
+          zIndex: 5,
         };
       }
 
-      // During the next card's COLLAPSE phase (last 25%), fade/clip the previous card out.
-      const collapseProgress = (p - 0.75) / 0.25; // 0 to 1
+      const fadeProgress = segmentProgress(p, 0.7, 1);
       return {
-        transform: `translateY(0) scale(1)`,
-        clipPath: `inset(${collapseProgress * 100}% 0% 0% 0%)`, // clip from top as replacement completes
-        opacity: 1 - collapseProgress,
+        transform: `translateY(0)`,
+        clipPath: `inset(${fadeProgress * 100}% 0% 0% 0%)`,
+        opacity: 1 - fadeProgress,
         zIndex: 1,
-        pointerEvents: collapseProgress >= 1 ? "none" : "auto",
-        contentScale: 1,
+        pointerEvents: fadeProgress >= 1 ? "none" : "auto",
       };
     }
   }
@@ -300,13 +252,9 @@ const CARD_BODY_STYLE: React.CSSProperties = {
 const Card = ({
   card,
   image,
-  primary: _primary,
-  contentScale = 1,
 }: {
   card: (typeof cards)[number];
   image: string;
-  primary: boolean;
-  contentScale?: number;
 }) => {
   const featuresRef = useRef<HTMLUListElement>(null);
   const [textAnimated, setTextAnimated] = useState(false);
@@ -327,11 +275,6 @@ const Card = ({
   const titleStyle: React.CSSProperties = CARD_TITLE_STYLE;
   const bodyStyle: React.CSSProperties = CARD_BODY_STYLE;
 
-  // Content scales together with the card's own transform instead of being
-  // counter-scaled against it — a constantly-changing inverse scale forced the
-  // browser to re-rasterize the text every frame, which is what caused the blur.
-  const contentWrapperStyle: React.CSSProperties = {};
-
   return (
     <div
       className="relative w-full max-w-5xl min-h-[320px] lg:min-h-[360px] lg:h-[460px] rounded-3xl overflow-hidden zacca-solution-card"
@@ -340,10 +283,7 @@ const Card = ({
         padding: "1px",
       }}
     >
-      <div
-        className="rounded-[23px] bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full h-full"
-        style={contentWrapperStyle}
-      >
+      <div className="rounded-[23px] bg-white px-6 py-3 grid grid-cols-1 lg:grid-cols-2 gap-6 w-full h-full">
         <div className="flex flex-col justify-center space-y-4">
           <div role="heading" aria-level={2} className="zacca-card-title" style={titleStyle}>
             {card.title}
@@ -360,11 +300,7 @@ const Card = ({
           >
             {card.features.map((f, i) => (
               <li key={i} className="flex gap-3 items-start" style={{ margin: 0 }}>
-                <div
-                  className="w-6 h-6 rounded-full flex items-center justify-center bg-[#3117ce]/10 flex-shrink-0"
-                >
-                  <Check className="w-4 h-4 text-[#3117ce]" />
-                </div>
+                <Icon icon="lucide:check-circle" className="w-5 h-5 text-[#3117ce] flex-shrink-0 mt-0.5" />
                 <div className="zacca-card-text" style={bodyStyle}>{f}</div>
               </li>
             ))}
@@ -382,4 +318,3 @@ const Card = ({
     </div>
   );
 };
-

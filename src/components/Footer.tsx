@@ -1,11 +1,5 @@
 import { Link } from "react-router-dom";
-import { 
-  Twitter, 
-  Linkedin, 
-  Facebook,
-  Instagram,
-  Youtube
-} from "lucide-react";
+import { Icon } from "@iconify/react";
 import footerLogo from "@/assets/Copy of Footer Logo (1).png";
 
 export const Footer = () => {
@@ -48,19 +42,19 @@ export const Footer = () => {
           <div className="flex items-start justify-end lg:justify-end">
             <div className="flex gap-3">
               {[
-                { icon: Facebook, href: "#", label: "Facebook" },
-                { icon: Twitter, href: "#", label: "X (Twitter)" },
-                { icon: Instagram, href: "#", label: "Instagram" },
-                { icon: Youtube, href: "#", label: "YouTube" },
-                { icon: Linkedin, href: "#", label: "LinkedIn" }
-              ].map(({ icon: Icon, href, label }) => (
+                { icon: "lucide:facebook", href: "#", label: "Facebook" },
+                { icon: "lucide:twitter", href: "#", label: "X (Twitter)" },
+                { icon: "lucide:instagram", href: "#", label: "Instagram" },
+                { icon: "lucide:youtube", href: "#", label: "YouTube" },
+                { icon: "lucide:linkedin", href: "#", label: "LinkedIn" }
+              ].map(({ icon, href, label }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
                   className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#4a2dd4] hover:bg-white/90 transition-colors"
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon icon={icon} className="w-5 h-5" />
                 </a>
               ))}
             </div>

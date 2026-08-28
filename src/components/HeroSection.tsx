@@ -19,7 +19,7 @@ Thank you for joining our waiting list. As you wait for our product release, you
 
 We're excited to have you on board!
 
-— The Zacca Team`;
+The Zacca Team`;
 
 const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 const isValidPhone = (value: string) => /^[\d\s\-\+\(\)]{8,20}$/.test(value.replace(/\s/g, ""));
@@ -147,7 +147,7 @@ export const HeroSection = () => {
                     fontSize: "16.3697px",
                   }}
                 >
-                  Zacca turns your mobile money and bank transactions into structured, lender-ready records — so banks, SACCOs, and digital lenders can see the full picture and get you fair access to loans, insurance, and financial services faster.
+                  Zacca turns your mobile money and bank transactions into structured, lender-ready records, so banks, SACCOs, and digital lenders can see the full picture and get you fair access to loans, insurance, and financial services faster.
                 </p>
               </div>
 
