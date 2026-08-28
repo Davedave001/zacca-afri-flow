@@ -93,8 +93,16 @@ export const Header = () => {
         </button>
       </div>
 
-      {/* Right: Social icons */}
-      <div className="hidden lg:flex flex-shrink-0 items-center gap-2 pr-4 lg:pr-6">
+      {/* Right: Login + social icons */}
+      <div className="hidden lg:flex flex-shrink-0 items-center gap-4 pr-4 lg:pr-6">
+        <Link
+          to="/login"
+          className="px-4 py-1.5 rounded-full border border-[#2c14dd] text-[#2c14dd] text-sm font-medium hover:bg-[#2c14dd]/10 transition-colors"
+          style={fontStyle}
+        >
+          Log In
+        </Link>
+        <div className="flex items-center gap-2">
         {socialLinks.map(({ icon, href, label }) => (
           <a
             key={label}
@@ -106,6 +114,7 @@ export const Header = () => {
             <Icon icon={icon} className="w-4 h-4" />
           </a>
         ))}
+        </div>
       </div>
       </div>
 
@@ -139,6 +148,14 @@ export const Header = () => {
                   </Link>
                 );
               })}
+              <Link
+                to="/login"
+                onClick={() => setIsMenuOpen(false)}
+                className="block mt-2 px-4 py-3 text-base font-medium rounded-lg w-fit border border-[#2c14dd] text-[#2c14dd] hover:bg-[#2c14dd]/10 transition-colors"
+                style={fontStyle}
+              >
+                Log In
+              </Link>
             </div>
         </div>
         )}

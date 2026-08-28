@@ -63,7 +63,14 @@ export const HowItWorksSection = () => {
           {steps.map((step, index) => {
             return (
               <div key={index} className="group relative">
-                <Card className="bg-white rounded-2xl p-8 border-2 border-gray-200 hover:border-[#3117ce] transition-all duration-300 hover:shadow-2xl hover:shadow-[#3117ce]/20 h-full">
+                <div
+                  className="rounded-2xl h-full transition-all duration-300 hover:shadow-2xl hover:shadow-[#3117ce]/20"
+                  style={{
+                    background: "linear-gradient(135deg, #2512a8 0%, #3117ce 50%, #4a2dd4 100%)",
+                    padding: "1px",
+                  }}
+                >
+                <Card className="bg-white rounded-[15px] p-8 border-0 h-full">
                   <div className="space-y-6">
                     {/* Step Number */}
                     <div className="flex items-center justify-between">
@@ -86,6 +93,7 @@ export const HowItWorksSection = () => {
                 </div>
               </div>
             </Card>
+                </div>
           </div>
             );
           })}
